@@ -7,19 +7,16 @@ import BeerCard from './BeerCard';
 
 export default function RandomBeer() {
 	const dispatch = useDispatch();
-	// const beer = useSelector((state) => Object.values(state.currentBeer))[0];
 	const beer = useSelector((state) => state.beers.currentBeer);
-	const postsLoaded = useSelector((state) => state.beers.loaded);
+	// const loaded = useSelector((state) => state.beers.loaded);
 
 	useEffect(() => {
 		dispatch(getRandomBeer());
 		// return () => dispatch(unloadAllBeers());
-		dispatch(postsLoaded());
+		// dispatch(postsLoaded());
 	}, [dispatch]);
 
 	return (
-		<div className='container'>
-			<BeerCard beer={beer[0]} />
-		</div>
+		<div className='container'>{beer && <BeerCard beer={beer[0]} />}</div>
 	);
 }

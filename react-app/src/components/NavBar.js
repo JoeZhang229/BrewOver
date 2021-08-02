@@ -40,6 +40,11 @@ const NavBar = () => {
 					</NavLink>
 				</li>
 				<li>
+					<NavLink to='/collections' exact={true}>
+						Your Collections
+					</NavLink>
+				</li>
+				<li>
 					<DemoUser />
 				</li>
 			</ul>

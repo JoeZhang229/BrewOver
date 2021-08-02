@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { createOneBeer } from '../../store/beer';
 
-export default function CreateBeer({beer}) {
+export default function SaveBeer({ beer }) {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 
@@ -13,7 +13,15 @@ export default function CreateBeer({beer}) {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createOneBeer(beer))
+		dispatch(
+			createOneBeer({
+				name: beer.name,
+				abv: beer.abv,
+				description: beer.description,
+				image_url: beer.image_url,
+				type: 'beers',
+			})
+		);
 	};
 
 	return (

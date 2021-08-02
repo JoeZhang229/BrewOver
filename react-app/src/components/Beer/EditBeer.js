@@ -1,34 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { createOneBeer } from '../../store/beer';
+import { editBeer } from '../../store/beer';
 
-export default function CreateBeer() {
+export default function EditBeer({ beer }) {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 
-	const [beerName, setBeerName] = useState('');
-	const [description, setDescription] = useState('');
-	const [abv, setabv] = useState('');
-	const [imageUrl, setImageUrl] = useState('');
-	const [malt, setMalt] = useState('');
-	const [hops, setHops] = useState('');
-	const [yeast, setYeast] = useState('');
+	const [beerName, setBeerName] = useState(beer.name);
+	const [description, setDescription] = useState(beer.description);
+	const [abv, setabv] = useState(beer.abv);
+	const [imageUrl, setImageUrl] = useState(beer.imageUrl || '');
+	const [malt, setMalt] = useState(beer.malt);
+	const [hops, setHops] = useState(beer.hops);
+	const [yeast, setYeast] = useState(beer.yeast);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(
-			'form info',
-			JSON.stringify({
-				name: beerName,
-				description: description,
-				abv: abv,
-			})
-		);
-
 		dispatch(
-			createOneBeer({
+			editBeer({
 				name: beerName,
 				abv: abv,
 				description: description,

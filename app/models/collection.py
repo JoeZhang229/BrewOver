@@ -10,4 +10,10 @@ class Collection(db.Model):
     beers = db.relationship('Beer', backref='collections',
                             secondary='beer_collection')
 
-    ## beer.collection or collection.beer
+    # beer.collection or collection.beer
+
+    def to_dict(self):
+        return {
+            'userId': self.userId,
+            'beers': [beer.beer_dict() for beer in self.beers],
+        }
