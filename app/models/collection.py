@@ -6,7 +6,7 @@ class Collection(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    # name = db.Column(db.String)
+    name = db.Column(db.String, nullable=False)
     beers = db.relationship('Beer', backref='collections',
                             secondary='beer_collection')
     users = db.relationship('User', backref='collections')
@@ -16,5 +16,6 @@ class Collection(db.Model):
         return {
             'id': self.id,
             'userId': self.userId,
+            'name': self.name,
             'beers': [beer.beer_dict() for beer in self.beers],
         }

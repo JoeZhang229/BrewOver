@@ -47,9 +47,8 @@ export default function collectionReducer(state = initialState, action) {
 		case GET_ALL_COLLECTIONS:
 			let collections = {};
 			action.collection.forEach((collection) => {
-				collections[collection.id] = collection;
+				collections[collection.name] = collection;
 			});
-			debugger;
 			return {
 				...state,
 				collections,

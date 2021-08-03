@@ -6,7 +6,9 @@ import './css/beercard.css';
 
 export default function BeerCard({ beer }) {
 	// const beer = useSelector((state) => state.beers.currentBeer) || null;
+	const loaded = useSelector((state) => state.collections.loaded);
 	const { malt, yeast, hops } = beer;
+	console.log('frontend malt', malt);
 	return (
 		<div className='container'>
 			{beer && (
@@ -23,8 +25,8 @@ export default function BeerCard({ beer }) {
 						<div></div>
 						<div>
 							Malt:
-							{malt &&
-								malt.map((malt, idx) => (
+							{loaded &&
+								malt?.map((malt, idx) => (
 									<div key={idx}>{malt.name}</div>
 								))}
 						</div>

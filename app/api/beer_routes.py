@@ -54,9 +54,10 @@ def one_beer(id):
 @beer_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_beer(id):
-    userId = current_user.to_dict()['id']
+    userId = current_user.id
+    userCollections = current_user.to_dict()['collections']
     beer = Beer.query.get(id)
-    # if (user == ) grab user Id from collection
+    # if (userId == ) grab user Id from collection
     db.session.delete(beer)
     db.session.commit()
     return {'message': 'deleted beer'}
