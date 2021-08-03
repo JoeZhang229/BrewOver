@@ -35,6 +35,16 @@ const NavBar = () => {
 					<LogoutButton />
 				</li>
 				<li>
+					<NavLink to='/beers/create' exact={true}>
+						Create Beer
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to='/collections' exact={true}>
+						Your Collections
+					</NavLink>
+				</li>
+				<li>
 					<DemoUser />
 				</li>
 			</ul>
