@@ -16,8 +16,9 @@ def get_all_collections():
         (Collection.userId == user['id'])
     ).all()
     print('backend', userCollections)
-    newList = [c.to_dict()
-               for c in userCollections]
+    newList = [collection.to_dict() for collection in userCollections]
+    allBeer = [collection.to_dict()['beers'] for collection in userCollections]
+    print('backend beers', allBeer)
     print('backend list', newList)
     # need help with destructuring everything
     return 'hello'
@@ -27,6 +28,6 @@ def get_all_collections():
 @login_required
 def allBeer():
     oneCollection = Collection.query.get(id)
-    allBeer = {beer.id: beer.beer_dict() for beer in oneCollection}
+    allBeer = {collection.to_dict()['beers'] for collection in oneCollection}
     print('backend beers', allBeer)
     return jsonify(allBeer)
