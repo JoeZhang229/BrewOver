@@ -18,9 +18,7 @@ export default function OneBeer() {
 
 	return (
 		beer && (
-			<div className='container'>
-				<BeerCard beer={beer} />
-			</div>
+			<div className='container'>{beer && <BeerCard beer={beer} />}</div>
 		)
 	);
 }

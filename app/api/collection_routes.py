@@ -10,18 +10,18 @@ collection_routes = Blueprint('collections', __name__)
 def get_all_collections():
 
     # return jsonify(collection)
-    user = current_user.to_dict()
-    print('backend user', user['id'])
-    userCollections = Collection.query.filter(
-        (Collection.userId == user['id'])
-    ).all()
-    print('backend', userCollections)
-    newList = [collection.to_dict() for collection in userCollections]
-    allBeer = [collection.to_dict()['beers'] for collection in userCollections]
-    print('backend beers', allBeer)
-    print('backend list', newList)
-    # need help with destructuring everything
-    return 'hello'
+    # user = current_user.to_dict()
+    # print('backend user', user['id'])
+    # userCollections = Collection.query.filter(
+    #     (Collection.userId == current_user.id)
+    # ).all()
+    # print('backend', userCollections)
+    # newList = [collection.to_dict() for collection in userCollections]
+    # allBeer = [collection.to_dict()['beers'] for collection in userCollections]
+    # print('backend beers', allBeer)
+    # print('backend list', newList)
+    # # need help with destructuring everything
+    return current_user.to_dict()['collections']
 
 
 @collection_routes.route('/<int:id>', methods=['GET'])

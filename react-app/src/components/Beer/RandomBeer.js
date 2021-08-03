@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 
 import { getRandomBeer, unloadAllBeers } from '../../store/beer';
-import BeerCard from './BeerCard';
+import BeerCard from './RandomBeerCard';
 
 export default function RandomBeer() {
 	const dispatch = useDispatch();
@@ -17,6 +17,6 @@ export default function RandomBeer() {
 	}, [dispatch]);
 
 	return (
-		<div className='container'>{beer && <BeerCard beer={beer[0]} />}</div>
+		<div className='container'>{beer && <BeerCard beer={beer[0]} ingredients={beer[0].ingredients} />}</div>
 	);
 }
