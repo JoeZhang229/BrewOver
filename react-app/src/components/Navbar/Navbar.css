@@ -1,0 +1,27 @@
+.navbar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+}
+
+li {
+	display: block;
+	text-align: center;
+	list-style-type: none;
+	padding: 14px 16px;
+}
+
+li:hover {
+	background-color: rgb(206, 203, 203);
+}
+
+.left li {
+	float: left;
+	margin-left: 2em;
+}
+
+.right {
+	display: flex;
+	justify-content: flex-end;
+}

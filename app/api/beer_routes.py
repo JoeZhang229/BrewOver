@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import db, Beer, Collection
+from app.models import db, Beer, Collection, beer_collection
 from ..forms import BeerForm
 from flask_login import current_user, login_required
 
@@ -10,8 +10,10 @@ beer_routes = Blueprint('beers', __name__)
 # def all_beers():
 
 
-def saveBeer(reqObj):
-    newBeer = Beer()
+def saveBeer(reqObj, beerObj):
+    newBeer = beerObj
+    if id in reqObj:
+        newBeer.id = reqObj['id'],
     newBeer.description = reqObj['description'],
     newBeer.name = reqObj['name'],
     newBeer.abv = reqObj['abv'],
@@ -27,16 +29,24 @@ def saveBeer(reqObj):
 @login_required
 def create_beer():
     data = request.get_json()
-    newBeer = saveBeer(data)
+    beerObj = Beer()
+    newBeer = saveBeer(data, beerObj)
 
     # need to find out which collection, based on id, to save (Beer collection table)
     # collection = Collection(
     #     userId=current_user.id,
     #     beers=newBeer
     # )
+    if (data['collectionId'] == current_user.id):
+        currentCollection = Collection.query.get(data['collectionId'])
+        currentCollection.beer = newBeer
+        beer_collection.collections_id = data['collectionId']
+        db.session.add(currentCollection)
+        beer_collection.beers_id = newBeer.id
 
     print('backend beer', newBeer)
     db.session.add(newBeer)
+    # db.session.add_all([newBeer, currentCollection])
     db.session.commit()
     return newBeer.beer_dict()
 
@@ -54,9 +64,10 @@ def one_beer(id):
 @beer_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_beer(id):
-    userId = current_user.to_dict()['id']
+    userId = current_user.id
+    userCollections = current_user.to_dict()['collections']
     beer = Beer.query.get(id)
-    # if (user == ) grab user Id from collection
+    # if (userId == ) grab user Id from collection
     db.session.delete(beer)
     db.session.commit()
     return {'message': 'deleted beer'}
@@ -66,15 +77,15 @@ def delete_beer(id):
 @login_required
 def edit_beer(id):
     data = request.get_json()
-    beer = Beer.query.get(id)
-    beer.description = data['description'],
-    beer.name = data['name'],
-    beer.abv = data['abv'],
-    beer.image_url = data['image_url']
-    beer.malt = data['malt']
-    beer.hops = data['hops']
-    beer.yeast = data['yeast']
-    beer.type = data['type']
-
+    beerObj = Beer.query.get(id)
+    beerObj = saveBeer(data, beerObj)
+    # beer.description = data['description'],
+    # beer.name = data['name'],
+    # beer.abv = data['abv'],
+    # beer.image_url = data['image_url']
+    # beer.malt = data['malt']
+    # beer.hops = data['hops']
+    # beer.yeast = data['yeast']
+    # beer.type = data['type']
     db.session.commit()
-    return beer.beer_dict()
+    return beerObj.beer_dict()

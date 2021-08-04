@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import BeerCard from './BeerCard';
 import { getOneBeer } from '../../store/beer';
+import './css/beercard.css';
 
 export default function OneBeer() {
 	const dispatch = useDispatch();
@@ -17,10 +18,9 @@ export default function OneBeer() {
 	}, [dispatch, id, postsLoaded]);
 
 	return (
-		beer && (
-			<div className='container'>
-				<BeerCard beer={beer} />
-			</div>
-		)
+		<div>
+			{beer && (
+			<div className='container'>{beer && <BeerCard beer={beer} />}</div>)}
+		</div>
 	);
 }

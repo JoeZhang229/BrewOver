@@ -18,7 +18,8 @@ export const loadCollections = (collection) => {
 export const getAllCollections = () => async (dispatch) => {
 	const res = await fetch(`/api/collections/`);
 	if (res.ok) {
-		const collections = res.json();
+		const collections = await res.json();
+		debugger;
 		console.log('thunk collections', collections);
 		dispatch(loadCollections(collections));
 		return collections;
@@ -44,17 +45,21 @@ const initialState = {
 export default function collectionReducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_ALL_COLLECTIONS:
+			let collections = {};
+			action.collection.forEach((collection) => {
+				collections[collection.name] = collection;
+			});
 			return {
 				...state,
-				collections: {
-					...action.collection,
-				},
+				collections,
+				currentCollection: action.collection[0],
 				loaded: true,
 			};
 		case GET_ONE_COLLECTION:
 			return {
 				collections: { ...state.collections },
 				currentCollection: { ...action.currentCollection },
+				loaded: true,
 			};
 		default:
 			return state;

@@ -1,30 +1,42 @@
 import React from 'react';
 
 import SaveBeer from './SaveBeer';
+import { useSelector, useDispatch } from 'react-redux';
+import './css/beercard.css';
 
 export default function BeerCard({ beer }) {
-	const { malt, yeast, hops } = beer.ingredients;
+	// const beer = useSelector((state) => state.beers.currentBeer) || null;
+	const loaded = useSelector((state) => state.collections.loaded);
+	const { malt, yeast, hops } = beer;
+	console.log('frontend malt', malt);
 	return (
-		beer && (
-			<div className='beer-card'>
-				<div>Name: {beer.name}</div>
-				<div>Description {beer.description}</div>
-				<div>ABV: {beer.abv}%</div>
-				<div>
-					Food Pairing Suggestions:
-					{beer.food_pairing.map((food, idx) => (
-						<div key={idx}>{food}</div>
-					))}
+		<div className='beer-card-container'>
+			{beer && (
+				// <div>
+				<div className='beer-card'>
+					<div className='beer-card-image'>
+						<img src={beer.image_url} alt={beer.description}></img>
+					</div>
+					<div className='beer-card-name'>
+						<h3>Name: {beer.name}</h3>
+					</div>
+					<div className='beer-card-info'>
+						<p>Description {beer.description}</p>
+						<p>ABV: {beer.abv}%</p>
+						<div>
+							Malt:
+							{loaded &&
+								malt?.map((malt, idx) => (
+									<p key={idx}>{malt.name}</p>
+								))}
+						</div>
+					</div>
+					<div className='beer-card-btn'>
+						<SaveBeer />
+					</div>
 				</div>
-				<div>
-					Malt:
-					{malt.map((malt, idx) => (
-						<div key={idx}>{malt.name}</div>
-					))}
-				</div>
-				<img src={beer.image_url} alt={beer.description}></img>
-				<SaveBeer />
-			</div>
-		)
+				// </div>
+			)}
+		</div>
 	);
 }
