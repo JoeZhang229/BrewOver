@@ -42,7 +42,7 @@ def create_beer():
         currentCollection.beer = newBeer
         beer_collection.collections_id = data['collectionId']
         db.session.add(currentCollection)
-        beer_collection.beers_id = newBeer.id
+        # beer_collection.beers_id = newBeer.id
 
     print('backend beer', newBeer)
     db.session.add(newBeer)
@@ -75,9 +75,9 @@ def delete_beer(id):
 
 @beer_routes.route('/edit', methods=['PUT'])
 @login_required
-def edit_beer(id):
+def edit_beer():
     data = request.get_json()
-    beerObj = Beer.query.get(id)
+    beerObj = Beer.query.get(data['id'])
     beerObj = saveBeer(data, beerObj)
     # beer.description = data['description'],
     # beer.name = data['name'],

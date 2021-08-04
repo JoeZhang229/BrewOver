@@ -8,6 +8,7 @@ export default function SaveBeer() {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 	const beer = useSelector((state) => state.beers.currentBeer)[0];
+	const [success, setSuccess] = useState(false);
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
@@ -34,7 +35,7 @@ export default function SaveBeer() {
 		// const newYeast = destructure(yeast);
 		console.log('hops', hops);
 		console.log('destruct hops', newHops);
-		console.log('yeast', yeast)
+		console.log('yeast', yeast);
 		dispatch(
 			createOneBeer({
 				id: beer.id,
@@ -49,6 +50,7 @@ export default function SaveBeer() {
 				type: 'beers',
 			})
 		);
+		setSuccess(true);
 	};
 
 	return (
@@ -70,6 +72,7 @@ export default function SaveBeer() {
 				</select>
 			</div>
 			<button type='submit'>Save</button>
+			{success && <div>Successfully Saved!</div>}
 		</form>
 	);
 }

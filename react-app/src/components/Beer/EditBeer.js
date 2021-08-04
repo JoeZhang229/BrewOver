@@ -18,8 +18,11 @@ export default function EditBeer({ beer }) {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
+		console.log('beer id', beer.id);
+
 		dispatch(
 			editBeer({
+				id: +beer.id,
 				name: beerName,
 				abv: abv,
 				description: description,
@@ -73,7 +76,7 @@ export default function EditBeer({ beer }) {
 					onChange={({ target: { value } }) => setYeast(value)}
 					value={yeast}
 				></input>
-				<button type='submit'>Create</button>
+				<button type='submit'>Save</button>
 			</form>
 		</div>
 	);

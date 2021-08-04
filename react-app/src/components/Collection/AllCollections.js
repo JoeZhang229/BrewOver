@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllCollections, getCollection } from '../../store/collection';
 import BeerCard from '../Beer/BeerCard';
 import { deleteBeer } from '../../store/beer';
+import EditBeer from '../Beer/EditBeer';
 
 export default function AllCollections() {
 	const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export default function AllCollections() {
 		(state) => state.collections.currentCollection
 	);
 	const loaded = useSelector((state) => state.collections.loaded);
+	const [showForm, setShowForm] = useState(false);
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
@@ -48,7 +50,17 @@ export default function AllCollections() {
 							{/* <div>{JSON.stringify(beer)}</div> */}
 							<div>Name: {beer.name}</div>
 							<div>Description: {beer.description}</div>
-							<button>Edit</button>
+							<button
+								key={beer.id}
+								onClick={() => setShowForm(true)}
+							>
+								Edit
+							</button>
+							{showForm && (
+								<div>
+									<EditBeer beer={beer} />
+								</div>
+							)}
 							<button onClick={() => handleDelete(beer.id)}>
 								Delete
 							</button>
