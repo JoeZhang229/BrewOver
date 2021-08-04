@@ -2,6 +2,7 @@ import React from 'react';
 
 import SaveBeer from './SaveBeer';
 import { useSelector, useDispatch } from 'react-redux';
+import errorImg from '../imgs/beer-error-icon.png';
 import './css/beercard.css';
 
 export default function BeerCard({ beer }) {
@@ -13,7 +14,10 @@ export default function BeerCard({ beer }) {
 				<div>
 					<div className='beer-card'>
 						<div className='beer-card-image'>
-							<img src={beer.image_url} alt='beer'></img>
+							<img
+								src={beer.image_url ? beer.image_url : errorImg}
+								alt={beer.description}
+							></img>
 						</div>
 						<div className='beer-card-name'>
 							<h3>Name: </h3>

@@ -70,7 +70,6 @@ export const createOneBeer = (beerData) => async (dispatch) => {
 		},
 		body: JSON.stringify(beerData),
 	});
-	console.log(res.json());
 	if (res.ok) {
 		const beer = await res.json();
 		console.log('create thunk', beer);
@@ -92,7 +91,6 @@ export const getRandomBeer = () => async (dispatch) => {
 	const res = await fetch('https://api.punkapi.com/v2/beers/random');
 
 	const randomBeer = await res.json();
-	console.log('thunk', randomBeer[0]);
 	dispatch(getBeer(randomBeer));
 	return randomBeer;
 };
@@ -106,6 +104,7 @@ export const editBeer = (beerData) => async (dispatch) => {
 		},
 		body: JSON.stringify(beerData),
 	});
+	debugger;
 	if (res.ok) {
 		const editedBeer = await res.json();
 		dispatch(changeBeer(editedBeer));
