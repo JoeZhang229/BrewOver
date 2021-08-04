@@ -70,6 +70,7 @@ export const createOneBeer = (beerData) => async (dispatch) => {
 		},
 		body: JSON.stringify(beerData),
 	});
+	console.log(res.json());
 	if (res.ok) {
 		const beer = await res.json();
 		console.log('create thunk', beer);

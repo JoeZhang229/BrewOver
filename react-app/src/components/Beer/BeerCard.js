@@ -10,29 +10,32 @@ export default function BeerCard({ beer }) {
 	const { malt, yeast, hops } = beer;
 	console.log('frontend malt', malt);
 	return (
-		<div className='container'>
+		<div className='beer-card-container'>
 			{beer && (
-				<div className='beer card'>
-					<img
-						className='beer card image'
-						src={beer.image_url}
-						alt={beer.description}
-					></img>
-					<h3>Name: {beer.name}</h3>
-					<div className='beer info'>
-						<div>Description {beer.description}</div>
-						<div>ABV: {beer.abv}%</div>
-						<div></div>
+				// <div>
+				<div className='beer-card'>
+					<div className='beer-card-image'>
+						<img src={beer.image_url} alt={beer.description}></img>
+					</div>
+					<div className='beer-card-name'>
+						<h3>Name: {beer.name}</h3>
+					</div>
+					<div className='beer-card-info'>
+						<p>Description {beer.description}</p>
+						<p>ABV: {beer.abv}%</p>
 						<div>
 							Malt:
 							{loaded &&
 								malt?.map((malt, idx) => (
-									<div key={idx}>{malt.name}</div>
+									<p key={idx}>{malt.name}</p>
 								))}
 						</div>
 					</div>
-					<SaveBeer />
+					<div className='beer-card-btn'>
+						<SaveBeer />
+					</div>
 				</div>
+				// </div>
 			)}
 		</div>
 	);

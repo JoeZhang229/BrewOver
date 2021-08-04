@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getAllCollections, getCollection } from '../../store/collection';
 import BeerCard from '../Beer/BeerCard';
+import { deleteBeer } from '../../store/beer';
 
 export default function AllCollections() {
 	const dispatch = useDispatch();
@@ -19,6 +20,11 @@ export default function AllCollections() {
 	useEffect(() => {
 		// dispatch(getAllCollections());
 	}, []);
+
+	const handleDelete = (id) => {
+		dispatch(deleteBeer(id));
+		dispatch(getAllCollections());
+	};
 
 	return (
 		<div>
@@ -43,7 +49,9 @@ export default function AllCollections() {
 							<div>Name: {beer.name}</div>
 							<div>Description: {beer.description}</div>
 							<button>Edit</button>
-							<button>Delete</button>
+							<button onClick={() => handleDelete(beer.id)}>
+								Delete
+							</button>
 						</div>
 					))}
 			</div>

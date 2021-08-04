@@ -5,11 +5,29 @@
 body {
 	/* font family */
 }
+
 .container {
-	display: grid;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 1200px;
 }
 
-.card {
+.beer-card-container {
+	display: grid;
+	width: 300px;
+	overflow: hidden;
+	transition: 0.5s;
+	box-shadow: 0px 0px 20px -10px;
+	animation: ease-in;
+}
+
+.beer-card-container:hover {
+	box-shadow: 0px 0px 10px 0px;
+	transform: scale(1.1);
+}
+
+.beer-card {
 	display: block;
 	height: 100%;
 	position: relative;
@@ -17,9 +35,44 @@ body {
 	text-decoration: none;
 }
 
-.image {
+.beer-card-image {
+	overflow: hidden;
 	width: 100%;
-	height: 50%;
+	height: 500px;
+}
+
+.beer-card-image img {
+	width: 100%;
+	height: 100%;
+}
+
+.beer-card-name {
+	margin-bottom: 1rem;
+}
+
+.beer-card-info {
+	margin-top: 1rem;
+	margin: 2rem;
+}
+
+.beer-card-info h3,
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.beer-card.btn button {
+	display: flex;
+	background-color: white;
+	transition: 0.5s;
+	border-radius: 5px;
+	justify-content: center;
+	margin-bottom: 1rem;
+	padding: 1rem;
+}
+
+.beer-cards.btn button:hover {
+	background-color: blue;
 }
 
 .info {

@@ -7,9 +7,13 @@ export default function CreateBeer() {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 
+	const collection =
+		useSelector((state) => Object.values(state.collections.collections)) ||
+		null;
 	const [beerName, setBeerName] = useState('');
 	const [description, setDescription] = useState('');
 	const [abv, setabv] = useState('');
+	const [collectionVal, setCollectionVal] = useState(collection[0].id);
 	const [imageUrl, setImageUrl] = useState('');
 	const [malt, setMalt] = useState('');
 	const [hops, setHops] = useState('');
@@ -18,21 +22,13 @@ export default function CreateBeer() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(
-			'form info',
-			JSON.stringify({
-				name: beerName,
-				description: description,
-				abv: abv,
-			})
-		);
-
 		dispatch(
 			createOneBeer({
+				description: description,
 				name: beerName,
 				abv: abv,
-				description: description,
 				image_url: imageUrl,
+				collectionId: +collectionVal,
 				malt: malt,
 				hops: hops,
 				yeast: yeast,
@@ -82,6 +78,14 @@ export default function CreateBeer() {
 					onChange={({ target: { value } }) => setYeast(value)}
 					value={yeast}
 				></input>
+				<select onChange={(e) => setCollectionVal(e.target.value)}>
+					{collection &&
+						collection.map((collect) => (
+							<option key={collect.id} value={collect.id}>
+								{collect.name}
+							</option>
+						))}
+				</select>
 				<button type='submit'>Create</button>
 			</form>
 		</div>
