@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
-import { createCollection } from '../../store/collection';
+import { editCollection } from '../../store/collection';
 
-export default function CreateCollections() {
+export default function EditCollection({ collection }) {
 	const dispatch = useDispatch();
-    const history = useHistory();
 	// selector has second optional function (prevState, incomingState)
 
-	// const collection =
-	// 	useSelector((state) => Object.values(state.collections.collections)) ||
-	// 	null;
-	const [collectionName, setCollectionName] = useState('');
+	const [collectionName, setCollectionName] = useState(collection.name);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		dispatch(
-			createCollection({
+			editCollection({
 				name: collectionName,
 			})
 		);
-		history.push('/collections');
 	};
 
 	return (
@@ -36,7 +30,7 @@ export default function CreateCollections() {
 					value={collectionName}
 					required
 				></input>
-				<button type='submit'>Create</button>
+				<button type='submit'>Save</button>
 			</form>
 		</div>
 	);

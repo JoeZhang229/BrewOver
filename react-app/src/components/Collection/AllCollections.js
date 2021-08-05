@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getAllCollections, getCollection } from '../../store/collection';
 import BeerCard from '../Beer/BeerCard';
+import { NavLink } from 'react-router-dom';
 import { deleteBeer } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
+import EditCollection from '../Collection/EditCollections';
 import errorImg from '../imgs/beer-error-icon.png';
 
 export default function AllCollections() {
@@ -15,6 +17,7 @@ export default function AllCollections() {
 	);
 	const loaded = useSelector((state) => state.collections.loaded);
 	const [showForm, setShowForm] = useState(false);
+	const [showCollectionForm, setShowCollectionForm] = useState(false);
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
@@ -54,6 +57,8 @@ export default function AllCollections() {
 		dispatch(getAllCollections());
 	};
 
+	const deleteCollection = (id) => {};
+
 	return (
 		<div>
 			<div>
@@ -64,11 +69,21 @@ export default function AllCollections() {
 							className='collection-container'
 							onClick={loadCollection(currentCollection)}
 						>
-							<div
-							// onClick={dispatch(getCollection(collect))}
+							<div>{collect.name}</div>
+							<button
+								key={collect.id}
+								onClick={() => setShowCollectionForm(true)}
 							>
-								{collect.name}
-							</div>
+								Edit
+							</button>
+							{showCollectionForm && (
+								<EditCollection collection={collection} />
+							)}
+							<button
+								onClick={() => deleteCollection(collect.id)}
+							>
+								Delete
+							</button>
 						</div>
 					))}
 			</div>
@@ -76,10 +91,12 @@ export default function AllCollections() {
 				Current Collection:
 				{/* <div>{loaded && currentCollection.name}</div> */}
 				{/* <div>{JSON.stringify(beer)}</div> */}
-				{/* {loaded &&
+				{loaded &&
 					currentCollection.beers?.map((beer) => (
 						<div className='beer card'>
-							<div>Name: {beer.name}</div>
+							<NavLink to={`/beers/${beer.id}`} exact={true}>
+								<div>Name: {beer.name}</div>
+							</NavLink>
 							<div>Description: {beer.description}</div>
 							<button
 								key={beer.id}
@@ -87,16 +104,12 @@ export default function AllCollections() {
 							>
 								Edit
 							</button>
-							{showForm && (
-								<div>
-									<EditBeer beer={beer} />
-								</div>
-							)}
+							{showForm && <EditBeer beer={beer} />}
 							<button onClick={() => handleDelete(beer.id)}>
 								Delete
 							</button>
 						</div>
-					))} */}
+					))}
 			</div>
 		</div>
 	);

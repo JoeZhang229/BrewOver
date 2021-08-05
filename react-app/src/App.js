@@ -10,6 +10,7 @@ import OneBeer from './components/Beer/OneBeer';
 import RandomBeer from './components/Beer/RandomBeer';
 import CreateBeer from './components/Beer/CreateBeer';
 import AllCollections from './components/Collection/AllCollections';
+import CreateCollections from './components/Collection/CreateCollections';
 import Home from './components/Home';
 import { authenticate } from './store/session';
 
@@ -46,6 +47,9 @@ function App() {
 				</ProtectedRoute>
 				<ProtectedRoute path='/collections' exact={true}>
 					<AllCollections />
+				</ProtectedRoute>
+				<ProtectedRoute path='/collections/create' exact={true}>
+					<CreateCollections />
 				</ProtectedRoute>
 				<ProtectedRoute path='/beers/create' exact={true}>
 					<CreateBeer />

@@ -104,7 +104,6 @@ export const editBeer = (beerData) => async (dispatch) => {
 		},
 		body: JSON.stringify(beerData),
 	});
-	debugger;
 	if (res.ok) {
 		const editedBeer = await res.json();
 		dispatch(changeBeer(editedBeer));

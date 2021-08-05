@@ -60,9 +60,9 @@ const LoginForm = () => {
 				/>
 				<button type='submit'>Login</button>
 			</div>
-			<div>
+			<button>
 				<DemoUser />
-			</div>
+			</button>
 		</form>
 	);
 };

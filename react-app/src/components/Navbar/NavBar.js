@@ -19,7 +19,6 @@ const NavBar = () => {
 						activeClassName='active'
 					>
 						Your Collections
-						<div className='navbar-home navo1'></div>
 					</NavLink>
 				</li>
 				<li className='nav1'>
@@ -29,7 +28,16 @@ const NavBar = () => {
 						activeClassName='active'
 					>
 						Create Beer
-						<div className='nav-upload navo2'></div>
+						<div></div>
+					</NavLink>
+				</li>
+				<li className='nav1'>
+					<NavLink
+						to='/collections/create'
+						exact={true}
+						activeClassName='active'
+					>
+						Create Collection
 					</NavLink>
 				</li>
 				<li>
