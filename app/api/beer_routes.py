@@ -40,7 +40,6 @@ def create_beer():
     # )
     if (data['collectionId'] == current_user.id):
         currentCollection = Collection.query.get(data['collectionId'])
-        # currentCollection.beer = newBeer
         currentCollection.beers.append(newBeer)
         beer_collection.collections_id = data['collectionId']
         db.session.add(currentCollection)
