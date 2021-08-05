@@ -43,7 +43,6 @@ export const getAllCollections = () => async (dispatch) => {
 	const res = await fetch(`/api/collections/`);
 	if (res.ok) {
 		const collections = await res.json();
-		debugger;
 		console.log('thunk collections', collections);
 		dispatch(loadCollections(collections));
 		return collections;

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import errorImg from '../imgs/beer-error-icon.png';
 import './css/beercard.css';
 
-export default function BeerCard({ beer }) {
+export default function RandomBeerCard({ beer }) {
 	// const beer = useSelector((state) => state.beers.currentBeer) || null;
 	const { malt, yeast, hops } = beer;
 	return (

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { createCollection } from '../../store/collection';
 
 export default function CreateCollections() {
 	const dispatch = useDispatch();
-    const history = useHistory();
+	const history = useHistory();
 	// selector has second optional function (prevState, incomingState)
 
 	// const collection =

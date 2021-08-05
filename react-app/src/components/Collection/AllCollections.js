@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { AnimateSharedLayout } from 'framer-motion';
 
 import { getAllCollections, getCollection } from '../../store/collection';
-import BeerCard from '../Beer/BeerCard';
+// import BeerCard from '../Beer/BeerCard';
 import { NavLink } from 'react-router-dom';
 import { deleteBeer } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
@@ -16,16 +17,36 @@ export default function AllCollections() {
 		(state) => state.collections.currentCollection
 	);
 	const loaded = useSelector((state) => state.collections.loaded);
-	const [showForm, setShowForm] = useState(false);
 	const [showCollectionForm, setShowCollectionForm] = useState(false);
+
+	const initializeForm = (beers) => {
+		if (beers === undefined) {
+			return null;
+		}
+		const beerState = {};
+		beers.forEach((beer) => {
+			beerState[beer.id] = false;
+		});
+		return beerState;
+	};
+
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
-	// console.log('frontend collection', collection);
+	const [showForm, setShowForm] = useState(initializeForm(collection));
+
+	const handleClick = (beerId) => {
+		return setShowForm((prev) => ({
+			...prev,
+			[beerId]: true,
+		}));
+	};
 
 	useEffect(() => {
 		// dispatch(getAllCollections());
 	}, []);
+
+	console.log('showform', showForm);
 
 	const loadCollection = (currentCollection) => {
 		return currentCollection.beers?.map((beer) => (
@@ -39,11 +60,11 @@ export default function AllCollections() {
 						alt={beer.description}
 					></img>
 				</div>
-				<button key={beer.id} onClick={() => setShowForm(true)}>
+				<button key={beer.id} onClick={handleClick(beer.id)}>
 					Edit
 				</button>
-				{showForm && (
-					<div>
+				{showForm[beer.id] && (
+					<div key={beer.id}>
 						<EditBeer beer={beer} />
 					</div>
 				)}
@@ -67,7 +88,7 @@ export default function AllCollections() {
 					collection.map((collect) => (
 						<div
 							className='collection-container'
-							onClick={loadCollection(currentCollection)}
+							onClick={() => loadCollection(currentCollection)}
 						>
 							<div>{collect.name}</div>
 							<button
@@ -100,11 +121,11 @@ export default function AllCollections() {
 							<div>Description: {beer.description}</div>
 							<button
 								key={beer.id}
-								onClick={() => setShowForm(true)}
+								onClick={() => handleClick(beer.id)}
 							>
 								Edit
 							</button>
-							{showForm && <EditBeer beer={beer} />}
+							{showForm[beer.id] && <EditBeer beer={beer} />}
 							<button onClick={() => handleDelete(beer.id)}>
 								Delete
 							</button>

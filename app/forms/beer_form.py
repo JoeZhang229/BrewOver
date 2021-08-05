@@ -9,7 +9,7 @@ class BeerForm(FlaskForm):
     abv = IntegerField('ABV', validators=[DataRequired()])
     type = SelectField(
         'Type', choices=[('Beers', 'Beers'), ('Cocktails', 'Cocktails')])
-    first_brewed = StringField('FirstBrewed')
+    image_url = StringField('FirstBrewed')
     malt = StringField('Malt')
     hops = StringField('Hops')
     yeast = StringField('yeast')
