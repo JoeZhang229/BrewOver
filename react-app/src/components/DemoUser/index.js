@@ -11,5 +11,5 @@ export default function DemoUser() {
 		return;
 	};
 
-	return <button onClick={(e) => demoLogin(e)}>Demo</button>;
+	return <div onClick={(e) => demoLogin(e)}>Demo Login</div>;
 }

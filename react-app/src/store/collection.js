@@ -1,5 +1,8 @@
 const GET_ONE_COLLECTION = 'collections/GET_ONE_COLLECTION';
 const GET_ALL_COLLECTIONS = 'collections/GET_ALL_COLLECTIONS';
+const CREATE_COLLECTION = 'collections/CREATE_COLLECTION';
+const EDIT_COLLECTION = 'collections/EDIT_COLLECTION';
+const DELETE_COLLECTION = 'collections/DELETE_COLLECTION';
 
 export const getCollection = (collection) => {
 	return {
@@ -12,6 +15,27 @@ export const loadCollections = (collection) => {
 	return {
 		type: GET_ALL_COLLECTIONS,
 		collection: collection,
+	};
+};
+
+export const createOneCollection = (collection) => {
+	return {
+		type: CREATE_COLLECTION,
+		collection: collection,
+	};
+};
+
+export const editOneCollection = (collection) => {
+	return {
+		type: EDIT_COLLECTION,
+		collection: collection,
+	};
+};
+
+export const deleteOneCollection = (collectionId) => {
+	return {
+		type: DELETE_COLLECTION,
+		collectionId,
 	};
 };
 
@@ -36,6 +60,51 @@ export const getOneCollection = (id) => async (dispatch) => {
 	}
 };
 
+// POST
+export const createCollection = (collectionData) => async (dispatch) => {
+	const res = await fetch('/api/collections/create', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(collectionData),
+	});
+
+	if (res.ok) {
+		const collection = await res.json();
+		dispatch(createOneCollection(collection));
+	}
+};
+
+// PUT
+export const editCollection = (collectionData) => async (dispatch) => {
+	const res = await fetch('/api/collections/edit', {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(collectionData),
+	});
+
+	if (res.ok) {
+		const editedCollection = await res.json();
+		dispatch(editOneCollection(editedCollection));
+	}
+};
+
+// DELETE
+export const deleteCollection = (collectionId) => async (dispatch) => {
+	const res = await fetch(`/api/collections/${collectionId}`, {
+		method: 'DELETE',
+		body: JSON.stringify({ collectionId }),
+	});
+	if (res.ok) {
+		await res.json();
+		dispatch(deleteOneCollection(collectionId));
+		return res;
+	}
+};
+
 const initialState = {
 	collections: {},
 	currentCollection: '',
@@ -47,7 +116,7 @@ export default function collectionReducer(state = initialState, action) {
 		case GET_ALL_COLLECTIONS:
 			let collections = {};
 			action.collection.forEach((collection) => {
-				collections[collection.name] = collection;
+				collections[collection.id] = collection;
 			});
 			return {
 				...state,
@@ -55,11 +124,28 @@ export default function collectionReducer(state = initialState, action) {
 				currentCollection: action.collection[0],
 				loaded: true,
 			};
+		case CREATE_COLLECTION:
+			return {
+				collections: { ...state.collections, ...action.collection },
+				currentCollection: { ...state.currentCollection },
+			};
 		case GET_ONE_COLLECTION:
 			return {
 				collections: { ...state.collections },
 				currentCollection: { ...action.currentCollection },
 				loaded: true,
+			};
+		case EDIT_COLLECTION:
+			collections = { ...state };
+			collections.collections[action.collection.id] = action.collection;
+			return {
+				...collections,
+			};
+		case DELETE_COLLECTION:
+			collections = { ...state };
+			delete collections.collections[action.collectionId];
+			return {
+				...collections,
 			};
 		default:
 			return state;

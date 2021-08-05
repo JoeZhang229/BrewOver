@@ -1,3 +1,8 @@
+@font-face {
+	src: url(../fonts/RoughgatesVintage.ttf);
+	font-family: 'roughgates';
+}
+
 .navbar {
 	display: flex;
 	flex-direction: row;
@@ -10,10 +15,22 @@ li {
 	text-align: center;
 	list-style-type: none;
 	padding: 14px 16px;
+	font-family: roughgates;
+	font-size: 25px;
+	font-style: italic;
+	text-transform: uppercase;
+}
+
+li > a {
+	color: black;
 }
 
 li:hover {
 	background-color: rgb(206, 203, 203);
+}
+
+li:visited {
+	color: inherit;
 }
 
 .left li {
