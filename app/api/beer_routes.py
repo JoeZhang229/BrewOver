@@ -12,6 +12,7 @@ beer_routes = Blueprint('beers', __name__)
 
 def saveBeer(reqObj, beerObj):
     newBeer = beerObj
+    # transform API id to my own backend ID or make a separate column
     if id in reqObj:
         newBeer.id = reqObj['id'],
     newBeer.description = reqObj['description'],
@@ -40,6 +41,7 @@ def create_beer():
     if (data['collectionId'] == current_user.id):
         currentCollection = Collection.query.get(data['collectionId'])
         currentCollection.beer = newBeer
+        currentCollection.beer.append(newBeer)
         beer_collection.collections_id = data['collectionId']
         db.session.add(currentCollection)
         # beer_collection.beers_id = newBeer.id

@@ -1,0 +1,46 @@
+@font-face {
+	src: url(../fonts/Rodfat.ttf);
+	font-family: 'rodfat';
+}
+
+.home-container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	position: relative;
+	height: 100vh;
+}
+
+.title-container h1 {
+	/* offset-position: top 50px; */
+	text-align: center;
+	font-size: 6rem;
+	/* z-index places it on top */
+	z-index: 1;
+	position: relative;
+	/* background: #fff; */
+	padding: 20px;
+	margin: 15px;
+	font-family: rodfat;
+	color: rgb(243, 239, 239);
+}
+
+.login-container {
+	z-index: 1;
+}
+
+.login-container * {
+	z-index: 1;
+}
+
+.video-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+}

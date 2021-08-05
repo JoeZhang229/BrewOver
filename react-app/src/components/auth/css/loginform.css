@@ -1,0 +1,7 @@
+.login-form {
+	z-index: 1;
+	background-color: #fbfbfb;
+	border-radius: 5px;
+	border: 1px solid grey;
+	padding: 5px;
+}

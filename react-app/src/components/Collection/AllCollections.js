@@ -5,6 +5,7 @@ import { getAllCollections, getCollection } from '../../store/collection';
 import BeerCard from '../Beer/BeerCard';
 import { deleteBeer } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
+import errorImg from '../imgs/beer-error-icon.png';
 
 export default function AllCollections() {
 	const dispatch = useDispatch();
@@ -23,6 +24,31 @@ export default function AllCollections() {
 		// dispatch(getAllCollections());
 	}, []);
 
+	const loadCollection = (currentCollection) => {
+		return currentCollection.beers?.map((beer) => (
+			<div className='collection-beer-card'>
+				<div>
+					<h3>Name: {beer.name}</h3>
+				</div>
+				<div>
+					<img
+						src={beer.image_url ? beer.image_url : errorImg}
+						alt={beer.description}
+					></img>
+				</div>
+				<button key={beer.id} onClick={() => setShowForm(true)}>
+					Edit
+				</button>
+				{showForm && (
+					<div>
+						<EditBeer beer={beer} />
+					</div>
+				)}
+				<button onClick={() => handleDelete(beer.id)}>Delete</button>
+			</div>
+		));
+	};
+
 	const handleDelete = (id) => {
 		dispatch(deleteBeer(id));
 		dispatch(getAllCollections());
@@ -35,19 +61,24 @@ export default function AllCollections() {
 				{collection &&
 					collection.map((collect) => (
 						<div
-						// onClick={dispatch(getCollection(collect))}
+							className='collection-container'
+							onClick={loadCollection(currentCollection)}
 						>
-							{collect.name}
+							<div
+							// onClick={dispatch(getCollection(collect))}
+							>
+								{collect.name}
+							</div>
 						</div>
 					))}
 			</div>
 			<div>
 				Current Collection:
-				<div>{loaded && currentCollection.name}</div>
-				{loaded &&
+				{/* <div>{loaded && currentCollection.name}</div> */}
+				{/* <div>{JSON.stringify(beer)}</div> */}
+				{/* {loaded &&
 					currentCollection.beers?.map((beer) => (
 						<div className='beer card'>
-							{/* <div>{JSON.stringify(beer)}</div> */}
 							<div>Name: {beer.name}</div>
 							<div>Description: {beer.description}</div>
 							<button
@@ -65,7 +96,7 @@ export default function AllCollections() {
 								Delete
 							</button>
 						</div>
-					))}
+					))} */}
 			</div>
 		</div>
 	);
