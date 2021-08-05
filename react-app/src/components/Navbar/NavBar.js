@@ -47,7 +47,7 @@ const NavBar = () => {
 			<>
 				<li>
 					<NavLink
-						to='/login'
+						to='/'
 						exact={true}
 						activeClassName='active'
 						className='login'
@@ -84,9 +84,9 @@ const NavBar = () => {
 					</div>
 				</div>
 				<div className='navbar right'>{sessionLinks}</div>
-				<div>
+				{/* <div>
 					<i class='fas fa-beer'></i>
-				</div>
+				</div> */}
 			</ul>
 		</nav>
 	);
