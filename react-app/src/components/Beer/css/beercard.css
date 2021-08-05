@@ -55,8 +55,7 @@
 	margin: 2rem;
 }
 
-.beer-card-info h3,
-p {
+.beer-card-info * {
 	margin: 0;
 	padding: 0;
 }

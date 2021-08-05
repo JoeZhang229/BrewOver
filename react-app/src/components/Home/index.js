@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import './home.css';
 import LoginForm from '../auth/LoginForm';
 import { motion } from 'framer-motion';

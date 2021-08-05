@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { editBeer } from '../../store/beer';
 
@@ -41,7 +41,7 @@ export default function EditBeer({ beer }) {
 		<div>
 			{showForm && (
 				<div>
-					<form onSubmit={onSubmit}>
+					<form key={beer.id} onSubmit={onSubmit}>
 						<label>Name: </label>
 						<input
 							onChange={({ target: { value } }) =>

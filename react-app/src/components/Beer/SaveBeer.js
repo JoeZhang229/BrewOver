@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { createOneBeer } from '../../store/beer';
-import Modal from 'react-modal';
 
 export default function SaveBeer() {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
-	const beer = useSelector((state) => state.beers.currentBeer)[0];
+	const beer = useSelector((state) => state.beers.currentBeer);
 	const [success, setSuccess] = useState(false);
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
@@ -29,27 +28,43 @@ export default function SaveBeer() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		console.log('select option', +collectionVal);
-		const { malt, hops, yeast } = beer.ingredients;
-		// const newMalt = destructure(malt);
-		const newHops = destructure(hops);
-		// const newYeast = destructure(yeast);
-		console.log('hops', hops);
-		console.log('destruct hops', newHops);
-		console.log('yeast', yeast);
-		dispatch(
-			createOneBeer({
-				id: beer.id,
-				name: beer.name,
-				abv: beer.abv,
-				description: beer.description,
-				image_url: beer.image_url,
-				collectionId: +collectionVal,
-				malt: destructure(malt),
-				hops: destructure(hops),
-				yeast: yeast,
-				type: 'beers',
-			})
-		);
+		if (beer?.ingredients) {
+			const { malt, hops, yeast } = beer.ingredients;
+			// const newMalt = destructure(malt);
+			const newHops = destructure(hops);
+			// const newYeast = destructure(yeast);
+			console.log('hops', hops);
+			console.log('destruct hops', newHops);
+			console.log('yeast', yeast);
+			dispatch(
+				createOneBeer({
+					name: beer.name,
+					abv: beer.abv,
+					description: beer.description,
+					image_url: beer.image_url,
+					collectionId: +collectionVal,
+					malt: destructure(malt),
+					hops: destructure(hops),
+					yeast: yeast,
+					type: 'beers',
+				})
+			);
+		} else {
+			dispatch(
+				createOneBeer({
+					name: beer.name,
+					abv: beer.abv,
+					description: beer.description,
+					image_url: beer.image_url,
+					collectionId: +collectionVal,
+					malt: beer.malt,
+					hops: beer.hops,
+					yeast: beer.yeast,
+					type: 'beers',
+				})
+			);
+		}
+
 		setSuccess(true);
 	};
 

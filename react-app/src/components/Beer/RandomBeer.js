@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 
-import { getRandomBeer, unloadAllBeers } from '../../store/beer';
-import BeerCard from './RandomBeerCard';
+import { getRandomBeer } from '../../store/beer';
+import BeerCard from './BeerCard';
 
 export default function RandomBeer() {
 	const dispatch = useDispatch();
@@ -16,7 +16,5 @@ export default function RandomBeer() {
 		// dispatch(postsLoaded());
 	}, [dispatch]);
 
-	return (
-		<div className='container'>{beer && <BeerCard beer={beer[0]} ingredients={beer[0].ingredients} />}</div>
-	);
+	return <div className='container'>{beer && <BeerCard beer={beer} />}</div>;
 }

@@ -91,7 +91,7 @@ export const getRandomBeer = () => async (dispatch) => {
 	const res = await fetch('https://api.punkapi.com/v2/beers/random');
 
 	const randomBeer = await res.json();
-	dispatch(getBeer(randomBeer));
+	dispatch(getBeer(randomBeer[0]));
 	return randomBeer;
 };
 
@@ -152,16 +152,19 @@ export default function beerReducer(state = initialState, action) {
 				beers: { ...state.beers, ...action.beer },
 				// currentBeer: { ...action.beer },
 				currentBeer: { ...state.currentBeer },
+				loaded: true,
 			};
 		case GET_ONE_BEER:
 			return {
 				beers: { ...state.beers },
 				currentBeer: { ...action.beer },
+				loaded: true,
 			};
 		case EDIT_BEER:
 			return {
 				beers: { ...state.beers, ...action.beer },
 				currentBeer: { ...action.beer },
+				loaded: true,
 			};
 		case DELETE_BEER:
 			newState = { ...state };

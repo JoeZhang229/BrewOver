@@ -12,9 +12,6 @@ beer_routes = Blueprint('beers', __name__)
 
 def saveBeer(reqObj, beerObj):
     newBeer = beerObj
-    # transform API id to my own backend ID or make a separate column
-    if id in reqObj:
-        newBeer.id = reqObj['id'],
     newBeer.description = reqObj['description'],
     newBeer.name = reqObj['name'],
     newBeer.abv = reqObj['abv'],
@@ -30,9 +27,12 @@ def saveBeer(reqObj, beerObj):
 @login_required
 def create_beer():
     data = request.get_json()
+    form = BeerForm()
     beerObj = Beer()
     newBeer = saveBeer(data, beerObj)
+    form.populate_obj(beerObj)
 
+    print(beerObj.beer_dict())
     # need to find out which collection, based on id, to save (Beer collection table)
     # collection = Collection(
     #     userId=current_user.id,
@@ -40,8 +40,8 @@ def create_beer():
     # )
     if (data['collectionId'] == current_user.id):
         currentCollection = Collection.query.get(data['collectionId'])
-        currentCollection.beer = newBeer
-        currentCollection.beer.append(newBeer)
+        # currentCollection.beer = newBeer
+        currentCollection.beers.append(newBeer)
         beer_collection.collections_id = data['collectionId']
         db.session.add(currentCollection)
         # beer_collection.beers_id = newBeer.id
