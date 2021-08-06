@@ -4,7 +4,7 @@ import { AnimateSharedLayout } from 'framer-motion';
 
 import { getAllCollections, getCollection } from '../../store/collection';
 // import BeerCard from '../Beer/BeerCard';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { deleteBeer } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
 import EditCollection from '../Collection/EditCollections';
@@ -12,7 +12,6 @@ import errorImg from '../imgs/beer-error-icon.png';
 
 export default function AllCollections() {
 	const dispatch = useDispatch();
-	// const user = useSelector((state) => state.session.user);
 	const currentCollection = useSelector(
 		(state) => state.collections.currentCollection
 	);
@@ -35,10 +34,10 @@ export default function AllCollections() {
 		null;
 	const [showForm, setShowForm] = useState(initializeForm(collection));
 
-	const handleClick = (beerId) => {
+	const handleClick = (id) => {
 		return setShowForm((prev) => ({
 			...prev,
-			[beerId]: true,
+			[id]: true,
 		}));
 	};
 
@@ -115,20 +114,22 @@ export default function AllCollections() {
 				{loaded &&
 					currentCollection.beers?.map((beer) => (
 						<div className='beer card'>
-							<NavLink to={`/beers/${beer.id}`} exact={true}>
+							<Link to={`/beers/${beer.id}`} exact={true}>
 								<div>Name: {beer.name}</div>
-							</NavLink>
-							<div>Description: {beer.description}</div>
-							<button
-								key={beer.id}
-								onClick={() => handleClick(beer.id)}
-							>
-								Edit
-							</button>
-							{showForm[beer.id] && <EditBeer beer={beer} />}
-							<button onClick={() => handleDelete(beer.id)}>
-								Delete
-							</button>
+								<div>Description: {beer.description}</div>
+							</Link>
+							<div className='beer card buttons'>
+								<button
+									key={beer.id}
+									onClick={() => handleClick(beer.id)}
+								>
+									Edit
+								</button>
+								{showForm[beer.id] && <EditBeer beer={beer} />}
+								<button onClick={() => handleDelete(beer.id)}>
+									Delete
+								</button>
+							</div>
 						</div>
 					))}
 			</div>
