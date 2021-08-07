@@ -83,7 +83,10 @@ export default function AllCollections() {
 		dispatch(getAllCollections());
 	};
 
-	const deleteCollection = (id) => {};
+	const handleDeleteCollection = (id) => {
+		dispatch(deleteCollection(id));
+		dispatch(getAllCollections());
+	};
 
 	return (
 		<div>
@@ -117,7 +120,9 @@ export default function AllCollections() {
 								<EditCollection collection={collect} />
 							)}
 							<button
-								onClick={() => deleteCollection(collect.id)}
+								onClick={() =>
+									handleDeleteCollection(collect.id)
+								}
 							>
 								Delete
 							</button>

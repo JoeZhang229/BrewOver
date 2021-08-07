@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link, Redirect } from 'react-router-dom';
 
 import { createCollection } from '../../store/collection';
 
@@ -22,7 +22,7 @@ export default function CreateCollections() {
 				name: collectionName,
 			})
 		);
-		history.push('/collections');
+		return <Redirect to='/collections' />;
 	};
 
 	return (

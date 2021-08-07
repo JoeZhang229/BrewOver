@@ -126,6 +126,7 @@ export default function collectionReducer(state = initialState, action) {
 			return {
 				collections: { ...state.collections, ...action.collection },
 				currentCollection: { ...state.currentCollection },
+				loaded: true,
 			};
 		case GET_ONE_COLLECTION:
 			return {
