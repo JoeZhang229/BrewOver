@@ -11,17 +11,9 @@ export default function SaveBeer() {
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
-	const [collectionVal, setCollectionVal] = useState(collection[0].id);
+	const [collectionVal, setCollectionVal] = useState(collection[0]?.id);
 
 	useEffect(() => {}, []);
-
-	const destructure = (arr) => {
-		const result = new Set();
-		arr.forEach((ele) => {
-			result.add(ele.name);
-		});
-		return Array.from(result).join(', ');
-	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
