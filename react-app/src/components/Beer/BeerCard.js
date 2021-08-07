@@ -32,11 +32,11 @@ export default function BeerCard({ beer }) {
 						<h4>ABV: </h4>
 						<p>{beer.abv}%</p>
 						<h4>Malt</h4>
-						{/* <p>{malt}</p>
+						<p>{malt}</p>
 						<h4>Hops:</h4>
 						<p>{hops}</p>
 						<h4>Yeast:</h4>
-						<p>{yeast}</p> */}
+						<p>{yeast}</p>
 					</div>
 					<div className='beer-card-btn'>
 						<SaveBeer />

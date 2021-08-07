@@ -29,7 +29,7 @@ def create_beer():
     data = request.get_json()
     form = BeerForm()
     beerObj = Beer()
-    newBeer = saveBeer(data, beerObj)
+    # newBeer = saveBeer(data, beerObj)
     form.populate_obj(beerObj)
 
     print(beerObj.beer_dict())
@@ -38,18 +38,19 @@ def create_beer():
     #     userId=current_user.id,
     #     beers=newBeer
     # )
-    if (data['collectionId'] == current_user.id):
-        currentCollection = Collection.query.get(data['collectionId'])
-        currentCollection.beers.append(newBeer)
-        beer_collection.collections_id = data['collectionId']
+    currentCollection = Collection.query.get(data['collectionId'])
+    if (currentCollection.userId == current_user.id):
+        currentCollection.beers.append(beerObj)
+        # beer_collection.collections_id = data['collectionId']
         db.session.add(currentCollection)
+        db.session.commit()
         # beer_collection.beers_id = newBeer.id
 
-    print('backend beer', newBeer)
-    db.session.add(newBeer)
+    print('backend beer~~~~~~', beerObj)
+    db.session.add(beerObj)
     # db.session.add_all([newBeer, currentCollection])
     db.session.commit()
-    return newBeer.beer_dict()
+    return beerObj.beer_dict()
 
 
 @beer_routes.route('/<int:id>', methods=['GET'])

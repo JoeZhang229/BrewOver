@@ -16,7 +16,6 @@ export default function AllCollections() {
 		(state) => state.collections.currentCollection
 	);
 	const loaded = useSelector((state) => state.collections.loaded);
-	const [showCollectionForm, setShowCollectionForm] = useState(false);
 
 	const initializeForm = (beers) => {
 		if (beers === undefined) {
@@ -32,10 +31,14 @@ export default function AllCollections() {
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
+	const [showCollectionForm, setShowCollectionForm] = useState(
+		initializeForm(collection)
+	);
+	console.log('frontend collections', showCollectionForm);
 	const [showForm, setShowForm] = useState(initializeForm(collection));
 
-	const handleClick = (id) => {
-		return setShowForm((prev) => ({
+	const handleClick = (id, setState) => {
+		return setState((prev) => ({
 			...prev,
 			[id]: true,
 		}));
@@ -59,7 +62,10 @@ export default function AllCollections() {
 						alt={beer.description}
 					></img>
 				</div>
-				<button key={beer.id} onClick={handleClick(beer.id)}>
+				<button
+					key={beer.id}
+					onClick={handleClick(beer.id, setShowForm)}
+				>
 					Edit
 				</button>
 				{showForm[beer.id] && (
@@ -90,13 +96,24 @@ export default function AllCollections() {
 							onClick={() => loadCollection(currentCollection)}
 						>
 							<div>{collect.name}</div>
+							{/* <button
+					key={beer.id}
+					onClick={handleClick(beer.id, setShowForm)}
+				>
+					Edit
+											</button>*/}
 							<button
 								key={collect.id}
-								onClick={() => setShowCollectionForm(true)}
+								onClick={() =>
+									handleClick(
+										collect.id,
+										setShowCollectionForm
+									)
+								}
 							>
 								Edit
 							</button>
-							{showCollectionForm && (
+							{showCollectionForm[collect.id] && (
 								<EditCollection collection={collection} />
 							)}
 							<button
@@ -121,7 +138,9 @@ export default function AllCollections() {
 							<div className='beer card buttons'>
 								<button
 									key={beer.id}
-									onClick={() => handleClick(beer.id)}
+									onClick={() =>
+										handleClick(beer.id, setShowForm)
+									}
 								>
 									Edit
 								</button>

@@ -7,7 +7,19 @@ import './css/beercard.css';
 
 export default function RandomBeerCard({ beer }) {
 	// const beer = useSelector((state) => state.beers.currentBeer) || null;
-	const { malt, yeast, hops } = beer;
+	const { ingredients } = beer;
+	const { malt, yeast, hops } = ingredients;
+
+	console.log('frontend beerObj', beer);
+	console.log('frontend yeast', yeast);
+
+	const destructure = (arr) => {
+		const result = new Set();
+		arr.forEach((ele) => {
+			result.add(ele.name);
+		});
+		return Array.from(result).join(', ');
+	};
 	return (
 		<div className='beer-card-container'>
 			{beer && (
@@ -28,22 +40,21 @@ export default function RandomBeerCard({ beer }) {
 								<h4>ABV: </h4>
 								<p>ABV: {beer.abv}%</p>
 							</div>
-							{/* <div>
-								Food Pairing Suggestions:
-								{beer.food_pairing.map((food, idx) => (
-									<div key={idx}>{food}</div>
-								))}
-							</div> */}
 							<div>
 								<h4>Description: </h4>
 								<p>{beer.description}</p>
 							</div>
 							<div>
 								Malt:
-								{malt &&
-									malt.map((malt, idx) => (
-										<div key={idx}>{malt.name}</div>
-									))}
+								{destructure(malt)}
+							</div>
+							<div>
+								Hops:
+								{destructure(hops)}
+							</div>
+							<div>
+								Yeast:
+								<div>{yeast}</div>
 							</div>
 						</div>
 						<div className='beer-card-btn'>
