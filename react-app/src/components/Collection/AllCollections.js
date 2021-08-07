@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AnimateSharedLayout } from 'framer-motion';
 
-import { getAllCollections, getCollection } from '../../store/collection';
+import { getAllCollections, deleteCollection } from '../../store/collection';
 // import BeerCard from '../Beer/BeerCard';
 import { NavLink, Link } from 'react-router-dom';
 import { deleteBeer } from '../../store/beer';
@@ -114,7 +114,7 @@ export default function AllCollections() {
 								Edit
 							</button>
 							{showCollectionForm[collect.id] && (
-								<EditCollection collection={collection} />
+								<EditCollection collection={collect} />
 							)}
 							<button
 								onClick={() => deleteCollection(collect.id)}

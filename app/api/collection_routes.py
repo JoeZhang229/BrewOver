@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.models import db, Beer, Collection
+from app.forms.collection_form import CollectionForm
 from flask_login import current_user, login_required
 
 collection_routes = Blueprint('collections', __name__)
@@ -30,6 +31,18 @@ def create_collection():
     )
     db.session.add(collection)
     db.session.commit()
+    return collection.to_dict()
+
+
+@collection_routes.route('/edit', methods=['PUT'])
+@login_required
+def edit_collection():
+    data = request.get_json()
+    print('backend collection edit', data)
+    collection = Collection.query.get(data['id'])
+    if collection.userId == current_user.id:
+        collection.name = data['name']
+        db.session.commit()
     return collection.to_dict()
 
 

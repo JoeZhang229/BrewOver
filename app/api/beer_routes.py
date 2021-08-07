@@ -79,15 +79,9 @@ def delete_beer(id):
 @login_required
 def edit_beer():
     data = request.get_json()
+    form = BeerForm()
     beerObj = Beer.query.get(data['id'])
-    beerObj = saveBeer(data, beerObj)
-    # beer.description = data['description'],
-    # beer.name = data['name'],
-    # beer.abv = data['abv'],
-    # beer.image_url = data['image_url']
-    # beer.malt = data['malt']
-    # beer.hops = data['hops']
-    # beer.yeast = data['yeast']
-    # beer.type = data['type']
+    form.populate_obj(beerObj)
+
     db.session.commit()
     return beerObj.beer_dict()

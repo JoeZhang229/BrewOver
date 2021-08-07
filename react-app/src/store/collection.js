@@ -84,7 +84,6 @@ export const editCollection = (collectionData) => async (dispatch) => {
 		},
 		body: JSON.stringify(collectionData),
 	});
-
 	if (res.ok) {
 		const editedCollection = await res.json();
 		dispatch(editOneCollection(editedCollection));
@@ -111,9 +110,9 @@ const initialState = {
 };
 
 export default function collectionReducer(state = initialState, action) {
+	let collections = {};
 	switch (action.type) {
 		case GET_ALL_COLLECTIONS:
-			let collections = {};
 			action.collection.forEach((collection) => {
 				collections[collection.id] = collection;
 			});
