@@ -8,7 +8,7 @@ import errorImg from '../imgs/beer-error-icon.png';
 export default function BeerCard({ beer }) {
 	// const beer = useSelector((state) => state.beers.currentBeer) || null;
 	// const loaded = useSelector((state) => state.collections.loaded);
-	const { malt, yeast, hops } = beer.ingredients;
+	const { malt, yeast, hops } = beer;
 	console.log('beercard', beer);
 
 	return (
@@ -32,11 +32,11 @@ export default function BeerCard({ beer }) {
 						<h4>ABV: </h4>
 						<p>{beer.abv}%</p>
 						<h4>Malt</h4>
-						{/* <p>{malt}</p>
+						<p>{malt}</p>
 						<h4>Hops:</h4>
 						<p>{hops}</p>
 						<h4>Yeast:</h4>
-						<p>{yeast}</p> */}
+						<p>{yeast}</p>
 					</div>
 					<div className='beer-card-btn'>
 						<SaveBeer />

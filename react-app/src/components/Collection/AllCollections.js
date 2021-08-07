@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AnimateSharedLayout } from 'framer-motion';
 
-import { getAllCollections, getCollection } from '../../store/collection';
+import { getAllCollections, deleteCollection } from '../../store/collection';
 // import BeerCard from '../Beer/BeerCard';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { deleteBeer } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
 import EditCollection from '../Collection/EditCollections';
@@ -12,12 +12,10 @@ import errorImg from '../imgs/beer-error-icon.png';
 
 export default function AllCollections() {
 	const dispatch = useDispatch();
-	// const user = useSelector((state) => state.session.user);
 	const currentCollection = useSelector(
 		(state) => state.collections.currentCollection
 	);
 	const loaded = useSelector((state) => state.collections.loaded);
-	const [showCollectionForm, setShowCollectionForm] = useState(false);
 
 	const initializeForm = (beers) => {
 		if (beers === undefined) {
@@ -33,12 +31,16 @@ export default function AllCollections() {
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
+	const [showCollectionForm, setShowCollectionForm] = useState(
+		initializeForm(collection)
+	);
+	console.log('frontend collections', showCollectionForm);
 	const [showForm, setShowForm] = useState(initializeForm(collection));
 
-	const handleClick = (beerId) => {
-		return setShowForm((prev) => ({
+	const handleClick = (id, setState) => {
+		return setState((prev) => ({
 			...prev,
-			[beerId]: true,
+			[id]: true,
 		}));
 	};
 
@@ -60,7 +62,10 @@ export default function AllCollections() {
 						alt={beer.description}
 					></img>
 				</div>
-				<button key={beer.id} onClick={handleClick(beer.id)}>
+				<button
+					key={beer.id}
+					onClick={handleClick(beer.id, setShowForm)}
+				>
 					Edit
 				</button>
 				{showForm[beer.id] && (
@@ -78,7 +83,10 @@ export default function AllCollections() {
 		dispatch(getAllCollections());
 	};
 
-	const deleteCollection = (id) => {};
+	const handleDeleteCollection = (id) => {
+		dispatch(deleteCollection(id));
+		dispatch(getAllCollections());
+	};
 
 	return (
 		<div>
@@ -91,17 +99,30 @@ export default function AllCollections() {
 							onClick={() => loadCollection(currentCollection)}
 						>
 							<div>{collect.name}</div>
+							{/* <button
+					key={beer.id}
+					onClick={handleClick(beer.id, setShowForm)}
+				>
+					Edit
+											</button>*/}
 							<button
 								key={collect.id}
-								onClick={() => setShowCollectionForm(true)}
+								onClick={() =>
+									handleClick(
+										collect.id,
+										setShowCollectionForm
+									)
+								}
 							>
 								Edit
 							</button>
-							{showCollectionForm && (
-								<EditCollection collection={collection} />
+							{showCollectionForm[collect.id] && (
+								<EditCollection collection={collect} />
 							)}
 							<button
-								onClick={() => deleteCollection(collect.id)}
+								onClick={() =>
+									handleDeleteCollection(collect.id)
+								}
 							>
 								Delete
 							</button>
@@ -115,20 +136,24 @@ export default function AllCollections() {
 				{loaded &&
 					currentCollection.beers?.map((beer) => (
 						<div className='beer card'>
-							<NavLink to={`/beers/${beer.id}`} exact={true}>
+							<Link to={`/beers/${beer.id}`} exact={true}>
 								<div>Name: {beer.name}</div>
-							</NavLink>
-							<div>Description: {beer.description}</div>
-							<button
-								key={beer.id}
-								onClick={() => handleClick(beer.id)}
-							>
-								Edit
-							</button>
-							{showForm[beer.id] && <EditBeer beer={beer} />}
-							<button onClick={() => handleDelete(beer.id)}>
-								Delete
-							</button>
+								<div>Description: {beer.description}</div>
+							</Link>
+							<div className='beer card buttons'>
+								<button
+									key={beer.id}
+									onClick={() =>
+										handleClick(beer.id, setShowForm)
+									}
+								>
+									Edit
+								</button>
+								{showForm[beer.id] && <EditBeer beer={beer} />}
+								<button onClick={() => handleDelete(beer.id)}>
+									Delete
+								</button>
+							</div>
 						</div>
 					))}
 			</div>
