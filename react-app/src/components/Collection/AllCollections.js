@@ -131,7 +131,7 @@ export default function AllCollections() {
 				{/* <div>{loaded && currentCollection.name}</div> */}
 				{/* <div>{JSON.stringify(beer)}</div> */}
 				{loaded &&
-					currentCollection.beers?.map((beer) => (
+					currentCollection?.beers?.map((beer) => (
 						<div className='beer card'>
 							<Link to={`/beers/${beer.id}`} exact={true}>
 								<div>Name: {beer.name}</div>
