@@ -19,8 +19,6 @@ export default function EditBeer({ beer }) {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		console.log('beer id', beer.id);
-
 		dispatch(
 			editBeer({
 				id: +beer.id,

@@ -34,7 +34,6 @@ export default function AllCollections() {
 	const [showCollectionForm, setShowCollectionForm] = useState(
 		initializeForm(collection)
 	);
-	console.log('frontend collections', showCollectionForm);
 	const [showForm, setShowForm] = useState(initializeForm(collection));
 
 	const handleClick = (id, setState) => {
@@ -48,10 +47,8 @@ export default function AllCollections() {
 		// dispatch(getAllCollections());
 	}, []);
 
-	console.log('showform', showForm);
-
 	const loadCollection = (currentCollection) => {
-		return currentCollection.beers?.map((beer) => (
+		return currentCollection?.beers?.map((beer) => (
 			<div className='collection-beer-card'>
 				<div>
 					<h3>Name: {beer.name}</h3>
@@ -96,7 +93,7 @@ export default function AllCollections() {
 					collection.map((collect) => (
 						<div
 							className='collection-container'
-							onClick={() => loadCollection(currentCollection)}
+							// onClick={() => loadCollection(currentCollection)}
 						>
 							<div>{collect.name}</div>
 							{/* <button

@@ -10,9 +10,6 @@ export default function RandomBeerCard({ beer }) {
 	const { ingredients } = beer;
 	const { malt, yeast, hops } = ingredients;
 
-	console.log('frontend beerObj', beer);
-	console.log('frontend yeast', yeast);
-
 	const destructure = (arr) => {
 		const result = new Set();
 		arr.forEach((ele) => {
