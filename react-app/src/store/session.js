@@ -28,7 +28,6 @@ export const authenticate = () => async (dispatch) => {
 		}
 
 		dispatch(setUser(data));
-		console.log('thunk auth', data.collections);
 		dispatch(loadCollections(data.collections));
 	}
 };

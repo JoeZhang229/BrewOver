@@ -13,7 +13,7 @@ export default function CreateBeer() {
 	const [beerName, setBeerName] = useState('');
 	const [description, setDescription] = useState('');
 	const [abv, setabv] = useState('');
-	const [collectionVal, setCollectionVal] = useState(collection[0].id);
+	const [collectionVal, setCollectionVal] = useState(collection[0]?.id);
 	const [imageUrl, setImageUrl] = useState('');
 	const [malt, setMalt] = useState('');
 	const [hops, setHops] = useState('');

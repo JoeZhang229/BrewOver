@@ -9,7 +9,6 @@ export default function BeerCard({ beer }) {
 	// const beer = useSelector((state) => state.beers.currentBeer) || null;
 	// const loaded = useSelector((state) => state.collections.loaded);
 	const { malt, yeast, hops } = beer;
-	console.log('beercard', beer);
 
 	return (
 		// <>{JSON.stringify(beer)}</>

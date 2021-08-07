@@ -72,7 +72,6 @@ export const createOneBeer = (beerData) => async (dispatch) => {
 	});
 	if (res.ok) {
 		const beer = await res.json();
-		console.log('create thunk', beer);
 		dispatch(createBeer(beer));
 	}
 };

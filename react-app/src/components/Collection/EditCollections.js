@@ -9,8 +9,6 @@ export default function EditCollection({ collection }) {
 
 	const [collectionName, setCollectionName] = useState(collection.name);
 
-	console.log('frontend collection', collection);
-	console.log('frontend collection ID', collection.id);
 	const onSubmit = (e) => {
 		e.preventDefault();
 
