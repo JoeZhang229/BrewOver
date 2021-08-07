@@ -132,6 +132,7 @@ export default function AllCollections() {
 				{/* <div>{JSON.stringify(beer)}</div> */}
 				{loaded &&
 					currentCollection?.beers?.map((beer) => (
+						// update heroku please
 						<div className='beer card'>
 							<Link to={`/beers/${beer.id}`} exact={true}>
 								<div>Name: {beer.name}</div>
