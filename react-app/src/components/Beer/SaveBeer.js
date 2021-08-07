@@ -12,7 +12,7 @@ export default function SaveBeer() {
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
 	const [collectionVal, setCollectionVal] = useState(collection[0].id);
-	// console.log('frontened', beer);
+	console.log('frontened save beer', beer);
 	// const [beerName, setBeerName] = useState('');
 
 	useEffect(() => {}, []);
