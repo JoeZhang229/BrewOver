@@ -5,8 +5,9 @@
 
 .home-container {
 	display: flex;
+	flex-direction: row;
 	align-items: flex-start;
-	justify-content: center;
+	justify-content: space-around;
 	overflow: hidden;
 	margin: 0;
 	padding: 0;
@@ -17,7 +18,7 @@
 
 .title-container h1 {
 	text-align: center;
-	font-size: 6rem;
+	font-size: 8rem;
 	/* z-index places it on top */
 	z-index: 1;
 	position: relative;
@@ -25,11 +26,20 @@
 	padding: 20px;
 	margin: 15px;
 	font-family: rodfat;
-	color: rgb(190, 190, 190);
+	/* color: rgb(190, 190, 190); */
+	color: rgb(236, 233, 233);
 }
 
 .login-container {
 	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 60vh;
+	width: 30vw;
+	/* background-color: rgba(0, 0, 0, 0.25); */
+	padding-top: 50px;
 }
 
 .login-container * {
