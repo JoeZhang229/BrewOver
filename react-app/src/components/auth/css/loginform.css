@@ -1,7 +1,63 @@
+@font-face {
+	src: url(../../fonts/RoughgatesVintage.ttf);
+	font-family: 'roughgates';
+}
+
 .login-form {
 	z-index: 1;
-	background-color: #fbfbfb;
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(0, 0, 0, 0.25);
+	color: rgb(236, 233, 233);
 	border-radius: 5px;
-	border: 1px solid grey;
+	border: 1px solid rgb(223, 214, 214);
 	padding: 5px;
+	width: 12vw;
+	height: 25vh;
+	font-family: rodfat;
+
+	font-size: 20px;
+}
+
+.form-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin: 10px 0px 10px 0px;
+}
+
+.form-item > input,
+.login-form > label {
+	width: 75%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 3px;
+}
+
+.login-form > label {
+	font-size: 25px;
+	width: 100%;
+}
+
+.login-form > h3 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	font-size: 30px;
+}
+
+.form-item > button {
+	outline: none;
+	border-radius: 5px;
+	width: 35%;
+	margin: 5px 0px 5px 0px;
+	border: 1px solid rgb(250, 194, 62);
+	background-color: white;
+	font-family: roughgates;
+	font-size: 18px;
 }

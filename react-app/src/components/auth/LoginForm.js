@@ -39,8 +39,9 @@ const LoginForm = () => {
 					<div key={ind}>{error}</div>
 				))}
 			</div>
-			<div>
-				<label htmlFor='email'>Email</label>
+			<h3>Login</h3>
+			<label htmlFor='email'>Email</label>
+			<div className='form-item'>
 				<input
 					name='email'
 					type='text'
@@ -49,8 +50,8 @@ const LoginForm = () => {
 					onChange={updateEmail}
 				/>
 			</div>
-			<div>
-				<label htmlFor='password'>Password</label>
+			<label htmlFor='password'>Password</label>
+			<div className='form-item'>
 				<input
 					name='password'
 					type='password'
@@ -58,11 +59,16 @@ const LoginForm = () => {
 					value={password}
 					onChange={updatePassword}
 				/>
-				<button type='submit'>Login</button>
 			</div>
-			<button>
-				<DemoUser />
-			</button>
+			<div className='form-item'>
+				<button type='submit'>LOGIN</button>
+			</div>
+
+			<div className='form-item'>
+				<button>
+					<DemoUser />
+				</button>
+			</div>
 		</form>
 	);
 };
