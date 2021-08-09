@@ -37,8 +37,8 @@ def create_collection():
 @login_required
 def edit_collection():
     data = request.get_json()
-    print('backend collection edit', data)
     collection = Collection.query.get(data['id'])
+    # check if user owns the collection
     if collection.userId == current_user.id:
         collection.name = data['name']
         db.session.commit()

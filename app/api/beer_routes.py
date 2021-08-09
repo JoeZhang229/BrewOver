@@ -10,26 +10,12 @@ beer_routes = Blueprint('beers', __name__)
 # def all_beers():
 
 
-def saveBeer(reqObj, beerObj):
-    newBeer = beerObj
-    newBeer.description = reqObj['description'],
-    newBeer.name = reqObj['name'],
-    newBeer.abv = reqObj['abv'],
-    newBeer.image_url = reqObj['image_url']
-    newBeer.malt = reqObj['malt']
-    newBeer.hops = reqObj['hops']
-    newBeer.yeast = reqObj['yeast']
-    newBeer.type = reqObj['type']
-    return newBeer
-
-
 @beer_routes.route('/create', methods=['POST'])
 @login_required
 def create_beer():
     data = request.get_json()
     form = BeerForm()
     beerObj = Beer()
-    # newBeer = saveBeer(data, beerObj)
     form.populate_obj(beerObj)
 
     print(beerObj.beer_dict())

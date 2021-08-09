@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { createOneBeer } from '../../store/beer';
+import './css/CreateBeer.css';
 
-export default function CreateBeer() {
+export default function CreateBeer({
+	setShowModal,
+	setShowCreateForm,
+	showModal,
+}) {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 
@@ -35,59 +41,115 @@ export default function CreateBeer() {
 				type: 'beers',
 			})
 		);
+		setShowModal(false);
+		setShowCreateForm(false);
+	};
+
+	const background = {
+		hide: { opacity: 0 },
+		show: { opacity: 1 },
+	};
+
+	const createForm = {
+		hide: {
+			opacity: 0,
+		},
+		show: {
+			opacity: 1,
+			transition: {
+				delay: 0.5,
+				duration: 0.5,
+				type: 'tween',
+			},
+		},
 	};
 
 	return (
-		<div>
-			<form onSubmit={onSubmit}>
-				<label>Name: </label>
-				<input
-					onChange={({ target: { value } }) => setBeerName(value)}
-					value={beerName}
-					required
-				></input>
-				<label>Description: </label>
-				<input
-					onChange={({ target: { value } }) => setDescription(value)}
-					value={description}
-					required
-				></input>
-				<label>ABV: </label>
-				<input
-					onChange={({ target: { value } }) => setabv(value)}
-					value={abv}
-					required
-				></input>
-				<label>image_url: </label>
-				<input
-					onChange={({ target: { value } }) => setImageUrl(value)}
-					value={imageUrl}
-				></input>
-				<label>Malt: </label>
-				<input
-					onChange={({ target: { value } }) => setMalt(value)}
-					value={malt}
-				></input>
-				<label>Hops: </label>
-				<input
-					onChange={({ target: { value } }) => setHops(value)}
-					value={hops}
-				></input>
-				<label>Yeast: </label>
-				<input
-					onChange={({ target: { value } }) => setYeast(value)}
-					value={yeast}
-				></input>
-				<select onChange={(e) => setCollectionVal(e.target.value)}>
-					{collection &&
-						collection.map((collect) => (
-							<option key={collect.id} value={collect.id}>
-								{collect.name}
-							</option>
-						))}
-				</select>
-				<button type='submit'>Create</button>
-			</form>
-		</div>
+		<AnimatePresence
+			exitBeforeEnter
+			// change modal state based on changing page or completing form
+			onExitComplete={() => {
+				setShowModal(false);
+				setShowCreateForm(false);
+			}}
+		>
+			{showModal && (
+				<motion.div
+					className='background'
+					variants={background}
+					initial='hide'
+					animate='show'
+					exit='hide'
+				>
+					<motion.form
+						onSubmit={(e) => onSubmit(e)}
+						className='create-beer-form'
+						variants={createForm}
+						initial='hide'
+						animate='show'
+						exit='hide'
+					>
+						<h3>Create Beer</h3>
+						<label>Name: </label>
+						<input
+							onChange={({ target: { value } }) =>
+								setBeerName(value)
+							}
+							value={beerName}
+							required
+						></input>
+						<label>Description: </label>
+						<input
+							onChange={({ target: { value } }) =>
+								setDescription(value)
+							}
+							value={description}
+							required
+						></input>
+						<label>ABV: </label>
+						<input
+							onChange={({ target: { value } }) => setabv(value)}
+							value={abv}
+							required
+						></input>
+						<label>image_url: </label>
+						<input
+							onChange={({ target: { value } }) =>
+								setImageUrl(value)
+							}
+							value={imageUrl}
+						></input>
+						<label>Malt: </label>
+						<input
+							onChange={({ target: { value } }) => setMalt(value)}
+							value={malt}
+						></input>
+						<label>Hops: </label>
+						<input
+							onChange={({ target: { value } }) => setHops(value)}
+							value={hops}
+						></input>
+						<label>Yeast: </label>
+						<input
+							onChange={({ target: { value } }) =>
+								setYeast(value)
+							}
+							value={yeast}
+						></input>
+						<select
+							onChange={(e) => setCollectionVal(e.target.value)}
+						>
+							{collection &&
+								collection.map((collect) => (
+									<option key={collect.id} value={collect.id}>
+										{collect.name}
+									</option>
+								))}
+						</select>
+						<button type='submit'>Create</button>
+					</motion.form>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	);
 }

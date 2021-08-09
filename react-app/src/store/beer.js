@@ -128,15 +128,17 @@ const initialState = {
 	loaded: false,
 };
 export default function beerReducer(state = initialState, action) {
-	let newState = {};
+	let beers = {};
 	switch (action.type) {
 		// deep copy to ensure useEffect checks the differences in state
 		case GET_ALL_BEERS:
+			action.beer.forEach((oneBeer) => {
+				beers[oneBeer.id] = oneBeer;
+			});
 			return {
 				...state,
-				beers: {
-					...action.beer,
-				},
+				beers,
+				currentBeer: action.beer[0],
 				loaded: true,
 			};
 		case CREATE_BEER:
@@ -160,16 +162,21 @@ export default function beerReducer(state = initialState, action) {
 				loaded: true,
 			};
 		case EDIT_BEER:
+			beers = { ...state };
+			beers.beers[action.beer.id] = action.beer;
+			// return {
+			// 	beers: { ...state.beers, ...action.beer },
+			// 	currentBeer: { ...action.beer },
+			// 	loaded: true,
+			// };
 			return {
-				beers: { ...state.beers, ...action.beer },
-				currentBeer: { ...action.beer },
-				loaded: true,
+				...beers,
 			};
 		case DELETE_BEER:
-			newState = { ...state };
-			delete newState.beers[action.beerId];
+			beers = { ...state };
+			delete beers.beers[action.beerId];
 			return {
-				...newState,
+				...beers,
 			};
 		case UNLOAD_ONE_BEER:
 			return {
