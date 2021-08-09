@@ -13,6 +13,7 @@ import AllCollections from './components/Collection/AllCollections';
 import CreateCollections from './components/Collection/CreateCollections';
 import Splash from './components/Splash';
 import Landing from './components/LandingPage';
+import Footer from './components/Footer';
 import { authenticate } from './store/session';
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
 					<Landing />
 				</ProtectedRoute>
 			</Switch>
+			<Footer />
 		</BrowserRouter>
 	);
 }

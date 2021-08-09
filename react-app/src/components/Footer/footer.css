@@ -1,0 +1,14 @@
+.footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	background-color: rgba(178, 178, 178, 0.2);
+}
+
+.footer-links {
+	font-size: 50px;
+}
