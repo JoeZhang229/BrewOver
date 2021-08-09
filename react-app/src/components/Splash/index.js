@@ -5,15 +5,16 @@ import { motion } from 'framer-motion';
 import splashVideo from '../video/splashVid.mp4';
 
 export default function Splash() {
+	// animate elements based on different delays
 	const splashAnimations = (delay) => {
 		const animation = {
 			initial: {
 				opacity: 0,
-				y: 80,
+				y: '80px',
 			},
 			animate: {
 				opacity: 0.8,
-				y: 230,
+				y: '230px',
 				transition: {
 					delay: delay,
 					duration: 1,
@@ -24,11 +25,11 @@ export default function Splash() {
 	};
 
 	return (
-		// animate whatever is in Spring
 		<div className='splash-container'>
 			<div className='title-container'>
 				<motion.h1
 					variants={splashAnimations(0.25)}
+					// establish animation props to keys in variant object
 					initial='initial'
 					animate='animate'
 				>

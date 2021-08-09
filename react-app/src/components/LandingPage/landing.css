@@ -38,12 +38,23 @@
 	justify-content: center;
 	height: 60vh;
 	width: 30vw;
-	/* background-color: rgba(0, 0, 0, 0.25); */
 	padding-top: 50px;
 }
 
 .random-beer-container > a {
 	color: white;
+}
+
+.random-beer-container h3:hover {
+	background-color: rgba(187, 186, 184, 0.5);
+	color: rgb(14, 14, 14);
+}
+
+.random-beer-container h3 {
+	border: 1px solid;
+	padding: 5px;
+	border-radius: 5px;
+	font-size: 25px;
 }
 
 .random-beer-container * {

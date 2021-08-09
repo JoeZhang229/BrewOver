@@ -5,28 +5,47 @@ import { NavLink } from 'react-router-dom';
 import welcomePageVid from '../video/welcomepageVid.mp4';
 
 export default function Home() {
+	// animate elements based on different delays
+	const homeAnimations = (delay) => {
+		const animation = {
+			initial: {
+				opacity: 0,
+				y: 80,
+			},
+			animate: {
+				opacity: 0.8,
+				y: 230,
+				transition: {
+					delay: delay,
+					duration: 1,
+				},
+			},
+		};
+		return animation;
+	};
+
 	return (
-		// animate whatever is in Spring
 		<div className='home-container'>
 			<div className='title-container'>
 				<motion.h1
-					initial={{ opacity: 0, y: 80 }}
-					animate={{ opacity: 0.8, y: 230 }}
-					transition={{ delay: 1.25, duration: 1 }}
+					variants={homeAnimations(1.25)}
+					// establish animation props to keys in variant object
+					initial='initial'
+					animate='animate'
 				>
 					Cheers!
 				</motion.h1>
 				<motion.h1
-					initial={{ opacity: 0, y: 80 }}
-					animate={{ opacity: 0.8, y: 230 }}
-					transition={{ delay: 1.75, duration: 1 }}
+					variants={homeAnimations(2.5)}
+					initial='initial'
+					animate='animate'
 				>
 					Start
 				</motion.h1>
 				<motion.h1
-					initial={{ opacity: 0, y: 80 }}
-					animate={{ opacity: 0.8, y: 230 }}
-					transition={{ delay: 2, duration: 1 }}
+					variants={homeAnimations(3)}
+					initial='initial'
+					animate='animate'
 				>
 					Collecting
 				</motion.h1>

@@ -1,0 +1,27 @@
+.edit-beer-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 15vw;
+	height: 40vh;
+	background: white;
+	margin: 0 auto;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.edit-beer-form textarea {
+	/* overflow: hidden; */
+}
+
+.edit-beer-form input,
+textarea {
+	width: 60%;
+	text-align: center;
+}
+
+.edit-beer-form button {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
