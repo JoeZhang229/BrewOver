@@ -27,8 +27,6 @@ export default function AllCollections() {
 
 	const [showEditModal, setShowEditModal] = useState(true);
 
-	console.log('current collection', currentCollection.beers);
-
 	const initializeForm = (beers) => {
 		if (beers === undefined) {
 			return null;
@@ -101,7 +99,6 @@ export default function AllCollections() {
 								<button
 									key={collect.id}
 									onClick={() => {
-										console.log('edit button clicked');
 										showClick(
 											collect.id,
 											setShowCollectionForm
