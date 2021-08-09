@@ -2,21 +2,43 @@
 	display: grid;
 	grid-template-columns: 1fr 6fr;
 	grid-template-rows: auto;
+	border-radius: 5px;
+}
+
+.collections-container {
+	background-color: #b1aeae;
+	border-radius: 5px;
+	border-right: 2px solid rgb(5, 5, 5);
+}
+
+.collection-container {
+	border-bottom: 1px dashed rgb(26, 26, 26);
+	/* border-right: 1px solid grey; */
 }
 
 .collection-beer-container {
 	display: flex;
 	flex-direction: column;
+	padding: 5px;
 }
 
 .collection-beer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	border-bottom: 1px solid grey;
 }
 
 .beer-image > a > img {
 	overflow: hidden;
 	height: 50px;
 	width: 50px;
+}
+
+.beer-info {
+}
+
+.beer-info p {
+	margin: 0;
+	text-indent: 3ch;
 }

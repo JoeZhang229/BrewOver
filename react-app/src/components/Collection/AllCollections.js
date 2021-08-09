@@ -141,7 +141,6 @@ export default function AllCollections() {
 						currentCollection?.beers?.map((beer) => (
 							<div className='collection-beer'>
 								<div className='beer-info'>
-									{/* <label>Name </label> */}
 									<div className='beer-image'>
 										<Link
 											to={`/beers/${beer.id}`}
@@ -158,8 +157,11 @@ export default function AllCollections() {
 										</Link>
 									</div>
 									<p>{beer.name}</p>
+									{/* <div>
+										<label>Description</label>
+									</div>
+									<p>{beer.description}</p> */}
 								</div>
-								<p>Description: {beer.description}</p>
 								<div className='beer card buttons'>
 									<button
 										key={beer.id}

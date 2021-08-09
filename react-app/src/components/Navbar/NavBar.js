@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 import DemoUser from '../DemoUser';
 import logo from '../imgs/BrewOverLogo.png';
+import { motion, AnimatePresence } from 'framer-motion';
+import CreateBeer from '../Beer/CreateBeer';
 import './Navbar.css';
 
 const NavBar = () => {
 	const user = useSelector((state) => state.session.user);
+	const [showCreateForm, setShowCreateForm] = useState(false);
+	const [showModal, setShowModal] = useState(true);
 	let sessionLinks;
 	if (user) {
 		sessionLinks = (
-			<>
+			<AnimatePresence>
 				<li className='nav1'>
 					<NavLink
 						to='/collections'
@@ -21,15 +25,23 @@ const NavBar = () => {
 						Your Collections
 					</NavLink>
 				</li>
-				<li className='nav1'>
-					<NavLink
+				<li className='nav1' onClick={() => setShowCreateForm(true)}>
+					{/* <NavLink
 						to='/beers/create'
 						exact={true}
 						activeClassName='active'
 					>
 						Create Beer
 						<div></div>
-					</NavLink>
+					</NavLink> */}
+					Create Beer
+					{showCreateForm && (
+						<CreateBeer
+							setShowModal={setShowModal}
+							setShowCreateForm={setShowCreateForm}
+							showModal={showModal}
+						/>
+					)}
 				</li>
 				<li className='nav1'>
 					<NavLink
@@ -48,7 +60,7 @@ const NavBar = () => {
 				<li>
 					<LogoutButton />
 				</li>
-			</>
+			</AnimatePresence>
 		);
 	} else {
 		sessionLinks = (
