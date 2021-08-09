@@ -3,6 +3,7 @@ const GET_ALL_COLLECTIONS = 'collections/GET_ALL_COLLECTIONS';
 const CREATE_COLLECTION = 'collections/CREATE_COLLECTION';
 const EDIT_COLLECTION = 'collections/EDIT_COLLECTION';
 const DELETE_COLLECTION = 'collections/DELETE_COLLECTION';
+// const CURRENT_COLLECTION = 'collections/CURRENT_COLLECTION';
 
 export const getCollection = (collection) => {
 	return {
@@ -38,6 +39,13 @@ export const deleteOneCollection = (collectionId) => {
 		collectionId,
 	};
 };
+
+// export const currentCollection = (collection) => {
+// 	return {
+// 		type: CREATE_COLLECTION,
+// 		collection,
+// 	};
+// };
 
 export const getAllCollections = () => async (dispatch) => {
 	const res = await fetch(`/api/collections/`);
@@ -130,7 +138,8 @@ export default function collectionReducer(state = initialState, action) {
 		case GET_ONE_COLLECTION:
 			return {
 				collections: { ...state.collections },
-				currentCollection: { ...action.currentCollection },
+				// currentCollection: { ...action.currentCollection },
+				currentCollection: { ...action.collection },
 				loaded: true,
 			};
 		case EDIT_COLLECTION:

@@ -1,0 +1,22 @@
+.allCollections-container {
+	display: grid;
+	grid-template-columns: 1fr 6fr;
+	grid-template-rows: auto;
+}
+
+.collection-beer-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.collection-beer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.beer-image > a > img {
+	overflow: hidden;
+	height: 50px;
+	width: 50px;
+}

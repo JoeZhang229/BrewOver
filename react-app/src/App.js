@@ -11,7 +11,8 @@ import RandomBeer from './components/Beer/RandomBeer';
 import CreateBeer from './components/Beer/CreateBeer';
 import AllCollections from './components/Collection/AllCollections';
 import CreateCollections from './components/Collection/CreateCollections';
-import Home from './components/Home';
+import Splash from './components/Splash';
+import Landing from './components/LandingPage';
 import { authenticate } from './store/session';
 
 function App() {
@@ -33,8 +34,11 @@ function App() {
 		<BrowserRouter>
 			<NavBar />
 			<Switch>
+				<Route path='/' exact={true}>
+					<Splash />
+				</Route>
 				<Route path='/login' exact={true}>
-					<Home />
+					<Splash />
 				</Route>
 				<Route path='/sign-up' exact={true}>
 					<SignUpForm />
@@ -60,8 +64,8 @@ function App() {
 				<ProtectedRoute exact path='/beers/:id'>
 					<OneBeer />
 				</ProtectedRoute>
-				<ProtectedRoute exact path='/'>
-					<Home />
+				<ProtectedRoute exact path='/home'>
+					<Landing />
 				</ProtectedRoute>
 			</Switch>
 		</BrowserRouter>

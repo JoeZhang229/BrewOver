@@ -14,11 +14,10 @@ def get_all_collections():
 
 @collection_routes.route('/<int:id>', methods=['GET'])
 @login_required
-def allBeer():
+def oneCollection(id):
     oneCollection = Collection.query.get(id)
-    allBeer = {collection.to_dict()['beers'] for collection in oneCollection}
-    print('backend beers', allBeer)
-    return jsonify(allBeer)
+
+    return oneCollection.to_dict()
 
 
 @collection_routes.route('/create', methods=['POST'])

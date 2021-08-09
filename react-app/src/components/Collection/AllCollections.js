@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AnimateSharedLayout } from 'framer-motion';
+import { motion } from 'framer-motion';
+import './css/AllCollections.css';
 
-import { getAllCollections, deleteCollection } from '../../store/collection';
+import {
+	getAllCollections,
+	deleteCollection,
+	getOneCollection,
+} from '../../store/collection';
 // import BeerCard from '../Beer/BeerCard';
 import { NavLink, Link } from 'react-router-dom';
 import { deleteBeer } from '../../store/beer';
@@ -16,6 +22,8 @@ export default function AllCollections() {
 		(state) => state.collections.currentCollection
 	);
 	const loaded = useSelector((state) => state.collections.loaded);
+
+	const [showEditModal, setEditModal] = useState(true);
 
 	const initializeForm = (beers) => {
 		if (beers === undefined) {
@@ -36,7 +44,21 @@ export default function AllCollections() {
 	);
 	const [showForm, setShowForm] = useState(initializeForm(collection));
 
-	const handleClick = (id, setState) => {
+	const [toggleCollection, setToggleCollection] = useState(
+		initializeForm(collection)
+	);
+
+	console.log('toggle collection state', toggleCollection);
+
+	const handleClick = (id, setState, state) => {
+		// for (const key in state) {
+		// 	if (key !== id) {
+		// 		setState((prev) => ({
+		// 			...prev,
+		// 			[key]: false,
+		// 		}));
+		// 	}
+		// }
 		return setState((prev) => ({
 			...prev,
 			[id]: true,
@@ -85,75 +107,99 @@ export default function AllCollections() {
 		dispatch(getAllCollections());
 	};
 
+	const handleCurrentCollection = (id) => {
+		dispatch(getOneCollection(id));
+		handleClick(id, setToggleCollection);
+	};
+
 	return (
-		<div>
-			<div>
-				Your Collections:
-				{collection &&
-					collection.map((collect) => (
-						<div
-							className='collection-container'
-							// onClick={() => loadCollection(currentCollection)}
-						>
-							<div>{collect.name}</div>
-							{/* <button
-					key={beer.id}
-					onClick={handleClick(beer.id, setShowForm)}
-				>
-					Edit
-											</button>*/}
-							<button
-								key={collect.id}
-								onClick={() =>
-									handleClick(
-										collect.id,
-										setShowCollectionForm
-									)
-								}
-							>
-								Edit
-							</button>
-							{showCollectionForm[collect.id] && (
-								<EditCollection collection={collect} />
-							)}
-							<button
-								onClick={() =>
-									handleDeleteCollection(collect.id)
-								}
-							>
-								Delete
-							</button>
-						</div>
-					))}
-			</div>
-			<div>
-				Current Collection:
-				{/* <div>{loaded && currentCollection.name}</div> */}
-				{/* <div>{JSON.stringify(beer)}</div> */}
-				{loaded &&
-					currentCollection?.beers?.map((beer) => (
-						// update heroku please
-						<div className='beer card'>
-							<Link to={`/beers/${beer.id}`} exact={true}>
-								<div>Name: {beer.name}</div>
-								<div>Description: {beer.description}</div>
-							</Link>
-							<div className='beer card buttons'>
-								<button
-									key={beer.id}
+		<div className='allCollections-container'>
+			<div className='collections-container'>
+				<h3>Your Collections</h3>
+				<div className='one-collection-container'>
+					{collection &&
+						collection.map((collect) => (
+							<div className='collection-container'>
+								<h3
 									onClick={() =>
-										handleClick(beer.id, setShowForm)
+										handleCurrentCollection(collect.id)
+									}
+								>
+									{collect.name}
+								</h3>
+								<button
+									key={collect.id}
+									onClick={() =>
+										handleClick(
+											collect.id,
+											setShowCollectionForm
+										)
 									}
 								>
 									Edit
 								</button>
-								{showForm[beer.id] && <EditBeer beer={beer} />}
-								<button onClick={() => handleDelete(beer.id)}>
+								{showCollectionForm[collect.id] && (
+									<EditCollection collection={collect} />
+								)}
+								<button
+									onClick={() =>
+										handleDeleteCollection(collect.id)
+									}
+								>
 									Delete
 								</button>
 							</div>
-						</div>
-					))}
+						))}
+				</div>
+			</div>
+			<div>
+				<div className='collection-beer-container'>
+					{/* <div>{loaded && currentCollection.name}</div> */}
+					{/* <div>{JSON.stringify(beer)}</div> */}
+					{loaded &&
+						currentCollection?.beers?.map((beer) => (
+							<div className='collection-beer'>
+								<div className='beer-info'>
+									{/* <label>Name </label> */}
+									<div className='beer-image'>
+										<Link
+											to={`/beers/${beer.id}`}
+											exact={true}
+										>
+											<img
+												src={
+													beer.image_url
+														? beer.image_url
+														: errorImg
+												}
+												alt='beer'
+											></img>
+										</Link>
+									</div>
+									<p>{beer.name}</p>
+								</div>
+								<p>Description: {beer.description}</p>
+								<div className='beer card buttons'>
+									<button
+										key={beer.id}
+										onClick={() =>
+											handleClick(beer.id, setShowForm)
+										}
+									>
+										Edit
+									</button>
+									{showForm[beer.id] && (
+										<EditBeer beer={beer} />
+									)}
+									<button
+										onClick={() => handleDelete(beer.id)}
+									>
+										Delete
+									</button>
+								</div>
+							</div>
+						))}
+				</div>
 			</div>
 		</div>
 	);
