@@ -15,7 +15,10 @@ const NavBar = () => {
 	let sessionLinks;
 	if (user) {
 		sessionLinks = (
-			<AnimatePresence>
+			<AnimatePresence
+				exitBeforeEnter
+				onExitComplete={() => setShowModal(false)}
+			>
 				<li className='nav1'>
 					<NavLink
 						to='/collections'
@@ -25,7 +28,18 @@ const NavBar = () => {
 						Your Collections
 					</NavLink>
 				</li>
-				<li className='nav1' onClick={() => setShowCreateForm(true)}>
+				<li
+					className='nav1'
+					onClick={() => {
+						console.log(
+							'nav clicked createform state',
+							showCreateForm
+						);
+						console.log('nav clicked showmodal state', showModal);
+						setShowCreateForm(true);
+						setShowModal(true);
+					}}
+				>
 					{/* <NavLink
 						to='/beers/create'
 						exact={true}
@@ -35,14 +49,14 @@ const NavBar = () => {
 						<div></div>
 					</NavLink> */}
 					Create Beer
-					{showCreateForm && (
-						<CreateBeer
-							setShowModal={setShowModal}
-							setShowCreateForm={setShowCreateForm}
-							showModal={showModal}
-						/>
-					)}
 				</li>
+				{showCreateForm && (
+					<CreateBeer
+						setShowModal={setShowModal}
+						setShowCreateForm={setShowCreateForm}
+						showModal={showModal}
+					/>
+				)}
 				<li className='nav1'>
 					<NavLink
 						to='/collections/create'

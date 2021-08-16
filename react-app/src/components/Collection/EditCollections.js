@@ -69,6 +69,10 @@ export default function EditCollection({
 					initial='hide'
 					animate='show'
 					exit='hide'
+					// exit Modal on click
+					onClick={() => {
+						setShowEditModal(false);
+					}}
 				>
 					<motion.form
 						className='edit-collection-form'
