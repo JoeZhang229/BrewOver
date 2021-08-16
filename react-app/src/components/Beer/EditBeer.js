@@ -83,6 +83,10 @@ export default function EditBeer({
 					initial='hide'
 					animate='show'
 					exit='hide'
+					// exit Modal on click
+					onClick={() => {
+						setShowEditModal(false);
+					}}
 				>
 					<motion.form
 						key={beer.id}

@@ -80,6 +80,11 @@ export default function CreateBeer({
 					initial='hide'
 					animate='show'
 					exit='hide'
+					// exit Modal on click
+					onClick={() => {
+						setShowModal(false);
+						// setShowCreateForm(false);
+					}}
 				>
 					<motion.form
 						onSubmit={(e) => onSubmit(e)}
