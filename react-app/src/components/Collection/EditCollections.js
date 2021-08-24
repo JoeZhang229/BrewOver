@@ -77,6 +77,8 @@ export default function EditCollection({
 					<motion.form
 						className='edit-collection-form'
 						variants={editForm}
+						// prevent modal from closing when clicked upon
+						onClick={(e) => e.stopPropagation()}
 						// already established animation props in parent element
 						onSubmit={(e) => onSubmit(e)}
 					>

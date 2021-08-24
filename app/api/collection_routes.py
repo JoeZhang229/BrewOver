@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.models import db, Beer, Collection
 from app.forms.collection_form import CollectionForm
 from flask_login import current_user, login_required
+from app.api.auth_routes import validation_errors_to_error_messages
 
 collection_routes = Blueprint('collections', __name__)
 
@@ -24,13 +25,18 @@ def oneCollection(id):
 @login_required
 def create_collection():
     data = request.get_json()
-    collection = Collection(
-        name=data['name'],
-        userId=current_user.id,
-    )
-    db.session.add(collection)
-    db.session.commit()
-    return collection.to_dict()
+
+    form = CollectionForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        collection = Collection(
+            name=data['name'],
+            userId=current_user.id,
+        )
+        db.session.add(collection)
+        db.session.commit()
+        return collection.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @collection_routes.route('/edit', methods=['PUT'])

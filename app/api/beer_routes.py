@@ -5,9 +5,14 @@ from flask_login import current_user, login_required
 
 beer_routes = Blueprint('beers', __name__)
 
+
 # @beer_routes.route('/', methods=['GET'])
 # @login_required
-# def all_beers():
+# def all_beers(collectionId):
+#     collection = Collection.query.get(collectionId)
+#     beers = collection.to_dict()['beers']
+#     print('backend collection beer', beers)
+#     return beers
 
 
 @beer_routes.route('/create', methods=['POST'])
