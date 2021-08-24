@@ -137,11 +137,19 @@ export default function collectionReducer(state = initialState, action) {
 				loaded: true,
 			};
 		case CREATE_COLLECTION:
+			collections = { ...state.collections };
+			collections[action.collection.id] = action.collection;
 			return {
-				collections: { ...state.collections, ...action.collection },
-				currentCollection: { ...state.currentCollection },
+				...state,
+				collections,
+				// currentCollection: action.collection[0],
 				loaded: true,
 			};
+		// return {
+		// 	collections: { ...state.collections, ...action.collection },
+		// 	currentCollection: { ...state.currentCollection },
+		// 	loaded: true,
+		// };
 		case GET_ONE_COLLECTION:
 			return {
 				collections: { ...state.collections },

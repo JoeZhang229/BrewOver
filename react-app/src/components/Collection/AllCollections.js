@@ -24,7 +24,7 @@ export default function AllCollections() {
 	const beers = useSelector((state) => state.beers.beers) || null;
 	const loaded = useSelector((state) => state.collections.loaded);
 
-	console.log('frontend beers', currentCollection.beers);
+	// console.log('frontend beers', currentCollection.beers);
 
 	const [showEditModal, setShowEditModal] = useState(true);
 
