@@ -22,10 +22,10 @@ export default function BeerCard({ beer }) {
 							alt={beer.description}
 						></img>
 					</div>
-					<div className='beer-card-name'>
-						<h3>Name: {beer.name}</h3>
-					</div>
+					{/* <div className='beer-card-name'> */}
+					{/* </div> */}
 					<div className='beer-card-info'>
+						<h3>Name: {beer.name}</h3>
 						<h4>Description</h4>
 						<p>{beer.description}</p>
 						<h4>ABV: </h4>

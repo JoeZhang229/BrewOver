@@ -57,7 +57,7 @@ export const unloadAllBeers = async (dispatch) => {
 };
 
 export const getAllBeers = () => async (dispatch) => {
-	const { beers } = await fetch(`/api/beers`);
+	const beers = await fetch(`/api/beers`);
 	dispatch(loadBeers(beers));
 };
 

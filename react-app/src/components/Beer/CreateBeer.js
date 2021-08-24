@@ -87,6 +87,8 @@ export default function CreateBeer({
 					}}
 				>
 					<motion.form
+						// prevent modal from closing when clicked upon
+						onClick={(e) => e.stopPropagation()}
 						onSubmit={(e) => onSubmit(e)}
 						className='create-beer-form'
 						variants={createForm}

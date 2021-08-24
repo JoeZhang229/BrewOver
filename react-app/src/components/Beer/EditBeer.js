@@ -23,6 +23,10 @@ export default function EditBeer({
 	const [hops, setHops] = useState(beer.hops);
 	const [yeast, setYeast] = useState(beer.yeast);
 
+	const handleModal = (e) => {
+		setShowEditModal(false);
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
@@ -83,15 +87,15 @@ export default function EditBeer({
 					initial='hide'
 					animate='show'
 					exit='hide'
-					// exit Modal on click
-					onClick={() => {
-						setShowEditModal(false);
-					}}
+					// exit Modal on click outside
+					onClick={() => handleModal()}
 				>
 					<motion.form
 						key={beer.id}
 						className='edit-beer-form'
 						variants={editForm}
+						// prevent modal from closing when clicked upon
+						onClick={(e) => e.stopPropagation()}
 						onSubmit={(e) => onSubmit(e)}
 					>
 						<h3>Edit Beer</h3>

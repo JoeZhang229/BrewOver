@@ -3,17 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import './css/AllCollections.css';
 
-import {
-	getAllCollections,
-	deleteCollection,
-	getOneCollection,
-} from '../../store/collection';
 // import BeerCard from '../Beer/BeerCard';
 import { NavLink, Link } from 'react-router-dom';
-import { deleteBeer, getAllBeers, loadBeers } from '../../store/beer';
-import EditBeer from '../Beer/EditBeer';
-import EditCollection from '../Collection/EditCollections';
-import errorImg from '../imgs/beer-error-icon.png';
+
 
 export default function AllCollections() {
 	const dispatch = useDispatch();
@@ -24,30 +16,6 @@ export default function AllCollections() {
 	const beers = useSelector((state) => state.beers.beers) || null;
 	const loaded = useSelector((state) => state.collections.loaded);
 
-	console.log('frontend beers', currentCollection.beers);
-
-	const [showEditModal, setShowEditModal] = useState(true);
-
-	const initializeForm = (beers) => {
-		if (beers === undefined) {
-			return null;
-		}
-		const beerState = {};
-		beers.forEach((beer) => {
-			beerState[beer.id] = false;
-		});
-		return beerState;
-	};
-
-	const collection =
-		useSelector((state) => Object.values(state.collections.collections)) ||
-		null;
-	const [showCollectionForm, setShowCollectionForm] = useState(
-		initializeForm(collection)
-	);
-	const [showBeerForm, setShowBeerForm] = useState(
-		initializeForm(collection)
-	);
 
 	const showClick = (id, setState) => {
 		return setState((prev) => ({
