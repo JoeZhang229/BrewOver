@@ -26,7 +26,7 @@ export default function CreateCollections() {
 			setErrors(data);
 		}
 
-		return <Redirect to='/collections' />;
+		return history.push('/collections');
 	};
 
 	return (
