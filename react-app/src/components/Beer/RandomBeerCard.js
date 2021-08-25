@@ -43,15 +43,15 @@ export default function RandomBeerCard({ beer }) {
 							</div>
 							<div>
 								Malt:
-								{destructure(malt)}
+								{malt && destructure(malt)}
 							</div>
 							<div>
 								Hops:
-								{destructure(hops)}
+								{hops && destructure(hops)}
 							</div>
 							<div>
 								Yeast:
-								<div>{yeast}</div>
+								<div>{yeast && yeast}</div>
 							</div>
 						</div>
 						<div className='beer-card-btn'>

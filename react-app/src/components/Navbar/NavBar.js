@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 import DemoUser from '../DemoUser';
 import logo from '../imgs/BrewOverLogo.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import CreateBeer from '../Beer/CreateBeer';
+import { getRandomBeer } from '../../store/beer';
 import './Navbar.css';
 
 const NavBar = () => {
+	const dispatch = useDispatch();
 	const user = useSelector((state) => state.session.user);
 	const [showCreateForm, setShowCreateForm] = useState(false);
 	const [showModal, setShowModal] = useState(true);
@@ -66,7 +68,8 @@ const NavBar = () => {
 						Create Collection
 					</NavLink>
 				</li>
-				<li>
+				{/* new random beer with every click in navbar*/}
+				<li onClick={() => dispatch(getRandomBeer())}>
 					<NavLink to='/beers/random' exact={true}>
 						Random Beer
 					</NavLink>
