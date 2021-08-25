@@ -24,6 +24,7 @@ export default function CreateCollections() {
 		);
 		if (data) {
 			setErrors(data);
+			return;
 		}
 
 		return history.push('/collections');

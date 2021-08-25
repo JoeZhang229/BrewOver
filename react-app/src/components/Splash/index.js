@@ -26,6 +26,11 @@ export default function Splash() {
 
 	return (
 		<div className='splash-container'>
+			<div className='video-container'>
+				<video autoplay='' loop muted>
+					<source src={splashVideo} type='video/mp4'></source>
+				</video>
+			</div>
 			<div className='title-container'>
 				<motion.h1
 					variants={splashAnimations(0.25)}
@@ -58,11 +63,6 @@ export default function Splash() {
 			>
 				<LoginForm />
 			</motion.div>
-			<div className='video-container'>
-				<video autoplay='' loop muted>
-					<source src={splashVideo} type='video/mp4'></source>
-				</video>
-			</div>
 		</div>
 	);
 }
