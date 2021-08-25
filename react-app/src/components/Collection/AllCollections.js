@@ -64,7 +64,9 @@ export default function AllCollections() {
 	};
 
 	useEffect(() => {
-		dispatch(loadBeers(currentCollection.beers));
+		if (currentCollection) {
+			dispatch(loadBeers(currentCollection.beers));
+		}
 	}, [dispatch, currentCollection]);
 
 	const handleDelete = (id) => {
@@ -88,7 +90,7 @@ export default function AllCollections() {
 			<div className='collections-container'>
 				<h3>Your Collections</h3>
 				<div className='one-collection-container'>
-					{collection &&
+					{collection.length ? (
 						collection.map((collect) => (
 							<div className='collection-container'>
 								<h3
@@ -129,14 +131,16 @@ export default function AllCollections() {
 									Delete
 								</button>
 							</div>
-						))}
+						))
+					) : (
+						<div>You have no collections!</div>
+					)}
 				</div>
 			</div>
 			<div>
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
-						{/* <div>{JSON.stringify(beer)}</div> */}
-						{loaded &&
+						{loaded && currentCollection?.beers?.length ? (
 							currentCollection?.beers?.map((beer) => (
 								<div className='collection-beer'>
 									<div className='beer-info'>
@@ -193,7 +197,12 @@ export default function AllCollections() {
 										</button>
 									</div>
 								</div>
-							))}
+							))
+						) : (
+							<div className='no-beers'>
+								You have no beers saved
+							</div>
+						)}
 					</motion.div>
 				</AnimateSharedLayout>
 			</div>

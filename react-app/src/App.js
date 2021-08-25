@@ -10,7 +10,7 @@ import OneBeer from './components/Beer/OneBeer';
 import RandomBeer from './components/Beer/RandomBeer';
 import CreateBeer from './components/Beer/CreateBeer';
 import AllCollections from './components/Collection/AllCollections';
-import CreateCollections from './components/Collection/CreateCollections';
+import CreateCollections from './components/Collection/CreateCollection';
 import Splash from './components/Splash';
 import Landing from './components/LandingPage';
 import Footer from './components/Footer';
