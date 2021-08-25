@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { editCollection } from '../../store/collection';
+import Modal from '../Modal';
 import './css/EditCollection.css';
 
 export default function EditCollection({
@@ -30,11 +31,7 @@ export default function EditCollection({
 		hideClick(collection.id, setShowCollectionForm);
 	};
 
-	const background = {
-		hide: { opacity: 0 },
-		show: { opacity: 1 },
-	};
-
+	// animation property
 	const editForm = {
 		hide: {
 			opacity: 0,
@@ -50,53 +47,38 @@ export default function EditCollection({
 		},
 	};
 
+	const innerForm = (
+		<motion.form
+			className='edit-collection-form'
+			// establish animation props to keys in variant object
+			variants={editForm}
+			// prevent modal from closing when clicked upon
+			onClick={(e) => e.stopPropagation()}
+			// already established animation props in parent element
+			onSubmit={(e) => onSubmit(e)}
+		>
+			<h3>Edit Collection</h3>
+			<label>Name </label>
+			<input
+				onChange={({ target: { value } }) => setCollectionName(value)}
+				placeholder={collection.name}
+				value={collectionName}
+				autoFocus
+				required
+			></input>
+			<button type='submit'>Save</button>
+		</motion.form>
+	);
+
 	return (
 		// control animation before or after loading
-		<AnimatePresence
-			exitBeforeEnter
-			// change modal state based on changing page or completing form
-			onExitComplete={() => {
-				setShowEditModal(false);
-				hideClick(collection.id, setShowCollectionForm);
-			}}
-		>
-			{showEditModal && (
-				// background container
-				<motion.div
-					className='background'
-					variants={background}
-					// establish animation props to keys in variant object
-					initial='hide'
-					animate='show'
-					exit='hide'
-					// exit Modal on click
-					onClick={() => {
-						setShowEditModal(false);
-					}}
-				>
-					<motion.form
-						className='edit-collection-form'
-						variants={editForm}
-						// prevent modal from closing when clicked upon
-						onClick={(e) => e.stopPropagation()}
-						// already established animation props in parent element
-						onSubmit={(e) => onSubmit(e)}
-					>
-						<h3>Edit Collection</h3>
-						<label>Name </label>
-						<input
-							onChange={({ target: { value } }) =>
-								setCollectionName(value)
-							}
-							placeholder={collection.name}
-							value={collectionName}
-							autoFocus
-							required
-						></input>
-						<button type='submit'>Save</button>
-					</motion.form>
-				</motion.div>
-			)}
-		</AnimatePresence>
+		<Modal
+			setShowModal={setShowEditModal}
+			hideClick={hideClick}
+			showModal={showEditModal}
+			form={collection}
+			setShowForm={setShowCollectionForm}
+			innerForm={innerForm}
+		/>
 	);
 }

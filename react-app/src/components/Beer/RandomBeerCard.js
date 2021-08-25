@@ -7,8 +7,9 @@ import './css/beercard.css';
 
 export default function RandomBeerCard({ beer }) {
 	// const beer = useSelector((state) => state.beers.currentBeer) || null;
-	const { ingredients } = beer;
-	const { malt, yeast, hops } = ingredients;
+	// const { ingredients } = beer;
+
+	const { malt, yeast, hops } = beer.ingredients;
 
 	const destructure = (arr) => {
 		const result = new Set();

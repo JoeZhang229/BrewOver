@@ -6,14 +6,18 @@ import DemoUser from '../DemoUser';
 import logo from '../imgs/BrewOverLogo.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import CreateBeer from '../Beer/CreateBeer';
+import CreateCollections from '../Collection/CreateCollection';
 import { getRandomBeer } from '../../store/beer';
 import './Navbar.css';
 
 const NavBar = () => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.session.user);
+
 	const [showCreateForm, setShowCreateForm] = useState(false);
 	const [showModal, setShowModal] = useState(true);
+	const [showCollectionForm, setShowCollectionForm] = useState(false);
+	const [showCollectModal, setShowCollectModal] = useState(true);
 	let sessionLinks;
 	if (user) {
 		sessionLinks = (
@@ -42,14 +46,6 @@ const NavBar = () => {
 						setShowModal(true);
 					}}
 				>
-					{/* <NavLink
-						to='/beers/create'
-						exact={true}
-						activeClassName='active'
-					>
-						Create Beer
-						<div></div>
-					</NavLink> */}
 					Create Beer
 				</li>
 				{showCreateForm && (
@@ -59,15 +55,22 @@ const NavBar = () => {
 						showModal={showModal}
 					/>
 				)}
-				<li className='nav1'>
-					<NavLink
-						to='/collections/create'
-						exact={true}
-						activeClassName='active'
-					>
-						Create Collection
-					</NavLink>
+				<li
+					className='nav1'
+					onClick={() => {
+						setShowCollectionForm(true);
+						setShowCollectModal(true);
+					}}
+				>
+					Create Collection
 				</li>
+				{showCollectionForm && (
+					<CreateCollections
+						setShowModal={setShowCollectModal}
+						setShowCreateForm={setShowCollectionForm}
+						showModal={showCollectModal}
+					/>
+				)}
 				{/* new random beer with every click in navbar*/}
 				<li onClick={() => dispatch(getRandomBeer())}>
 					<NavLink to='/beers/random' exact={true}>

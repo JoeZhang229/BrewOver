@@ -8,6 +8,7 @@
 	margin: 0 auto;
 	border-radius: 10px;
 	text-align: center;
+	z-index: 1;
 }
 
 .create-beer-form input,
