@@ -10,7 +10,7 @@ import CreateCollections from '../Collection/CreateCollection';
 import { getRandomBeer } from '../../store/beer';
 import './Navbar.css';
 
-const NavBar = () => {
+const NavBar = ({ num, setNum }) => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.session.user);
 
@@ -72,7 +72,10 @@ const NavBar = () => {
 					/>
 				)}
 				{/* new random beer with every click in navbar*/}
-				<li onClick={() => dispatch(getRandomBeer())}>
+				<li
+					// onClick={() => dispatch(getRandomBeer())}
+					onClick={() => setNum(!num)}
+				>
 					<NavLink to='/beers/random' exact={true}>
 						Random Beer
 					</NavLink>

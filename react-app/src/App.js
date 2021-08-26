@@ -20,6 +20,9 @@ function App() {
 	const [loaded, setLoaded] = useState(false);
 	const dispatch = useDispatch();
 
+	// connect dispatch random beer to toggled state for navbar
+	const [num, setNum] = useState(false);
+
 	useEffect(() => {
 		(async () => {
 			await dispatch(authenticate());
@@ -33,7 +36,7 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<NavBar />
+			<NavBar num={num} setNum={setNum} />
 			<Switch>
 				<Route path='/' exact={true}>
 					<Splash />
@@ -60,7 +63,7 @@ function App() {
 					<CreateBeer />
 				</ProtectedRoute>
 				<ProtectedRoute exact path='/beers/random'>
-					<RandomBeer />
+					<RandomBeer num={num} />
 				</ProtectedRoute>
 				<ProtectedRoute exact path='/beers/:id'>
 					<OneBeer />

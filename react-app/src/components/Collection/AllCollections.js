@@ -142,6 +142,7 @@ export default function AllCollections() {
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
 						{loaded && currentCollection?.beers?.length ? (
+							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (
 								<div className='collection-beer'>
 									<div className='beer-info'>
