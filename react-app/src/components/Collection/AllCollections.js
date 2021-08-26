@@ -22,6 +22,7 @@ export default function AllCollections() {
 	);
 
 	const beers = useSelector((state) => state.beers.beers) || null;
+	console.log('beers', Object.values(beers));
 	const loaded = useSelector((state) => state.collections.loaded);
 
 	// console.log('frontend beers', currentCollection.beers);
@@ -141,7 +142,7 @@ export default function AllCollections() {
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
 						{loaded && currentCollection?.beers?.length ? (
-							currentCollection?.beers?.map((beer) => (
+							Object.values(beers).map((beer) => (
 								<div className='collection-beer'>
 									<div className='beer-info'>
 										<div className='beer-image'>
