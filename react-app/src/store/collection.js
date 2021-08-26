@@ -4,6 +4,14 @@ const CREATE_COLLECTION = 'collections/CREATE_COLLECTION';
 const EDIT_COLLECTION = 'collections/EDIT_COLLECTION';
 const DELETE_COLLECTION = 'collections/DELETE_COLLECTION';
 // const CURRENT_COLLECTION = 'collections/CURRENT_COLLECTION';
+const EDIT_BEER = 'beers/EDIT';
+
+export const changeBeer = (beer) => {
+	return {
+		type: EDIT_BEER,
+		beer: beer,
+	};
+};
 
 export const getCollection = (collection) => {
 	return {
@@ -51,6 +59,7 @@ export const getAllCollections = () => async (dispatch) => {
 	const res = await fetch(`/api/collections/`);
 	if (res.ok) {
 		const collections = await res.json();
+		console.log('all collection object', collections);
 		dispatch(loadCollections(collections));
 		return collections;
 	}
@@ -117,6 +126,22 @@ export const deleteCollection = (collectionId) => async (dispatch) => {
 	}
 };
 
+// EDIT ONE BEER_REDUCER
+export const editBeer = (beerData) => async (dispatch) => {
+	const res = await fetch('/api/beers/edit', {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(beerData),
+	});
+	if (res.ok) {
+		const editedBeer = await res.json();
+		console.log('this is the editedBeer', editedBeer);
+		dispatch(changeBeer(editedBeer));
+	}
+};
+
 const initialState = {
 	collections: {},
 	currentCollection: '',
@@ -153,7 +178,6 @@ export default function collectionReducer(state = initialState, action) {
 		case GET_ONE_COLLECTION:
 			return {
 				collections: { ...state.collections },
-				// currentCollection: { ...action.currentCollection },
 				currentCollection: { ...action.collection },
 				loaded: true,
 			};
@@ -169,7 +193,26 @@ export default function collectionReducer(state = initialState, action) {
 			return {
 				...collections,
 			};
+		case EDIT_BEER:
+			collections = { ...state };
+			collections.currentCollection.beers.map((beer) => {
+				console.log('currentCollection beer', beer.id, action.beer);
+				if (beer.id === action.beer.id) {
+					console.log('changed beer', beer);
+					return (beer = action.beer);
+				}
+			});
+			return {
+				collections: { ...collections.collections },
+				currentCollection: {
+					...collections.currentCollection,
+					beers: [...collections.currentCollection.beers],
+				},
+				loaded: true,
+			};
+			// ...collections,
+			// ...collections.currentCollection.beers,
 		default:
-			return state;
+			return { ...state };
 	}
 }

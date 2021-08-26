@@ -5,21 +5,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getRandomBeer } from '../../store/beer';
 import RandomBeerCard from './RandomBeerCard';
 
-export default function RandomBeer() {
+export default function RandomBeer({ num }) {
 	const dispatch = useDispatch();
 	const beer = useSelector((state) => state.beers.currentBeer);
 	const loaded = useSelector((state) => state.beers.loaded);
 
 	// causing re-render twice? removing causes no render at refresh
-	useEffect(() => {
-		dispatch(getRandomBeer());
+	useEffect(async () => {
+		await dispatch(getRandomBeer());
 		// return () => dispatch(unloadAllBeers());
 		// dispatch(postsLoaded());
-	}, [dispatch]);
+	}, [dispatch, num]);
 
 	return (
 		<div className='container'>
-			{beer && <RandomBeerCard beer={beer} />}
+			{beer.ingredients && <RandomBeerCard beer={beer} />}
 		</div>
 	);
 }

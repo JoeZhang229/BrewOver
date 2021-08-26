@@ -21,7 +21,7 @@ export default function AllCollections() {
 		(state) => state.collections.currentCollection
 	);
 
-	const beers = useSelector((state) => state.beers.beers) || null;
+	const beers = useSelector((state) => state.beers.beers);
 	const loaded = useSelector((state) => state.collections.loaded);
 
 	// console.log('frontend beers', currentCollection.beers);
@@ -39,9 +39,9 @@ export default function AllCollections() {
 		return beerState;
 	};
 
-	const collection =
-		useSelector((state) => Object.values(state.collections.collections)) ||
-		null;
+	const collection = useSelector((state) =>
+		Object.values(state.collections.collections)
+	);
 	const [showCollectionForm, setShowCollectionForm] = useState(
 		initializeForm(collection)
 	);
@@ -65,6 +65,7 @@ export default function AllCollections() {
 
 	useEffect(() => {
 		if (currentCollection) {
+			// grabs all beers based on collection
 			dispatch(loadBeers(currentCollection.beers));
 		}
 	}, [dispatch, currentCollection]);
@@ -140,69 +141,74 @@ export default function AllCollections() {
 			<div>
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
-						{loaded && currentCollection?.beers?.length ? (
-							currentCollection?.beers?.map((beer) => (
-								<div className='collection-beer'>
-									<div className='beer-info'>
-										<div className='beer-image'>
-											<Link
-												to={`/beers/${beer.id}`}
-												exact={true}
-											>
-												<img
-													src={
-														beer.image_url
-															? beer.image_url
-															: errorImg
-													}
-													alt='beer'
-												></img>
-											</Link>
+						{
+							loaded &&
+								// currentCollection?.beers?.length
+								currentCollection?.beers?.map((beer) => (
+									<div className='collection-beer'>
+										<div className='beer-info'>
+											<div className='beer-image'>
+												<Link
+													to={`/beers/${beer.id}`}
+													exact={true}
+												>
+													<img
+														src={
+															beer.image_url
+																? beer.image_url
+																: errorImg
+														}
+														alt='beer'
+													></img>
+												</Link>
+											</div>
+											<p>{beer.name}</p>
 										</div>
-										<p>{beer.name}</p>
-									</div>
-									<div className='beer card buttons'>
-										<button
-											key={beer.id}
-											onClick={() => {
-												showClick(
-													beer.id,
-													setShowBeerForm
-												);
-												setShowEditModal(true);
-											}}
-										>
-											Edit
-										</button>
-										{showBeerForm[beer.id] && (
-											<EditBeer
-												beer={beer}
-												showEditModal={showEditModal}
-												setShowEditModal={
-													setShowEditModal
+										<div className='beer card buttons'>
+											<button
+												key={beer.id}
+												onClick={() => {
+													showClick(
+														beer.id,
+														setShowBeerForm
+													);
+													setShowEditModal(true);
+												}}
+											>
+												Edit
+											</button>
+											{showBeerForm[beer.id] && (
+												<EditBeer
+													beer={beer}
+													showEditModal={
+														showEditModal
+													}
+													setShowEditModal={
+														setShowEditModal
+													}
+													showBeerForm={showBeerForm}
+													setShowBeerForm={
+														setShowBeerForm
+													}
+													hideClick={hideClick}
+												/>
+											)}
+											<button
+												onClick={() =>
+													handleDelete(beer.id)
 												}
-												showBeerForm={showBeerForm}
-												setShowBeerForm={
-													setShowBeerForm
-												}
-												hideClick={hideClick}
-											/>
-										)}
-										<button
-											onClick={() =>
-												handleDelete(beer.id)
-											}
-										>
-											Delete
-										</button>
+											>
+												Delete
+											</button>
+										</div>
 									</div>
-								</div>
-							))
-						) : (
-							<div className='no-beers'>
-								You have no beers saved
-							</div>
-						)}
+								))
+							// : (
+							// 	<div className='no-beers'>
+							// 		You have no beers saved
+							// 	</div>
+							// )
+						}
 					</motion.div>
 				</AnimateSharedLayout>
 			</div>

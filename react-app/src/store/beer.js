@@ -4,7 +4,7 @@ const GET_ALL_BEERS = 'beers/GET_ALL_BEERS';
 const UNLOAD_BEERS = 'beers/UNLOAD';
 const UNLOAD_ONE_BEER = 'beers/UNLOAD_ONE';
 const CREATE_BEER = 'beers/CREATE';
-const EDIT_BEER = 'beers/EDIT';
+// const EDIT_BEER = 'beers/EDIT';
 const DELETE_BEER = 'beers/DELETE';
 
 export const getBeer = (beer) => {
@@ -28,12 +28,12 @@ export const createBeer = (beer) => {
 	};
 };
 
-export const changeBeer = (beer) => {
-	return {
-		type: EDIT_BEER,
-		beer: beer,
-	};
-};
+// export const changeBeer = (beer) => {
+// 	return {
+// 		type: EDIT_BEER,
+// 		beer: beer,
+// 	};
+// };
 
 export const delBeer = (beerId) => {
 	return {
@@ -76,6 +76,7 @@ export const createOneBeer = (beerData) => async (dispatch) => {
 	}
 };
 
+// BACKEND
 export const getOneBeer = (id) => async (dispatch) => {
 	const res = await fetch(`/api/beers/${id}`);
 
@@ -86,6 +87,7 @@ export const getOneBeer = (id) => async (dispatch) => {
 	}
 };
 
+// API
 export const getRandomBeer = () => async (dispatch) => {
 	const res = await fetch('https://api.punkapi.com/v2/beers/random');
 
@@ -95,19 +97,20 @@ export const getRandomBeer = () => async (dispatch) => {
 };
 
 // PUT
-export const editBeer = (beerData) => async (dispatch) => {
-	const res = await fetch('/api/beers/edit', {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(beerData),
-	});
-	if (res.ok) {
-		const editedBeer = await res.json();
-		dispatch(changeBeer(editedBeer));
-	}
-};
+// export const editBeer = (beerData) => async (dispatch) => {
+// const res = await fetch('/api/beers/edit', {
+// 	method: 'PUT',
+// 	headers: {
+// 		'Content-Type': 'application/json',
+// 	},
+// 	body: JSON.stringify(beerData),
+// });
+// if (res.ok) {
+// 	const editedBeer = await res.json();
+// 	console.log('this is the editedBeer', editedBeer);
+// 	dispatch(changeBeer(editedBeer));
+// }
+// };
 
 // DELETE
 export const deleteBeer = (id) => async (dispatch) => {
@@ -132,7 +135,7 @@ export default function beerReducer(state = initialState, action) {
 	switch (action.type) {
 		// deep copy to ensure useEffect checks the differences in state
 		case GET_ALL_BEERS:
-			action.beer.forEach((oneBeer) => {
+			Object.values(action.beer).forEach((oneBeer) => {
 				beers[oneBeer.id] = oneBeer;
 			});
 			return {
@@ -161,17 +164,12 @@ export default function beerReducer(state = initialState, action) {
 				currentBeer: { ...action.beer },
 				loaded: true,
 			};
-		case EDIT_BEER:
-			beers = { ...state };
-			beers.beers[action.beer.id] = action.beer;
-			// return {
-			// 	beers: { ...state.beers, ...action.beer },
-			// 	currentBeer: { ...action.beer },
-			// 	loaded: true,
-			// };
-			return {
-				...beers,
-			};
+		// case EDIT_BEER:
+		// 	beers = { ...state };
+		// 	beers.beers[action.beer.id] = action.beer;
+		// 	return {
+		// 		...beers,
+		// 	};
 		case DELETE_BEER:
 			beers = { ...state };
 			delete beers.beers[action.beerId];
