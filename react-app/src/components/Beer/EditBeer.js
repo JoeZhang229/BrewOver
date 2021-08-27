@@ -25,10 +25,6 @@ export default function EditBeer({
 	const [hops, setHops] = useState(beer.hops);
 	const [yeast, setYeast] = useState(beer.yeast);
 
-	const handleModal = (e) => {
-		setShowEditModal(false);
-	};
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 

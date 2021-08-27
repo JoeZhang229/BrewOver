@@ -38,28 +38,28 @@ function App() {
 		<BrowserRouter>
 			<NavBar num={num} setNum={setNum} />
 			<Switch>
-				<Route path='/' exact={true}>
+				<Route exact path='/'>
 					<Splash />
 				</Route>
-				<Route path='/login' exact={true}>
+				<Route exact path='/login'>
 					<Splash />
 				</Route>
-				<Route path='/sign-up' exact={true}>
+				<Route exact path='/sign-up'>
 					<SignUpForm />
 				</Route>
-				<ProtectedRoute path='/users' exact={true}>
+				<ProtectedRoute exact path='/users'>
 					<UsersList />
 				</ProtectedRoute>
-				<ProtectedRoute path='/users/:userId' exact={true}>
+				<ProtectedRoute exact path='/users/:userId'>
 					<User />
 				</ProtectedRoute>
-				<ProtectedRoute path='/collections' exact={true}>
+				<ProtectedRoute exact path='/collections'>
 					<AllCollections />
 				</ProtectedRoute>
-				<ProtectedRoute path='/collections/create' exact={true}>
+				<ProtectedRoute exact path='/collections/create'>
 					<CreateCollections />
 				</ProtectedRoute>
-				<ProtectedRoute path='/beers/create' exact={true}>
+				<ProtectedRoute exact path='/beers/create'>
 					<CreateBeer />
 				</ProtectedRoute>
 				<ProtectedRoute exact path='/beers/random'>

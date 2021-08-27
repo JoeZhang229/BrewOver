@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 import DemoUser from '../DemoUser';
 import logo from '../imgs/BrewOverLogo.png';
@@ -24,11 +24,7 @@ const NavBar = ({ num, setNum }) => {
 				onExitComplete={() => setShowModal(false)}
 			>
 				<li className='nav1'>
-					<NavLink
-						to='/collections'
-						exact={true}
-						activeClassName='active'
-					>
+					<NavLink exact to='/collections'>
 						Your Collections
 					</NavLink>
 				</li>
@@ -66,7 +62,7 @@ const NavBar = ({ num, setNum }) => {
 				)}
 				{/* new random beer with every click in navbar*/}
 				<li onClick={() => setNum(!num)}>
-					<NavLink to='/beers/random' exact={true}>
+					<NavLink exact to='/beers/random'>
 						Random Beer
 					</NavLink>
 				</li>
@@ -79,22 +75,13 @@ const NavBar = ({ num, setNum }) => {
 		sessionLinks = (
 			<>
 				<li>
-					<NavLink
-						to='/'
-						exact={true}
-						activeClassName='active'
-						className='login'
-					>
+					<NavLink exact to='/' className='login'>
 						Login
 						<div></div>
 					</NavLink>
 				</li>
 				<li>
-					<NavLink
-						to='/sign-up'
-						exact={true}
-						activeClassName='active'
-					>
+					<NavLink exact to='/sign-up'>
 						Sign Up
 						<div></div>
 					</NavLink>
@@ -111,7 +98,7 @@ const NavBar = ({ num, setNum }) => {
 			<ul className='navbar navlinks'>
 				<div className='navbar left'>
 					<div className='navbar logo'>
-						<Link to='/' exact={true} activeClassName='active'>
+						<Link exact to='/'>
 							<img src={logo} alt='logo'></img>
 						</Link>
 					</div>

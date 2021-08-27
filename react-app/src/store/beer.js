@@ -135,11 +135,11 @@ export default function beerReducer(state = initialState, action) {
 	switch (action.type) {
 		// deep copy to ensure useEffect checks the differences in state
 		case GET_ALL_BEERS:
+			beers = { ...state.beers };
 			action.beer.forEach((oneBeer) => {
 				beers[oneBeer.id] = oneBeer;
 			});
 			return {
-				...state,
 				beers,
 				currentBeer: action.beer[0],
 				loaded: true,

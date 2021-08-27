@@ -61,7 +61,7 @@ export default function Home() {
 				</NavLink>
 			</motion.div>
 			<div className='home-video-container'>
-				<video autoplay='' muted>
+				<video autoPlay='' muted>
 					<source src={welcomePageVid} type='video/mp4'></source>
 				</video>
 			</div>
