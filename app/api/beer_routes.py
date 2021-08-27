@@ -14,8 +14,6 @@ def create_beer():
     beerObj = Beer()
     form.populate_obj(beerObj)
 
-    print(beerObj.beer_dict())
-
     currentCollection = Collection.query.get(data['collectionId'])
     if (currentCollection.userId == current_user.id):
         currentCollection.beers.append(beerObj)
@@ -46,29 +44,22 @@ def one_beer(id):
 @beer_routes.route('/<int:beerId>', methods=['DELETE'])
 @login_required
 def delete_beer(beerId):
-    # userId = current_user.id
-    # userCollections = current_user.to_dict()['collections']
-    # print('user collections', userCollections)
+
     data = request.get_json()
     collectionId = data['collectionId']
     currentCollection = (Collection.query.get(collectionId))
-    # print('selected Collection ######~#~#~#~~~~~~~~######',
-    #       currentCollection['beers'])
     beerCollection = currentCollection.beers
 
     [beer] = [beer for beer in beerCollection if beer.id is beerId]
-    print('deleted beer####################~~~~~~~~~~~~~~#################', beer)
+    # delete if user created
     if beer.userId == current_user.id:
         dbBeer = Beer.query.get(beerId)
         db.session.delete(dbBeer)
         db.session.commit()
+    # delete from user collection
     elif currentCollection.userId == current_user.id:
         # beerCollection.remove(beer)
-        print('old beers collection~~~~~~~~~###########',
-              currentCollection.beers)
         currentCollection.beers.remove(beer)
-        print('post-delete beers collection~~~~~~~~~~~~############',
-              currentCollection.beers)
         db.session.add(currentCollection)
         db.session.commit()
     return {'message': 'deleted beer'}

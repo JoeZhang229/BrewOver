@@ -1,14 +1,10 @@
 import React from 'react';
 
 import SaveBeer from './SaveBeer';
-import { useSelector, useDispatch } from 'react-redux';
 import errorImg from '../imgs/beer-error-icon.png';
 import './css/beercard.css';
 
 export default function RandomBeerCard({ beer }) {
-	// const beer = useSelector((state) => state.beers.currentBeer) || null;
-	// const { ingredients } = beer;
-
 	const { malt, yeast, hops } = beer.ingredients;
 
 	const destructure = (arr) => {

@@ -8,8 +8,7 @@ import {
 	deleteCollection,
 	getOneCollection,
 } from '../../store/collection';
-// import BeerCard from '../Beer/BeerCard';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { deleteBeer, loadBeers } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
 import EditCollection from '../Collection/EditCollections';
@@ -24,10 +23,7 @@ export default function AllCollections() {
 	const user = useSelector((state) => state.session.user);
 
 	const beers = useSelector((state) => state.beers.beers) || null;
-	console.log('beers', Object.values(beers));
 	const loaded = useSelector((state) => state.collections.loaded);
-
-	// console.log('frontend beers', currentCollection.beers);
 
 	const [showEditModal, setShowEditModal] = useState(true);
 

@@ -33,8 +33,7 @@ export default function CreateCollections({
 			setErrors(data);
 			return;
 		}
-
-		// return history.push('/collections');
+		setShowModal(false);
 	};
 
 	//animation property
