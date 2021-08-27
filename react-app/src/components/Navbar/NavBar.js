@@ -4,14 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 import DemoUser from '../DemoUser';
 import logo from '../imgs/BrewOverLogo.png';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import CreateBeer from '../Beer/CreateBeer';
 import CreateCollections from '../Collection/CreateCollection';
-import { getRandomBeer } from '../../store/beer';
 import './Navbar.css';
 
 const NavBar = ({ num, setNum }) => {
-	const dispatch = useDispatch();
 	const user = useSelector((state) => state.session.user);
 
 	const [showCreateForm, setShowCreateForm] = useState(false);
@@ -37,11 +35,6 @@ const NavBar = ({ num, setNum }) => {
 				<li
 					className='nav1'
 					onClick={() => {
-						console.log(
-							'nav clicked createform state',
-							showCreateForm
-						);
-						console.log('nav clicked showmodal state', showModal);
 						setShowCreateForm(true);
 						setShowModal(true);
 					}}

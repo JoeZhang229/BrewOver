@@ -9,7 +9,9 @@ class Drink(db.Model):
     image_url = db.Column(db.String(50))
     abv = db.Column(db.String(50))
     description = db.Column(db.Text)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'))
     type = db.Column(db.String(50))  # db,Enum('beer', 'cocktail', name=type)
+    users = db.relationship('User', backref='drinks')
 
     __mapper_args__ = {
         'polymorphic_identity': 'drinks',
@@ -23,5 +25,6 @@ class Drink(db.Model):
             'abv': self.abv,
             'image_url': self.image_url,
             'description': self.description,
+            'userId': self.userId,
             'type': self.type,
         }

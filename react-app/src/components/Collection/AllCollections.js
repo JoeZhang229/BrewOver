@@ -8,9 +8,8 @@ import {
 	deleteCollection,
 	getOneCollection,
 } from '../../store/collection';
-// import BeerCard from '../Beer/BeerCard';
-import { NavLink, Link } from 'react-router-dom';
-import { deleteBeer, getAllBeers, loadBeers } from '../../store/beer';
+import { Link } from 'react-router-dom';
+import { deleteBeer, loadBeers } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
 import EditCollection from '../Collection/EditCollections';
 import errorImg from '../imgs/beer-error-icon.png';
@@ -21,11 +20,10 @@ export default function AllCollections() {
 		(state) => state.collections.currentCollection
 	);
 
-	const beers = useSelector((state) => state.beers.beers) || null;
-	console.log('beers', Object.values(beers));
-	const loaded = useSelector((state) => state.collections.loaded);
+	const user = useSelector((state) => state.session.user);
 
-	// console.log('frontend beers', currentCollection.beers);
+	const beers = useSelector((state) => state.beers.beers) || null;
+	const loaded = useSelector((state) => state.collections.loaded);
 
 	const [showEditModal, setShowEditModal] = useState(true);
 
@@ -71,7 +69,7 @@ export default function AllCollections() {
 	}, [dispatch, currentCollection]);
 
 	const handleDelete = (id) => {
-		dispatch(deleteBeer(id));
+		dispatch(deleteBeer(id, currentCollection.id));
 		dispatch(getAllCollections());
 	};
 
@@ -89,18 +87,21 @@ export default function AllCollections() {
 	return (
 		<div className='allCollections-container'>
 			<div className='collections-container'>
-				<h3>Your Collections</h3>
+				<div>
+					<h3>Your Collections</h3>
+				</div>
 				<div className='one-collection-container'>
 					{collection.length ? (
 						collection.map((collect) => (
 							<div className='collection-container'>
-								<h3
+								<h3>{collect.name}</h3>
+								<button
 									onClick={() =>
 										handleCurrentCollection(collect.id)
 									}
 								>
-									{collect.name}
-								</h3>
+									View
+								</button>
 								<button
 									key={collect.id}
 									onClick={() => {
@@ -141,7 +142,7 @@ export default function AllCollections() {
 			<div>
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
-						{loaded && currentCollection?.beers?.length ? (
+						{loaded && beers ? (
 							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (
 								<div className='collection-beer'>
@@ -164,18 +165,20 @@ export default function AllCollections() {
 										<p>{beer.name}</p>
 									</div>
 									<div className='beer card buttons'>
-										<button
-											key={beer.id}
-											onClick={() => {
-												showClick(
-													beer.id,
-													setShowBeerForm
-												);
-												setShowEditModal(true);
-											}}
-										>
-											Edit
-										</button>
+										{beer.userId === user.id && (
+											<button
+												key={beer.id}
+												onClick={() => {
+													showClick(
+														beer.id,
+														setShowBeerForm
+													);
+													setShowEditModal(true);
+												}}
+											>
+												Edit
+											</button>
+										)}
 										{showBeerForm[beer.id] && (
 											<EditBeer
 												beer={beer}

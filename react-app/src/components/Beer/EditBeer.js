@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { editBeer, loadBeers } from '../../store/beer';
+import { editBeer } from '../../store/beer';
 import { motion, AnimatePresence } from 'framer-motion';
 import './css/EditBeer.css';
-import { getAllCollections } from '../../store/collection';
 
 export default function EditBeer({
 	beer,

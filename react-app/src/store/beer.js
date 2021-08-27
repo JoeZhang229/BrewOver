@@ -110,14 +110,17 @@ export const editBeer = (beerData) => async (dispatch) => {
 };
 
 // DELETE
-export const deleteBeer = (id) => async (dispatch) => {
-	const res = await fetch(`/api/beers/${id}`, {
+export const deleteBeer = (beerId, collectionId) => async (dispatch) => {
+	const res = await fetch(`/api/beers/${beerId}`, {
 		method: 'DELETE',
-		body: JSON.stringify({ id }),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ beerId: beerId, collectionId: collectionId }),
 	});
 	if (res.ok) {
 		await res.json();
-		dispatch(delBeer(id));
+		dispatch(delBeer(beerId));
 		return res;
 	}
 };
@@ -142,18 +145,10 @@ export default function beerReducer(state = initialState, action) {
 				loaded: true,
 			};
 		case CREATE_BEER:
-			// return {
-			// 	...state,
-			// 	beers: {
-			// 		...state.beers,
-			// 		[action.beer.id]: action.beer,
-			// 	},
-			// };
+			beers = { ...state };
+			beers.beers[action.beer.id] = action.beer;
 			return {
-				beers: { ...state.beers, ...action.beer },
-				// currentBeer: { ...action.beer },
-				currentBeer: { ...state.currentBeer },
-				loaded: true,
+				...beers,
 			};
 		case GET_ONE_BEER:
 			return {
