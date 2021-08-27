@@ -58,9 +58,13 @@ def one_beer(id):
 @login_required
 def delete_beer(id):
     # userId = current_user.id
-    # userCollections = current_user.to_dict()['collections']
+    userCollections = current_user.to_dict()['collections']
+    print('user collections', userCollections)
     beer = Beer.query.get(id)
-    # if (userId == ) grab user Id from collection
+    # if (beer.userId == current_user.id)
+    # db.session.delete(beer)
+    # db.session.commit()
+    # else if ()
     db.session.delete(beer)
     db.session.commit()
     return {'message': 'deleted beer'}

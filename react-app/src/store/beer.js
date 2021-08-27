@@ -142,18 +142,10 @@ export default function beerReducer(state = initialState, action) {
 				loaded: true,
 			};
 		case CREATE_BEER:
-			// return {
-			// 	...state,
-			// 	beers: {
-			// 		...state.beers,
-			// 		[action.beer.id]: action.beer,
-			// 	},
-			// };
+			beers = { ...state };
+			beers.beers[action.beer.id] = action.beer;
 			return {
-				beers: { ...state.beers, ...action.beer },
-				// currentBeer: { ...action.beer },
-				currentBeer: { ...state.currentBeer },
-				loaded: true,
+				...beers,
 			};
 		case GET_ONE_BEER:
 			return {

@@ -89,18 +89,21 @@ export default function AllCollections() {
 	return (
 		<div className='allCollections-container'>
 			<div className='collections-container'>
-				<h3>Your Collections</h3>
+				<div>
+					<h3>Your Collections</h3>
+				</div>
 				<div className='one-collection-container'>
 					{collection.length ? (
 						collection.map((collect) => (
 							<div className='collection-container'>
-								<h3
+								<h3>{collect.name}</h3>
+								<button
 									onClick={() =>
 										handleCurrentCollection(collect.id)
 									}
 								>
-									{collect.name}
-								</h3>
+									View
+								</button>
 								<button
 									key={collect.id}
 									onClick={() => {
@@ -141,7 +144,7 @@ export default function AllCollections() {
 			<div>
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
-						{loaded && currentCollection?.beers?.length ? (
+						{loaded && beers ? (
 							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (
 								<div className='collection-beer'>
