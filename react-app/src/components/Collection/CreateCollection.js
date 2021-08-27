@@ -34,6 +34,7 @@ export default function CreateCollections({
 			return;
 		}
 		setShowModal(false);
+		setErrors([]);
 	};
 
 	//animation property
@@ -79,6 +80,7 @@ export default function CreateCollections({
 
 	return (
 		<Modal
+			setErrors={setErrors}
 			showModal={showModal}
 			setShowModal={setShowModal}
 			setShowForm={setShowCreateForm}
