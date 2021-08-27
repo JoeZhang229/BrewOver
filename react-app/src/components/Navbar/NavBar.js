@@ -65,10 +65,7 @@ const NavBar = ({ num, setNum }) => {
 					/>
 				)}
 				{/* new random beer with every click in navbar*/}
-				<li
-					// onClick={() => dispatch(getRandomBeer())}
-					onClick={() => setNum(!num)}
-				>
+				<li onClick={() => setNum(!num)}>
 					<NavLink to='/beers/random' exact={true}>
 						Random Beer
 					</NavLink>
@@ -120,9 +117,6 @@ const NavBar = ({ num, setNum }) => {
 					</div>
 				</div>
 				<div className='navbar right'>{sessionLinks}</div>
-				{/* <div>
-					<i class='fas fa-beer'></i>
-				</div> */}
 			</ul>
 		</nav>
 	);
