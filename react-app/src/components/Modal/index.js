@@ -29,6 +29,7 @@ export default function Modal({
 			{showModal && (
 				// background container
 				<motion.div
+					key='background'
 					className='background'
 					variants={background}
 					// establish animation props to keys in variant object

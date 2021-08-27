@@ -93,7 +93,10 @@ export default function AllCollections() {
 				<div className='one-collection-container'>
 					{collection.length ? (
 						collection.map((collect) => (
-							<div className='collection-container'>
+							<div
+								key={collect.id}
+								className='collection-container'
+							>
 								<h3>{collect.name}</h3>
 								<button
 									onClick={() =>
@@ -149,8 +152,8 @@ export default function AllCollections() {
 									<div className='beer-info'>
 										<div className='beer-image'>
 											<Link
+												exact
 												to={`/beers/${beer.id}`}
-												exact={true}
 											>
 												<img
 													src={

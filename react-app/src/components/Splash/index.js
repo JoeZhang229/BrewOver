@@ -27,7 +27,7 @@ export default function Splash() {
 	return (
 		<div className='splash-container'>
 			<div className='video-container'>
-				<video autoplay='' loop muted>
+				<video autoPlay='' loop muted>
 					<source src={splashVideo} type='video/mp4'></source>
 				</video>
 			</div>
