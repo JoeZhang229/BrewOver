@@ -70,12 +70,10 @@ export default function AllCollections() {
 
 	const handleDelete = (id) => {
 		dispatch(deleteBeer(id, currentCollection.id));
-		dispatch(getAllCollections());
 	};
 
 	const handleDeleteCollection = (id) => {
 		dispatch(deleteCollection(id));
-		dispatch(getAllCollections());
 	};
 
 	const handleCurrentCollection = (id) => {
