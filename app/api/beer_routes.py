@@ -6,15 +6,6 @@ from flask_login import current_user, login_required
 beer_routes = Blueprint('beers', __name__)
 
 
-# @beer_routes.route('/', methods=['GET'])
-# @login_required
-# def all_beers(collectionId):
-#     collection = Collection.query.get(collectionId)
-#     beers = collection.to_dict()['beers']
-#     print('backend collection beer', beers)
-#     return beers
-
-
 @beer_routes.route('/create', methods=['POST'])
 @login_required
 def create_beer():
@@ -24,11 +15,7 @@ def create_beer():
     form.populate_obj(beerObj)
 
     print(beerObj.beer_dict())
-    # need to find out which collection, based on id, to save (Beer collection table)
-    # collection = Collection(
-    #     userId=current_user.id,
-    #     beers=newBeer
-    # )
+
     currentCollection = Collection.query.get(data['collectionId'])
     if (currentCollection.userId == current_user.id):
         currentCollection.beers.append(beerObj)
@@ -37,10 +24,12 @@ def create_beer():
         db.session.commit()
         # beer_collection.beers_id = newBeer.id
 
-    print('backend beer~~~~~~', beerObj)
-    db.session.add(beerObj)
-    # db.session.add_all([newBeer, currentCollection])
-    db.session.commit()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        db.session.add(beerObj)
+        # db.session.add_all([newBeer, currentCollection])
+        db.session.commit()
+        return beerObj.beer_dict()
     return beerObj.beer_dict()
 
 
@@ -54,19 +43,34 @@ def one_beer(id):
     return oneBeer.beer_dict()
 
 
-@beer_routes.route('/<int:id>', methods=['DELETE'])
+@beer_routes.route('/<int:beerId>', methods=['DELETE'])
 @login_required
-def delete_beer(id):
+def delete_beer(beerId):
     # userId = current_user.id
-    userCollections = current_user.to_dict()['collections']
-    print('user collections', userCollections)
-    beer = Beer.query.get(id)
-    # if (beer.userId == current_user.id)
-    # db.session.delete(beer)
-    # db.session.commit()
-    # else if ()
-    db.session.delete(beer)
-    db.session.commit()
+    # userCollections = current_user.to_dict()['collections']
+    # print('user collections', userCollections)
+    data = request.get_json()
+    collectionId = data['collectionId']
+    currentCollection = (Collection.query.get(collectionId))
+    # print('selected Collection ######~#~#~#~~~~~~~~######',
+    #       currentCollection['beers'])
+    beerCollection = currentCollection.beers
+
+    [beer] = [beer for beer in beerCollection if beer.id is beerId]
+    print('deleted beer####################~~~~~~~~~~~~~~#################', beer)
+    if beer.userId == current_user.id:
+        dbBeer = Beer.query.get(beerId)
+        db.session.delete(dbBeer)
+        db.session.commit()
+    elif currentCollection.userId == current_user.id:
+        # beerCollection.remove(beer)
+        print('old beers collection~~~~~~~~~###########',
+              currentCollection.beers)
+        currentCollection.beers.remove(beer)
+        print('post-delete beers collection~~~~~~~~~~~~############',
+              currentCollection.beers)
+        db.session.add(currentCollection)
+        db.session.commit()
     return {'message': 'deleted beer'}
 
 
@@ -76,7 +80,7 @@ def edit_beer():
     data = request.get_json()
     form = BeerForm()
     beerObj = Beer.query.get(data['id'])
-    form.populate_obj(beerObj)
-
-    db.session.commit()
+    if beerObj.userId == current_user.id:
+        form.populate_obj(beerObj)
+        db.session.commit()
     return beerObj.beer_dict()

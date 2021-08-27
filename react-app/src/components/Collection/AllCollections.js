@@ -10,7 +10,7 @@ import {
 } from '../../store/collection';
 // import BeerCard from '../Beer/BeerCard';
 import { NavLink, Link } from 'react-router-dom';
-import { deleteBeer, getAllBeers, loadBeers } from '../../store/beer';
+import { deleteBeer, loadBeers } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
 import EditCollection from '../Collection/EditCollections';
 import errorImg from '../imgs/beer-error-icon.png';
@@ -20,6 +20,8 @@ export default function AllCollections() {
 	const currentCollection = useSelector(
 		(state) => state.collections.currentCollection
 	);
+
+	const user = useSelector((state) => state.session.user);
 
 	const beers = useSelector((state) => state.beers.beers) || null;
 	console.log('beers', Object.values(beers));
@@ -71,7 +73,7 @@ export default function AllCollections() {
 	}, [dispatch, currentCollection]);
 
 	const handleDelete = (id) => {
-		dispatch(deleteBeer(id));
+		dispatch(deleteBeer(id, currentCollection.id));
 		dispatch(getAllCollections());
 	};
 
@@ -167,18 +169,20 @@ export default function AllCollections() {
 										<p>{beer.name}</p>
 									</div>
 									<div className='beer card buttons'>
-										<button
-											key={beer.id}
-											onClick={() => {
-												showClick(
-													beer.id,
-													setShowBeerForm
-												);
-												setShowEditModal(true);
-											}}
-										>
-											Edit
-										</button>
+										{beer.userId === user.id && (
+											<button
+												key={beer.id}
+												onClick={() => {
+													showClick(
+														beer.id,
+														setShowBeerForm
+													);
+													setShowEditModal(true);
+												}}
+											>
+												Edit
+											</button>
+										)}
 										{showBeerForm[beer.id] && (
 											<EditBeer
 												beer={beer}

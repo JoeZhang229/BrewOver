@@ -16,6 +16,7 @@ export default function CreateBeer({
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
+	const userId = useSelector((state) => state.session.user.id);
 	const [beerName, setBeerName] = useState('');
 	const [description, setDescription] = useState('');
 	const [abv, setabv] = useState('');
@@ -35,6 +36,7 @@ export default function CreateBeer({
 				abv: abv,
 				image_url: imageUrl,
 				collectionId: +collectionVal,
+				userId: +userId,
 				malt: malt,
 				hops: hops,
 				yeast: yeast,

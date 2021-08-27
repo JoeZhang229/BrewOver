@@ -10,6 +10,7 @@ class BeerForm(FlaskForm):
     type = SelectField(
         'Type', choices=[('Beers', 'Beers'), ('Cocktails', 'Cocktails')])
     image_url = StringField('FirstBrewed')
+    userId = IntegerField('userId')
     malt = StringField('Malt')
     hops = StringField('Hops')
     yeast = StringField('yeast')
