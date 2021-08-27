@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { editBeer } from '../../store/beer';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import Modal from '../Modal';
 import './css/EditBeer.css';
 
 export default function EditBeer({
@@ -14,6 +15,8 @@ export default function EditBeer({
 }) {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
+
+	const userId = useSelector((state) => state.session.user.id);
 	const [beerName, setBeerName] = useState(beer.name);
 	const [description, setDescription] = useState(beer.description);
 	const [abv, setabv] = useState(beer.abv);
@@ -33,6 +36,7 @@ export default function EditBeer({
 			editBeer({
 				id: +beer.id,
 				name: beerName,
+				userId: +userId,
 				abv: abv,
 				description: description,
 				image_url: imageUrl,
@@ -44,13 +48,6 @@ export default function EditBeer({
 		);
 		setShowEditModal(false);
 		hideClick(beer.id, setShowBeerForm);
-		// dispatch(loadBeers());
-		// dispatch(getAllCollections());
-	};
-
-	const background = {
-		hide: { opacity: 0 },
-		show: { opacity: 1 },
 	};
 
 	const editForm = {
@@ -68,88 +65,67 @@ export default function EditBeer({
 		},
 	};
 
-	return (
-		// control animation before or after loading
-		<AnimatePresence
-			exitBeforeEnter
-			// change modal state based on changing page or completing form
-			onExitComplete={() => {
-				setShowEditModal(false);
-				hideClick(beer.id, setShowBeerForm);
-			}}
+	const innerForm = (
+		<motion.form
+			key={beer.id}
+			className='edit-beer-form'
+			variants={editForm}
+			// prevent modal from closing when clicked upon
+			onClick={(e) => e.stopPropagation()}
+			onSubmit={(e) => onSubmit(e)}
 		>
-			{showEditModal && (
-				// background container
-				<motion.div
-					className='background'
-					variants={background}
-					initial='hide'
-					animate='show'
-					exit='hide'
-					// exit Modal on click outside
-					onClick={() => handleModal()}
-				>
-					<motion.form
-						key={beer.id}
-						className='edit-beer-form'
-						variants={editForm}
-						// prevent modal from closing when clicked upon
-						onClick={(e) => e.stopPropagation()}
-						onSubmit={(e) => onSubmit(e)}
-					>
-						<h3>Edit Beer</h3>
-						<label>Name </label>
-						<input
-							onChange={({ target: { value } }) =>
-								setBeerName(value)
-							}
-							value={beerName}
-							autoFocus
-							required
-						></input>
-						<label>ABV </label>
-						<input
-							onChange={({ target: { value } }) => setabv(value)}
-							value={abv}
-							required
-						></input>
-						<label>image_url </label>
-						<input
-							onChange={({ target: { value } }) =>
-								setImageUrl(value)
-							}
-							value={imageUrl}
-						></input>
-						<label>Malt </label>
-						<input
-							onChange={({ target: { value } }) => setMalt(value)}
-							value={malt}
-						></input>
-						<label>Hops </label>
-						<input
-							onChange={({ target: { value } }) => setHops(value)}
-							value={hops}
-						></input>
-						<label>Yeast </label>
-						<input
-							onChange={({ target: { value } }) =>
-								setYeast(value)
-							}
-							value={yeast}
-						></input>
-						<label>Description </label>
-						<textarea
-							onChange={({ target: { value } }) =>
-								setDescription(value)
-							}
-							rows='5'
-							value={description}
-							required
-						></textarea>
-						<button type='submit'>Save</button>
-					</motion.form>
-				</motion.div>
-			)}
-		</AnimatePresence>
+			<h3>Edit Beer</h3>
+			<label>Name </label>
+			<input
+				onChange={({ target: { value } }) => setBeerName(value)}
+				value={beerName}
+				autoFocus
+				required
+			></input>
+			<label>ABV </label>
+			<input
+				onChange={({ target: { value } }) => setabv(value)}
+				value={abv}
+				required
+			></input>
+			<label>image_url </label>
+			<input
+				onChange={({ target: { value } }) => setImageUrl(value)}
+				value={imageUrl}
+			></input>
+			<label>Malt </label>
+			<input
+				onChange={({ target: { value } }) => setMalt(value)}
+				value={malt}
+			></input>
+			<label>Hops </label>
+			<input
+				onChange={({ target: { value } }) => setHops(value)}
+				value={hops}
+			></input>
+			<label>Yeast </label>
+			<input
+				onChange={({ target: { value } }) => setYeast(value)}
+				value={yeast}
+			></input>
+			<label>Description </label>
+			<textarea
+				onChange={({ target: { value } }) => setDescription(value)}
+				rows='5'
+				value={description}
+				required
+			></textarea>
+			<button type='submit'>Save</button>
+		</motion.form>
+	);
+
+	return (
+		<Modal
+			showModal={showEditModal}
+			setShowModal={setShowEditModal}
+			setShowBeerForm={setShowBeerForm}
+			innerForm={innerForm}
+			hideClick={hideClick}
+		/>
 	);
 }
