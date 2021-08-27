@@ -24,8 +24,8 @@ export default function Modal({
 			// change modal state based on changing page or completing form
 			onExitComplete={() => {
 				setShowModal(false);
-				setErrors([]);
 				hideClick && hideClick(form.id, setShowForm);
+				if (setErrors) setErrors([]);
 			}}
 		>
 			{showModal && (
