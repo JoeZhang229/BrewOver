@@ -20,7 +20,7 @@
 	text-align: center;
 	font-size: 8rem;
 	/* z-index places it on top */
-	z-index: 2;
+	z-index: 1;
 	position: relative;
 	/* background: #fff; */
 	padding: 20px;
