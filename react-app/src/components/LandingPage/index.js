@@ -56,7 +56,7 @@ export default function Home() {
 				animate={{ x: -175 }}
 				transition={{ delay: 0.4, type: 'tween', duration: 1.1 }}
 			>
-				<NavLink to='/beers/random' exact={true}>
+				<NavLink exact to='/beers/random'>
 					<h3>Check out some beers</h3>
 				</NavLink>
 			</motion.div>

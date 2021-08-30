@@ -7,6 +7,7 @@ import logo from '../imgs/BrewOverLogo.png';
 import { AnimatePresence } from 'framer-motion';
 import CreateBeer from '../Beer/CreateBeer';
 import CreateCollections from '../Collection/CreateCollection';
+import SignUpForm from '../auth/SignUpForm';
 import './Navbar.css';
 
 const NavBar = ({ num, setNum }) => {
@@ -15,6 +16,7 @@ const NavBar = ({ num, setNum }) => {
 	const [showCreateForm, setShowCreateForm] = useState(false);
 	const [showModal, setShowModal] = useState(true);
 	const [showCollectionForm, setShowCollectionForm] = useState(false);
+	const [signupForm, setSignupForm] = useState(false);
 	const [showCollectModal, setShowCollectModal] = useState(true);
 	let sessionLinks;
 	if (user) {
@@ -80,12 +82,23 @@ const NavBar = ({ num, setNum }) => {
 						<div></div>
 					</NavLink>
 				</li>
-				<li>
-					<NavLink exact to='/sign-up'>
-						Sign Up
-						<div></div>
-					</NavLink>
+				<li
+					onClick={() => {
+						setSignupForm(true);
+						setShowModal(true);
+					}}
+				>
+					{/* <NavLink exact to='/sign-up'> */}
+					Sign Up
+					{/* </NavLink> */}
 				</li>
+				{signupForm && (
+					<SignUpForm
+						setShowModal={setShowModal}
+						setSignupForm={setSignupForm}
+						showModal={showModal}
+					/>
+				)}
 				<li>
 					<DemoUser />
 				</li>

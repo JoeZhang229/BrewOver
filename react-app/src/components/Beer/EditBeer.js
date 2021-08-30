@@ -17,13 +17,13 @@ export default function EditBeer({
 	// selector has second optional function (prevState, incomingState)
 
 	const userId = useSelector((state) => state.session.user.id);
-	const [beerName, setBeerName] = useState(beer.name);
-	const [description, setDescription] = useState(beer.description);
-	const [abv, setabv] = useState(beer.abv);
+	const [beerName, setBeerName] = useState(beer.name || '');
+	const [description, setDescription] = useState(beer.description || '');
+	const [abv, setabv] = useState(beer.abv || 1);
 	const [imageUrl, setImageUrl] = useState(beer.imageUrl || '');
-	const [malt, setMalt] = useState(beer.malt);
-	const [hops, setHops] = useState(beer.hops);
-	const [yeast, setYeast] = useState(beer.yeast);
+	const [malt, setMalt] = useState(beer.malt || '');
+	const [hops, setHops] = useState(beer.hops || '');
+	const [yeast, setYeast] = useState(beer.yeast || '');
 
 	const onSubmit = (e) => {
 		e.preventDefault();
