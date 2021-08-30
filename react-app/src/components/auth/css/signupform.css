@@ -1,0 +1,38 @@
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 15vw;
+	height: 15vh;
+	background: white;
+	margin: 0 auto;
+	border-radius: 10px;
+	text-align: center;
+	z-index: 1;
+}
+
+.signup-form input {
+	width: 80%;
+	text-align: center;
+}
+
+.signup-form button {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+@media screen and (min-height: 1700px) {
+	.signup-form {
+		width: 5vw;
+		height: 7vh;
+	}
+}
+
+@media screen and (max-height: 1699px) {
+	.signup-form {
+		/* background: red; */
+		width: 15vw;
+		height: 20vh;
+	}
+}
