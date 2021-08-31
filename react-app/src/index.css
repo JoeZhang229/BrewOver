@@ -1,8 +1,4 @@
 /* TODO Add site wide styles */
-@font-face {
-	src: url(../src/components/fonts/MontserratBold.otf);
-	font-family: 'Montserrat';
-}
 
 body {
 	margin: 0;
@@ -11,7 +7,7 @@ body {
 	background-color: #fbfbfb;
 	overflow: hidden;
 	/* background-color: #ffeec2; */
-	font-family: Georgia, serif, arial;
+	font-family: special elite, serif, arial;
 }
 
 body a {
@@ -19,7 +15,7 @@ body a {
 }
 
 form * {
-	font-family: Montserrat;
+	font-family: special elite, serif, arial;
 	font-size: 15px;
 	/* background: #ffb703; */
 }
