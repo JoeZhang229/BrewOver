@@ -6,7 +6,7 @@
 }
 
 .collections-container {
-	background-color: #b1aeae;
+	background-color: #ffd166;
 	border-radius: 5px;
 	border-right: 2px solid rgb(5, 5, 5);
 }
@@ -25,8 +25,10 @@
 .collection-beer {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	border-bottom: 1px solid grey;
+	justify-content: center;
+	padding: 5px;
+	background-color: #ffeec2;
 }
 
 .beer-image > a > img {

@@ -1,13 +1,33 @@
 /* TODO Add site wide styles */
+@font-face {
+	src: url(../src/components/fonts/MontserratBold.otf);
+	font-family: 'Montserrat';
+}
+
 body {
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
 	overflow: hidden;
 	background-color: #fbfbfb;
+	/* background-color: #ffeec2; */
 	font-family: Georgia, serif, arial;
 }
 
 body a {
 	text-decoration: none;
+}
+
+form * {
+	font-family: Montserrat;
+	font-size: 15px;
+	/* background: #ffb703; */
+}
+
+button {
+	border-radius: 30px;
+	background-color: transparent;
+	border: 1px solid;
+	padding: 5px;
+	font-size: 15px;
 }

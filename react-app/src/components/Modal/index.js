@@ -43,7 +43,7 @@ export default function Modal({
 						setShowModal(false);
 					}}
 				>
-					{innerForm}
+					<div>{innerForm}</div>
 				</motion.div>
 			)}
 		</AnimatePresence>
