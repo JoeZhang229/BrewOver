@@ -48,6 +48,7 @@
 .random-beer-container h3:hover {
 	background-color: rgba(187, 186, 184, 0.5);
 	color: rgb(14, 14, 14);
+	transition: 0.2s;
 }
 
 .random-beer-container h3 {

@@ -2,8 +2,9 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 20vh;
-	background: white;
+	width: 23vh;
+	/* background: white; */
+	background: #ffd166;
 	margin: 0 auto;
 	border-radius: 10px;
 	text-align: center;
