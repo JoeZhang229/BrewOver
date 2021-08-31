@@ -16,4 +16,14 @@ The application separates user created drinks and API generated content. I had c
 
 ### Features
 
--   Create Collections of beer
+-   Users can create accounts and save collections of beers
+-   Account authentication
+-   Users can create and modify Collections of their favorite beers
+-   Application is not accessible without valid user account
+-   Demo Login available
+
+### Future Features
+
+-   [ ] Users can copy users' collection(s) into their own list.
+-   [ ] Drink Search by different criteria (name, ingredients, drink type, etc)
+-   [ ] Reviews
