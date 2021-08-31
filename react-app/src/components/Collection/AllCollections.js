@@ -81,7 +81,6 @@ export default function AllCollections() {
 		// change current collection
 		dispatch(getOneCollection(id));
 		dispatch(unloadAllBeers());
-		// dispatch(getAllBeers());
 		// load beer on current Collection
 		// dispatch(loadBeers(currentCollection.beers));
 	};

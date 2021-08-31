@@ -4,7 +4,8 @@
 	align-items: center;
 	width: 15vw;
 	height: 40vh;
-	background: white;
+	/* background: white; */
+	background: #ffeec2;
 	margin: 0 auto;
 	border-radius: 10px;
 	text-align: center;

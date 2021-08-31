@@ -7,17 +7,19 @@ import RandomBeerCard from './RandomBeerCard';
 export default function RandomBeer({ num }) {
 	const dispatch = useDispatch();
 	const beer = useSelector((state) => state.beers.currentBeer);
+	const loaded = useSelector((state) => state.beers.loaded);
 
 	// causing re-render twice? removing causes no render at refresh
 	useEffect(() => {
 		dispatch(getRandomBeer());
+
 		// return () => dispatch(unloadAllBeers());
 		// dispatch(postsLoaded());
 	}, [dispatch, num]);
 
 	return (
 		<div className='container'>
-			{beer.ingredients && <RandomBeerCard beer={beer} />}
+			{loaded && beer && <RandomBeerCard beer={beer} />}
 		</div>
 	);
 }
