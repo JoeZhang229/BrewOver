@@ -52,7 +52,7 @@ export const UnloadOneBeer = () => ({
 	type: UNLOAD_ONE_BEER,
 });
 
-export const unloadAllBeers = async (dispatch) => {
+export const unloadAllBeers = () => async (dispatch) => {
 	dispatch(unloadBeers());
 };
 
@@ -141,7 +141,7 @@ export default function beerReducer(state = initialState, action) {
 			});
 			return {
 				beers,
-				currentBeer: action.beer[0],
+				// currentBeer: action.beer[0],
 				loaded: true,
 			};
 		case CREATE_BEER:

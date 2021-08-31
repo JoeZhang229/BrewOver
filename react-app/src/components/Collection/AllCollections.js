@@ -9,7 +9,7 @@ import {
 	getOneCollection,
 } from '../../store/collection';
 import { Link } from 'react-router-dom';
-import { deleteBeer, loadBeers } from '../../store/beer';
+import { deleteBeer, loadBeers, unloadAllBeers } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
 import EditCollection from '../Collection/EditCollections';
 import errorImg from '../imgs/beer-error-icon.png';
@@ -63,13 +63,14 @@ export default function AllCollections() {
 	};
 
 	useEffect(() => {
-		if (currentCollection) {
-			dispatch(loadBeers(currentCollection.beers));
-		}
+		// if (currentCollection) {
+		dispatch(loadBeers(currentCollection.beers));
+		// }
 	}, [dispatch, currentCollection]);
 
 	const handleDelete = (id) => {
 		dispatch(deleteBeer(id, currentCollection.id));
+		// dispatch(loadBeers(currentCollection.beers));
 	};
 
 	const handleDeleteCollection = (id) => {
@@ -77,8 +78,11 @@ export default function AllCollections() {
 	};
 
 	const handleCurrentCollection = (id) => {
+		// change current collection
 		dispatch(getOneCollection(id));
+		dispatch(unloadAllBeers());
 		// dispatch(getAllBeers());
+		// load beer on current Collection
 		// dispatch(loadBeers(currentCollection.beers));
 	};
 
@@ -127,9 +131,10 @@ export default function AllCollections() {
 									/>
 								)}
 								<button
-									onClick={() =>
-										handleDeleteCollection(collect.id)
-									}
+									onClick={() => {
+										handleDeleteCollection(collect.id);
+										window.location.reload();
+									}}
 								>
 									Delete
 								</button>
@@ -143,7 +148,7 @@ export default function AllCollections() {
 			<div>
 				<AnimateSharedLayout>
 					<motion.div className='collection-beer-container'>
-						{loaded && beers ? (
+						{loaded && Object.values(beers).length ? (
 							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (
 								<div className='collection-beer'>
