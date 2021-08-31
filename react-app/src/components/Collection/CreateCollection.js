@@ -33,6 +33,7 @@ export default function CreateCollections({
 			setErrors(data);
 			return;
 		}
+		setCollectionName('');
 		setShowModal(false);
 		setErrors([]);
 	};

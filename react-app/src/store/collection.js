@@ -4,6 +4,7 @@ const CREATE_COLLECTION = 'collections/CREATE_COLLECTION';
 const EDIT_COLLECTION = 'collections/EDIT_COLLECTION';
 const DELETE_COLLECTION = 'collections/DELETE_COLLECTION';
 // const CURRENT_COLLECTION = 'collections/CURRENT_COLLECTION';
+const CREATE_BEER = 'collections/CREATE_BEER';
 
 export const getCollection = (collection) => {
 	return {
@@ -23,6 +24,13 @@ export const createOneCollection = (collection) => {
 	return {
 		type: CREATE_COLLECTION,
 		collection: collection,
+	};
+};
+
+export const createBeer = (beer) => {
+	return {
+		type: CREATE_BEER,
+		beer: beer,
 	};
 };
 
@@ -86,6 +94,22 @@ export const createCollection = (collectionData) => async (dispatch) => {
 		}
 	} else {
 		return ['An error occurred. Please try again.'];
+	}
+};
+
+// POST BEER to collection
+
+export const createBeerToCollection = (beerData) => async (dispatch) => {
+	const res = await fetch('/api/beers/create', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(beerData),
+	});
+	if (res.ok) {
+		const beer = await res.json();
+		dispatch(createBeer(beer));
 	}
 };
 
@@ -166,6 +190,12 @@ export default function collectionReducer(state = initialState, action) {
 		case DELETE_COLLECTION:
 			collections = { ...state };
 			delete collections.collections[action.collectionId];
+			return {
+				...collections,
+			};
+		case CREATE_BEER:
+			collections = { ...state };
+			collections.currentCollection.beers.push(action.beer);
 			return {
 				...collections,
 			};

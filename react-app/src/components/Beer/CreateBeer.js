@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 
-import { createOneBeer } from '../../store/beer';
+import { createOneBeer, loadBeers } from '../../store/beer';
+import { createBeerToCollection } from '../../store/collection';
 import Modal from '../Modal';
 import './css/CreateBeer.css';
 
@@ -17,6 +18,10 @@ export default function CreateBeer({
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
+
+	const currentCollection = useSelector(
+		(state) => state.collections.currentCollection
+	);
 	const userId = useSelector((state) => state.session.user.id);
 	const [beerName, setBeerName] = useState('');
 	const [description, setDescription] = useState('');
@@ -30,20 +35,40 @@ export default function CreateBeer({
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		dispatch(
-			createOneBeer({
-				description: description,
-				name: beerName,
-				abv: abv,
-				image_url: imageUrl,
-				collectionId: +collectionVal,
-				userId: +userId,
-				malt: malt,
-				hops: hops,
-				yeast: yeast,
-				type: 'beers',
-			})
-		);
+		console.log('form value', +collectionVal);
+		console.log('current Collection val', currentCollection.id);
+		if (+collectionVal === currentCollection.id) {
+			dispatch(
+				createOneBeer({
+					description: description,
+					name: beerName,
+					abv: abv,
+					image_url: imageUrl,
+					collectionId: +collectionVal,
+					userId: +userId,
+					malt: malt,
+					hops: hops,
+					yeast: yeast,
+					type: 'beers',
+				})
+			);
+			// separate dispatch based on selected Collection
+		} else {
+			dispatch(
+				createBeerToCollection({
+					description: description,
+					name: beerName,
+					abv: abv,
+					image_url: imageUrl,
+					collectionId: +collectionVal,
+					userId: +userId,
+					malt: malt,
+					hops: hops,
+					yeast: yeast,
+					type: 'beers',
+				})
+			);
+		}
 		setShowModal(false);
 		setShowCreateForm(false);
 	};
