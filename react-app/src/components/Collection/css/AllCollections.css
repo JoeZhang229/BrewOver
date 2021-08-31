@@ -5,8 +5,14 @@
 	border-radius: 5px;
 	padding: 20px;
 	align-items: start;
+	/* overflow: auto; */
 }
 
+@media screen and (min-height: 1150px) {
+	body {
+		/* overflow: auto; */
+	}
+}
 .collections-container {
 	background-color: #ffd166;
 	border-radius: 5px;
@@ -41,7 +47,7 @@
 }
 
 .beer-image > a > img {
-	overflow: hidden;
+	/* overflow: hidden; */
 	height: 150px;
 	width: 100px;
 }
@@ -71,4 +77,16 @@
 	animation: ease-in;
 	background-color: rgba(187, 186, 184, 0.5);
 	color: rgb(14, 14, 14);
+}
+
+.beer-buttons button,
+.collection-container button {
+	font-family: 'Special Elite';
+	padding: 10px;
+	border-radius: 5px;
+	margin-left: 5px;
+	background: #6a0101;
+	color: white;
+	font-size: 15px;
+	border: 1px solid #470000;
 }
