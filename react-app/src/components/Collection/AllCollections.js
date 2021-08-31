@@ -151,25 +151,31 @@ export default function AllCollections() {
 							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (
 								<div className='collection-beer'>
-									<div className='beer-info'>
-										<div className='beer-image'>
-											<Link
-												exact
-												to={`/beers/${beer.id}`}
-											>
-												<img
-													src={
-														beer.image_url
-															? beer.image_url
-															: errorImg
-													}
-													alt='beer'
-												></img>
-											</Link>
+									<div className='beer-container'>
+										<div className='beer-image-container'>
+											<div className='beer-image'>
+												<Link
+													exact
+													to={`/beers/${beer.id}`}
+												>
+													<img
+														src={
+															beer.image_url
+																? beer.image_url
+																: errorImg
+														}
+														alt='beer'
+													></img>
+												</Link>
+											</div>
 										</div>
-										<p>{beer.name}</p>
+										<div className='beer-info'>
+											<p>{beer.name}</p>
+											<p>{beer.description}</p>
+											<p>{beer.abv}% ABV</p>
+										</div>
 									</div>
-									<div className='beer card buttons'>
+									<div className='beer-buttons'>
 										{beer.userId === user.id && (
 											<button
 												key={beer.id}

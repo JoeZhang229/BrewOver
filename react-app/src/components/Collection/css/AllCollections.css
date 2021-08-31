@@ -3,17 +3,21 @@
 	grid-template-columns: 1fr 6fr;
 	grid-template-rows: auto;
 	border-radius: 5px;
+	padding: 20px;
+	align-items: start;
 }
 
 .collections-container {
 	background-color: #ffd166;
 	border-radius: 5px;
 	border-right: 2px solid rgb(5, 5, 5);
+	padding: 10px;
 }
 
 .collection-container {
 	border-bottom: 1px dashed rgb(26, 26, 26);
 	/* border-right: 1px solid grey; */
+	padding: 5px;
 }
 
 .collection-beer-container {
@@ -31,16 +35,40 @@
 	background-color: #ffeec2;
 }
 
+.beer-image-container {
+	height: 150px;
+	width: 150px;
+}
+
 .beer-image > a > img {
 	overflow: hidden;
-	height: 50px;
-	width: 50px;
+	height: 150px;
+	width: 100px;
 }
 
-.beer-info {
+.beer-container {
+	display: grid;
+	grid-template-columns: 1fr 19fr;
+	grid-template-rows: 1fr;
 }
 
-.beer-info p {
+.beer-info p label {
 	margin: 0;
 	text-indent: 3ch;
+}
+
+.collection-container button:hover {
+	box-shadow: 0px 0px 10px 0px;
+	transition: 0.5s;
+	animation: ease-in;
+	background-color: rgba(187, 186, 184, 0.5);
+	color: rgb(14, 14, 14);
+}
+
+.beer-buttons button:hover {
+	box-shadow: 0px 0px 10px 0px;
+	transition: 0.5s;
+	animation: ease-in;
+	background-color: rgba(187, 186, 184, 0.5);
+	color: rgb(14, 14, 14);
 }
