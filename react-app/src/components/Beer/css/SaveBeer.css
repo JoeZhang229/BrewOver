@@ -5,6 +5,16 @@
 	align-items: center;
 }
 
+.save-beer-select > select {
+	padding: 5px;
+	margin: 5px;
+	margin-bottom: 10px;
+}
+
+.save-beer-select > label {
+	text-align: center;
+}
+
 .save-beer-form > button {
 	font-family: 'Special Elite';
 	padding: 10px;
