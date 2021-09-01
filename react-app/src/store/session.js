@@ -1,5 +1,5 @@
 // constants
-import { loadCollections } from './collection';
+import { loadCollections, unloadCollections } from './collection';
 
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
@@ -28,6 +28,7 @@ export const authenticate = () => async (dispatch) => {
 		}
 
 		dispatch(setUser(data));
+		dispatch(unloadCollections());
 		dispatch(loadCollections(data.collections));
 	}
 };
@@ -47,6 +48,7 @@ export const login = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUser(data));
+		dispatch(unloadCollections());
 		dispatch(loadCollections(data.collections));
 		return null;
 	} else if (response.status < 500) {
@@ -68,6 +70,7 @@ export const logout = () => async (dispatch) => {
 
 	if (response.ok) {
 		dispatch(removeUser());
+		dispatch(unloadCollections());
 	}
 };
 

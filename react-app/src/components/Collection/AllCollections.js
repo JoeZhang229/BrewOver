@@ -64,9 +64,9 @@ export default function AllCollections() {
 	};
 
 	useEffect(() => {
-		// if (currentCollection) {
-		dispatch(loadBeers(currentCollection.beers));
-		// }
+		if (currentCollection) {
+			dispatch(loadBeers(currentCollection.beers));
+		}
 	}, [dispatch, currentCollection]);
 
 	const handleDelete = (id) => {
