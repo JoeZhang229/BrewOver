@@ -48,6 +48,7 @@ const LoginForm = () => {
 					placeholder='Email'
 					value={email}
 					onChange={updateEmail}
+					autoFocus
 				/>
 			</div>
 			<label htmlFor='password'>Password</label>
