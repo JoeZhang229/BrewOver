@@ -26,6 +26,7 @@ export default function AllCollections() {
 	const loaded = useSelector((state) => state.collections.loaded);
 
 	const [showEditModal, setShowEditModal] = useState(true);
+	const [showEditCollectModal, setShowEditCollectModal] = useState(true);
 
 	const initializeForm = (beers) => {
 		if (beers === undefined) {
@@ -113,7 +114,7 @@ export default function AllCollections() {
 											collect.id,
 											setShowCollectionForm
 										);
-										setShowEditModal(true);
+										setShowEditCollectModal(true);
 									}}
 								>
 									Edit
@@ -121,8 +122,10 @@ export default function AllCollections() {
 								{showCollectionForm[collect.id] && (
 									<EditCollection
 										collection={collect}
-										showEditModal={showEditModal}
-										setShowEditModal={setShowEditModal}
+										showEditModal={showEditCollectModal}
+										setShowEditModal={
+											setShowEditCollectModal
+										}
 										setShowCollectionForm={
 											setShowCollectionForm
 										}
@@ -144,9 +147,12 @@ export default function AllCollections() {
 					)}
 				</div>
 			</div>
-			<div>
+			<div className='beer-container-scroll'>
 				<AnimateSharedLayout>
-					<motion.div className='collection-beer-container'>
+					<motion.div
+						className='collection-beer-container'
+						id='id-for-collection-beer-container'
+					>
 						{loaded && Object.values(beers).length ? (
 							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (

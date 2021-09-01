@@ -15,15 +15,7 @@ body a {
 }
 
 form * {
-	font-family: special elite, serif, arial;
-	font-size: 15px;
+	/* font-family: special elite, serif, arial; */
+	/* font-size: 15px; */
 	/* background: #ffb703; */
-}
-
-button {
-	border-radius: 30px;
-	background-color: transparent;
-	border: 1px solid;
-	padding: 5px;
-	font-size: 15px;
 }
