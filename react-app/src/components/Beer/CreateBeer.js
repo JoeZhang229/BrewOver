@@ -132,11 +132,12 @@ export default function CreateBeer({
 				onChange={({ target: { value } }) => setHops(value)}
 				value={hops}
 			></input>
-			<label>Yeast </label>
+			<label>Yeast</label>
 			<input
 				onChange={({ target: { value } }) => setYeast(value)}
 				value={yeast}
 			></input>
+			<label>Collection</label>
 			<select onChange={(e) => setCollectionVal(e.target.value)}>
 				{collection &&
 					collection.map((collect) => (

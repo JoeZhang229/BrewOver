@@ -12,14 +12,38 @@
 	z-index: 1;
 }
 
+@media screen and (max-height: 1100px) {
+	.create-beer-form {
+		height: 50vh;
+	}
+}
+
+@media screen and (max-height: 900px) {
+	.create-beer-form {
+		height: 500px;
+	}
+}
+
+.create-beer-form label {
+	text-align: left;
+	/* padding: 5px; */
+}
+
 .create-beer-form input,
 textarea {
 	width: 60%;
+	margin: 5px;
+	border-radius: 5px;
 	text-align: center;
 }
 
 .create-beer-form button {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-weight: bold;
+	font-family: 'Special Elite';
+	padding: 10px;
+	border-radius: 5px;
+	margin-left: 5px;
+	background: #6a0101;
+	color: white;
+	font-size: 15px;
+	border: 1px solid #470000;
 }

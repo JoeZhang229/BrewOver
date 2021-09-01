@@ -5,10 +5,10 @@
 	border-radius: 5px;
 	padding: 20px;
 	align-items: start;
-	/* overflow: auto; */
+	overflow: auto;
 }
 
-@media screen and (min-height: 1150px) {
+@media screen and (max-height: 1150px) {
 	body {
 		/* overflow: auto; */
 	}
@@ -30,6 +30,7 @@
 	display: flex;
 	flex-direction: column;
 	padding: 5px;
+	height: 100%;
 }
 
 .collection-beer {
@@ -89,4 +90,9 @@
 	color: white;
 	font-size: 15px;
 	border: 1px solid #470000;
+}
+
+.beer-container-scroll {
+	height: 65%;
+	overflow-y: scroll;
 }
