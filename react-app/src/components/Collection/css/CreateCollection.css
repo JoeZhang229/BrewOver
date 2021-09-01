@@ -25,17 +25,19 @@
 	}
 }
 
-.collection-form label {
-	margin-bottom: 10px;
+.collection-form label,
+input {
+	margin-bottom: 5px;
 }
 
 .collection-form button {
 	font-family: 'Special Elite';
 	padding: 10px;
 	border-radius: 5px;
-	margin-left: 5px;
 	background: #6a0101;
 	color: white;
 	font-size: 15px;
 	border: 1px solid #470000;
 }
+
+/* .collection-form; */

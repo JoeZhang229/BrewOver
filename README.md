@@ -42,7 +42,7 @@ Accesses Brewdog brewery's expansive beer catalogue, and returns detailed inform
 
 The application separates user created drinks and API generated content. I had challenges separating the API data and user created content, and destructuring the API into usable content for my application. I also had to make sure my backend recognized which was user content vs API content, and to handle the data differently.
 
-backend route for handling beer deletion based on user content or API content
+#### backend route for handling beer deletion based on user content or API content
 
 ```python
 @beer_routes.route('/<int:beerId>', methods=['DELETE'])

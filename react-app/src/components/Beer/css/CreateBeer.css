@@ -3,7 +3,7 @@
 	flex-direction: column;
 	align-items: center;
 	width: 15vw;
-	height: 40vh;
+	height: 550px;
 	/* background: white; */
 	background: #ffeec2;
 	margin: 0 auto;
@@ -12,21 +12,14 @@
 	z-index: 1;
 }
 
-@media screen and (max-height: 1100px) {
-	.create-beer-form {
-		height: 50vh;
-	}
-}
-
-@media screen and (max-height: 900px) {
-	.create-beer-form {
-		height: 500px;
-	}
-}
-
 .create-beer-form label {
 	text-align: left;
 	/* padding: 5px; */
+}
+
+.create-beer-form select {
+	padding: 5px;
+	margin: 10px;
 }
 
 .create-beer-form input,

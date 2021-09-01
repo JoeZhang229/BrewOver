@@ -38,8 +38,7 @@ export default function SaveBeer() {
 
 	return (
 		<form className='save-beer-form' onSubmit={onSubmit}>
-			<div>
-				{/* <Modal /> */}
+			<div className='save-beer-select'>
 				<label>Your Collections</label>
 				<select onChange={(e) => setCollectionVal(e.target.value)}>
 					{collection &&
