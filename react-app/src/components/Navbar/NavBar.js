@@ -13,11 +13,12 @@ import './Navbar.css';
 const NavBar = ({ num, setNum }) => {
 	const user = useSelector((state) => state.session.user);
 
-	const [showCreateForm, setShowCreateForm] = useState(false);
+	const [showCollectModal, setShowCollectModal] = useState(true);
 	const [showModal, setShowModal] = useState(true);
+
+	const [showCreateForm, setShowCreateForm] = useState(false);
 	const [showCollectionForm, setShowCollectionForm] = useState(false);
 	const [signupForm, setSignupForm] = useState(false);
-	const [showCollectModal, setShowCollectModal] = useState(true);
 	let sessionLinks;
 	if (user) {
 		sessionLinks = (

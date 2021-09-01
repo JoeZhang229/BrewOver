@@ -5,6 +5,7 @@ const EDIT_COLLECTION = 'collections/EDIT_COLLECTION';
 const DELETE_COLLECTION = 'collections/DELETE_COLLECTION';
 // const CURRENT_COLLECTION = 'collections/CURRENT_COLLECTION';
 const CREATE_BEER = 'collections/CREATE_BEER';
+const UNLOAD_COLLECTION = 'collections/UNLOAD';
 
 export const getCollection = (collection) => {
 	return {
@@ -45,6 +46,12 @@ export const deleteOneCollection = (collectionId) => {
 	return {
 		type: DELETE_COLLECTION,
 		collectionId,
+	};
+};
+
+export const unloadCollections = () => {
+	return {
+		type: UNLOAD_COLLECTION,
 	};
 };
 
@@ -192,6 +199,11 @@ export default function collectionReducer(state = initialState, action) {
 			delete collections.collections[action.collectionId];
 			return {
 				...collections,
+			};
+		case UNLOAD_COLLECTION:
+			return {
+				...initialState,
+				// collections: { ...initialState.collections },
 			};
 		case CREATE_BEER:
 			collections = { ...state };

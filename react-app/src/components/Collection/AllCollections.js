@@ -64,9 +64,9 @@ export default function AllCollections() {
 	};
 
 	useEffect(() => {
-		// if (currentCollection) {
-		dispatch(loadBeers(currentCollection.beers));
-		// }
+		if (currentCollection) {
+			dispatch(loadBeers(currentCollection.beers));
+		}
 	}, [dispatch, currentCollection]);
 
 	const handleDelete = (id) => {
@@ -149,10 +149,7 @@ export default function AllCollections() {
 			</div>
 			<div className='beer-container-scroll'>
 				<AnimateSharedLayout>
-					<motion.div
-						className='collection-beer-container'
-						id='id-for-collection-beer-container'
-					>
+					<motion.div className='collection-beer-container'>
 						{loaded && Object.values(beers).length ? (
 							// normalize redux store object into array for frontend rendering
 							Object.values(beers).map((beer) => (
