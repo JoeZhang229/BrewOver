@@ -36,6 +36,7 @@ export default function CreateCollections({
 		setCollectionName('');
 		setShowModal(false);
 		setErrors([]);
+		history.push('/collections');
 	};
 
 	//animation property

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import { motion } from 'framer-motion';
 
-import { createOneBeer, loadBeers } from '../../store/beer';
+import { createOneBeer } from '../../store/beer';
 import { createBeerToCollection } from '../../store/collection';
 import Modal from '../Modal';
 import './css/CreateBeer.css';
@@ -12,6 +14,7 @@ export default function CreateBeer({
 	setShowCreateForm,
 	showModal,
 }) {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 
@@ -71,6 +74,7 @@ export default function CreateBeer({
 		}
 		setShowModal(false);
 		setShowCreateForm(false);
+		history.push('/collections');
 	};
 
 	const createForm = {

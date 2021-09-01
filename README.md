@@ -12,7 +12,7 @@ BrewOver is a web application for sharing and collecting beers with other users.
 
 ### Technical Details
 
-The application separates user created drinks and API generated content. I had challenges separating the API data and user created content, and destructuring the API into usable content for my application.
+The application separates user created drinks and API generated content. I had challenges separating the API data and user created content, and destructuring the API into usable content for my application. I also had to make sure my backend recognized which was user content vs API content, and to handle the data differently.
 
 ### Features
 
@@ -27,3 +27,4 @@ The application separates user created drinks and API generated content. I had c
 -   [ ] Users can copy users' collection(s) into their own list.
 -   [ ] Drink Search by different criteria (name, ingredients, drink type, etc)
 -   [ ] Reviews
+-   [ ] Add Cocktail drinks
