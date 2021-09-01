@@ -2,10 +2,6 @@
 	/* box-sizing: border-box; */
 }
 
-/* div { */
-/* font family */
-/* } */
-
 .container {
 	display: flex;
 	margin-top: 25px;
@@ -26,7 +22,7 @@
 
 .beer-card-container:hover {
 	box-shadow: 0px 0px 10px 0px;
-	transform: scale(1.1);
+	transform: scale(1.03);
 }
 
 .beer-card {
