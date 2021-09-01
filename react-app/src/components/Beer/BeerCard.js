@@ -11,37 +11,34 @@ export default function BeerCard({ beer }) {
 	const { malt, yeast, hops } = beer;
 
 	return (
-		// <>{JSON.stringify(beer)}</>
 		<div className='beer-card-container'>
 			{beer && (
-				// <div>
 				<div className='beer-card'>
-					<div className='beer-card-image'>
-						<img
-							src={beer.image_url ? beer.image_url : errorImg}
-							alt={beer.description}
-						></img>
-					</div>
-					{/* <div className='beer-card-name'> */}
-					{/* </div> */}
-					<div className='beer-card-info'>
-						<h3>Name: {beer.name}</h3>
-						<h4>Description</h4>
-						<p>{beer.description}</p>
-						<h4>ABV: </h4>
-						<p>{beer.abv}%</p>
-						<h4>Malt</h4>
-						<p>{malt}</p>
-						<h4>Hops:</h4>
-						<p>{hops}</p>
-						<h4>Yeast:</h4>
-						<p>{yeast}</p>
+					<div className='card-info-container'>
+						<div className='beer-card-image'>
+							<img
+								src={beer.image_url ? beer.image_url : errorImg}
+								alt={beer.description}
+							></img>
+						</div>
+						<div className='beer-card-info'>
+							<h3>Name: {beer.name}</h3>
+							<h4>Description</h4>
+							<p>{beer.description}</p>
+							<h4>ABV: </h4>
+							<p>{beer.abv}%</p>
+							<h4>Malt</h4>
+							<p>{malt}</p>
+							<h4>Hops:</h4>
+							<p>{hops}</p>
+							<h4>Yeast:</h4>
+							<p>{yeast}</p>
+						</div>
 					</div>
 					<div className='beer-card-btn'>
 						<SaveBeer />
 					</div>
 				</div>
-				// </div>
 			)}
 		</div>
 	);

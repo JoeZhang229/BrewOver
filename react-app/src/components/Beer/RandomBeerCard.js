@@ -19,36 +19,40 @@ export default function RandomBeerCard({ beer }) {
 			{beer && (
 				<div>
 					<div className='beer-card'>
-						<div className='beer-card-image'>
-							<img
-								src={beer.image_url ? beer.image_url : errorImg}
-								alt={beer.description}
-							></img>
-						</div>
-						<div className='beer-card-name'>
-							<h3>Name: </h3>
-							<p>{beer.name}</p>
-						</div>
-						<div className='beer-card-info'>
-							<div>
-								<h4>ABV: </h4>
-								<p>ABV: {beer.abv}%</p>
+						<div className='card-info-container'>
+							<div className='beer-card-image'>
+								<img
+									src={
+										beer.image_url
+											? beer.image_url
+											: errorImg
+									}
+									alt={beer.description}
+								></img>
 							</div>
-							<div>
-								<h4>Description: </h4>
-								<p>{beer.description}</p>
-							</div>
-							<div>
-								Malt:
-								{malt && destructure(malt)}
-							</div>
-							<div>
-								Hops:
-								{hops && destructure(hops)}
-							</div>
-							<div>
-								Yeast:
-								<div>{yeast && yeast}</div>
+							<div className='beer-card-info'>
+								<h3>Name </h3>
+								<p>{beer.name}</p>
+								<div>
+									<h4>ABV </h4>
+									<p>ABV: {beer.abv}%</p>
+								</div>
+								<div>
+									<h4>Description </h4>
+									<p>{beer.description}</p>
+								</div>
+								<div>
+									<h4>Malt</h4>
+									{malt && destructure(malt)}
+								</div>
+								<div>
+									<h4>Hops</h4>
+									{hops && destructure(hops)}
+								</div>
+								<div>
+									<h4>Yeast</h4>
+									<div>{yeast && yeast}</div>
+								</div>
 							</div>
 						</div>
 						<div className='beer-card-btn'>

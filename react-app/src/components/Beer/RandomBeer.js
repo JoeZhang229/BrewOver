@@ -19,7 +19,10 @@ export default function RandomBeer({ num }) {
 
 	return (
 		<div className='container'>
-			{loaded && beer && <RandomBeerCard beer={beer} />}
+			{/* conditionals to check loading random beer from different paths */}
+			{loaded && beer && beer.ingredients && (
+				<RandomBeerCard beer={beer} />
+			)}
 		</div>
 	);
 }

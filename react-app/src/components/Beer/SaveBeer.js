@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { createOneBeer } from '../../store/beer';
+import './css/SaveBeer.css';
 
 export default function SaveBeer() {
 	const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function SaveBeer() {
 	};
 
 	return (
-		<form onSubmit={onSubmit}>
+		<form className='save-beer-form' onSubmit={onSubmit}>
 			<div>
 				{/* <Modal /> */}
 				<label>Your Collections</label>

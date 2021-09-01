@@ -11,12 +11,13 @@
 	margin-top: 25px;
 	justify-content: center;
 	width: 100%;
-	height: 1000px;
+	height: 550px;
 }
 
 .beer-card-container {
 	display: grid;
-	width: 300px;
+	background-color: #ffd166;
+	width: 700px;
 	overflow: hidden;
 	transition: 0.5s;
 	box-shadow: 0px 0px 20px -10px;
@@ -39,7 +40,8 @@
 .beer-card-image {
 	overflow: hidden;
 	width: 100%;
-	height: 300px;
+	padding: 10px;
+	height: 400px;
 }
 
 .beer-card-image > img {
@@ -62,18 +64,13 @@
 	padding: 0;
 }
 
-.beer-card.btn > button {
-	display: flex;
-	background-color: white;
-	transition: 0.5s;
-	border-radius: 5px;
-	justify-content: center;
-	margin-bottom: 1rem;
-	padding: 1rem;
-}
-
 .beer-cards.btn > button:hover {
 	background-color: blue;
+}
+
+.card-info-container {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
 }
 
 .info {

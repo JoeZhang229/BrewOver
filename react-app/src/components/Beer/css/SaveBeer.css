@@ -1,0 +1,25 @@
+.save-beer-form {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.save-beer-form > button {
+	font-family: 'Special Elite';
+	padding: 10px;
+	border-radius: 5px;
+	margin-left: 5px;
+	background: #6a0101;
+	color: white;
+	font-size: 15px;
+	border: 1px solid #470000;
+}
+
+.save-beer-form > button:hover {
+	box-shadow: 0px 0px 10px 0px;
+	transition: 0.5s;
+	animation: ease-in;
+	background-color: rgba(187, 186, 184, 0.5);
+	color: rgb(14, 14, 14);
+}
