@@ -75,44 +75,48 @@ const SignUpForm = ({ setShowModal, setSignupForm, showModal }) => {
 					<div key={ind}>{error}</div>
 				))}
 			</div>
-			<div>
-				<label>User Name</label>
+			<label>User Name</label>
+			<div className='form-item'>
 				<input
 					type='text'
 					name='username'
+					placeholder='Username'
 					onChange={updateUsername}
 					value={username}
+					autoFocus
 				></input>
 			</div>
-			<div>
-				<label>Email</label>
-				<input
-					type='text'
-					name='email'
-					onChange={updateEmail}
-					value={email}
-				></input>
-			</div>
-			<div>
-				<label>Password</label>
+
+			<label>Email</label>
+			<input
+				type='text'
+				name='email'
+				placeholder='Email'
+				onChange={updateEmail}
+				value={email}
+			></input>
+			<label>Password</label>
+			<div className='form-item'>
 				<input
 					type='password'
 					name='password'
+					placeholder='Password'
 					onChange={updatePassword}
 					value={password}
 				></input>
 			</div>
-			<div>
-				<label>Repeat Password</label>
+			<label>Repeat Password</label>
+			<div className='form-item'>
 				<input
 					type='password'
 					name='repeat_password'
 					onChange={updateRepeatPassword}
 					value={repeatPassword}
+					placeholder='Repeat Password'
 					required={true}
 				></input>
 			</div>
-			<button type='submit'>Sign Up</button>
+			<button type='submit'>SIGN UP</button>
 		</motion.form>
 	);
 

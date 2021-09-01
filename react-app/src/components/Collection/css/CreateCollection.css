@@ -3,7 +3,7 @@
 	flex-direction: column;
 	align-items: center;
 	width: 10vw;
-	height: 10vh;
+	height: 11vh;
 	/* background: white; */
 	background: #ffd166;
 	margin: 0 auto;
@@ -11,10 +11,17 @@
 	text-align: center;
 }
 
-@media screen and (max-height: 1350px) {
+@media screen and (max-height: 1200px) {
+	.create-collection-form {
+		width: 250px;
+		height: 150px;
+	}
+}
+
+@media screen and (min-height: 1250px) {
 	.create-collection-form {
 		width: 15vw;
-		height: 13vh;
+		height: 11vh;
 	}
 }
 
@@ -23,7 +30,12 @@
 }
 
 .collection-form button {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-weight: bold;
+	font-family: 'Special Elite';
+	padding: 10px;
+	border-radius: 5px;
+	margin-left: 5px;
+	background: #6a0101;
+	color: white;
+	font-size: 15px;
+	border: 1px solid #470000;
 }

@@ -104,6 +104,7 @@ export default function CreateBeer({
 				onChange={({ target: { value } }) => setBeerName(value)}
 				value={beerName}
 				required
+				autoFocus
 			></input>
 			<label>Description </label>
 			<input
