@@ -58,7 +58,6 @@ def delete_beer(beerId):
         db.session.commit()
     # delete from user collection
     elif currentCollection.userId == current_user.id:
-        # beerCollection.remove(beer)
         currentCollection.beers.remove(beer)
         db.session.add(currentCollection)
         db.session.commit()

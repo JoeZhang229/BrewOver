@@ -28,6 +28,7 @@ export const authenticate = () => async (dispatch) => {
 		}
 
 		dispatch(setUser(data));
+		// unload old collections before loading new collection
 		dispatch(unloadCollections());
 		dispatch(loadCollections(data.collections));
 	}
