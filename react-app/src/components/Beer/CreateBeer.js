@@ -22,10 +22,13 @@ export default function CreateBeer({
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
 
+	// console.log('collection', collection.length === 0);
+
 	const currentCollection = useSelector(
 		(state) => state.collections.currentCollection
 	);
 	const userId = useSelector((state) => state.session.user.id);
+	const [errors, setErrors] = useState([]);
 	const [beerName, setBeerName] = useState('');
 	const [description, setDescription] = useState('');
 	const [abv, setabv] = useState('');
@@ -35,12 +38,38 @@ export default function CreateBeer({
 	const [hops, setHops] = useState('');
 	const [yeast, setYeast] = useState('');
 
-	const onSubmit = (e) => {
-		e.preventDefault();
+	// const onClick= async ()
 
-		console.log('form value', +collectionVal);
-		console.log('current Collection val', currentCollection.id);
-		if (+collectionVal === currentCollection.id) {
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		// if (collection.length === 0) {
+		// 	const newBeer = dispatch(
+		// 		createOneBeer({
+		// 			description: description,
+		// 			name: beerName,
+		// 			abv: abv,
+		// 			image_url: imageUrl,
+		// 			userId: +userId,
+		// 			malt: malt,
+		// 			hops: hops,
+		// 			yeast: yeast,
+		// 			type: 'beers',
+		// 		})
+		// 	);
+		// 	setShowModal(false);
+		// 	setShowCreateForm(false);
+		// 	console.log('beer object', newBeer);
+		// return history.push(`/beers/${newBeer.id}`);
+		// return 'works';
+		if (collection.length === 0) {
+			// setShowModal(false);
+			// setShowCreateForm(false);
+			// history.push('/collections');
+			return;
+			//  setErrors([
+			// 	'Please create a collection before creating a beer',
+			// ]);
+		} else if (+collectionVal === currentCollection.id) {
 			dispatch(
 				createOneBeer({
 					description: description,
@@ -74,6 +103,8 @@ export default function CreateBeer({
 		}
 		setShowModal(false);
 		setShowCreateForm(false);
+		// reset error on successful submit
+		setErrors([]);
 		history.push('/collections');
 	};
 
@@ -103,6 +134,20 @@ export default function CreateBeer({
 			exit='hide'
 		>
 			<h3>Create Beer</h3>
+			<div className='errors'>
+				{errors
+					? errors.map((error) => (
+							<div>
+								<div>{error}</div>
+								<button
+								//
+								>
+									Create Collection
+								</button>
+							</div>
+					  ))
+					: null}
+			</div>
 			<label>Name </label>
 			<input
 				onChange={({ target: { value } }) => setBeerName(value)}
@@ -142,15 +187,21 @@ export default function CreateBeer({
 				onChange={({ target: { value } }) => setYeast(value)}
 				value={yeast}
 			></input>
-			<label>Collection</label>
-			<select onChange={(e) => setCollectionVal(e.target.value)}>
-				{collection &&
-					collection.map((collect) => (
-						<option key={collect.id} value={collect.id}>
-							{collect.name}
-						</option>
-					))}
-			</select>
+			{collection.length ? (
+				<div>
+					<label>Collection</label>
+					<select onChange={(e) => setCollectionVal(e.target.value)}>
+						{collection &&
+							collection.map((collect) => (
+								<option key={collect.id} value={collect.id}>
+									{collect.name}
+								</option>
+							))}
+					</select>
+				</div>
+			) : (
+				'Please create a collection before creating a beer'
+			)}
 			<button type='submit'>Create</button>
 		</motion.form>
 	);
