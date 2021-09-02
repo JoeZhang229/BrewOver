@@ -37,20 +37,30 @@ export default function SaveBeer() {
 	};
 
 	return (
-		<form className='save-beer-form' onSubmit={onSubmit}>
-			<div className='save-beer-select'>
-				<label>Your Collections</label>
-				<select onChange={(e) => setCollectionVal(e.target.value)}>
-					{collection &&
-						collection.map((collect) => (
-							<option key={collect.id} value={collect.id}>
-								{collect.name}
-							</option>
-						))}
-				</select>
-			</div>
-			<button type='submit'>Save</button>
-			{success && <div>Successfully Saved!</div>}
+		<form onSubmit={onSubmit}>
+			{collection.length ? (
+				<div className='save-beer-form'>
+					<div className='save-beer-select'>
+						<label>Your Collections</label>
+						<select
+							onChange={(e) => setCollectionVal(e.target.value)}
+						>
+							{collection &&
+								collection.map((collect) => (
+									<option key={collect.id} value={collect.id}>
+										{collect.name}
+									</option>
+								))}
+						</select>
+					</div>
+					{success && <div>Successfully Saved!</div>}
+					<button type='submit'>Save</button>
+				</div>
+			) : (
+				<div className='no-collections-error'>
+					Please create a collection before saving a beer
+				</div>
+			)}
 		</form>
 	);
 }

@@ -188,7 +188,7 @@ export default function CreateBeer({
 				value={yeast}
 			></input>
 			{collection.length ? (
-				<div>
+				<>
 					<label>Collection</label>
 					<select onChange={(e) => setCollectionVal(e.target.value)}>
 						{collection &&
@@ -198,11 +198,13 @@ export default function CreateBeer({
 								</option>
 							))}
 					</select>
-				</div>
+					<button type='submit'>Create</button>
+				</>
 			) : (
-				'Please create a collection before creating a beer'
+				<div className='no-collections-error'>
+					Please create a collection before creating a beer
+				</div>
 			)}
-			<button type='submit'>Create</button>
 		</motion.form>
 	);
 
