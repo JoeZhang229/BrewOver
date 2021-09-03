@@ -21,28 +21,15 @@ export default function SaveBeer() {
 	);
 	const [collectionVal, setCollectionVal] = useState(collection[0]?.id);
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		dispatch(getOneCollection(+collectionVal));
+	}, [dispatch, collectionVal]);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
 		if (collection.length === 0) {
 			return;
-			// separate dispatch based on selected Collection
-		} else if (+collectionVal === currentCollection.id) {
-			dispatch(
-				createOneBeer({
-					name: beer.name,
-					abv: beer.abv,
-					description: beer.description,
-					image_url: beer.image_url,
-					collectionId: +collectionVal,
-					malt: beer.malt,
-					hops: beer.hops,
-					yeast: beer.yeast,
-					type: 'beers',
-				})
-			);
 		} else {
 			await dispatch(getOneCollection(+collectionVal));
 			dispatch(
@@ -70,7 +57,11 @@ export default function SaveBeer() {
 					<div className='save-beer-select'>
 						<label>Your Collections</label>
 						<select
-							onChange={(e) => setCollectionVal(e.target.value)}
+							onChange={(e) => {
+								setCollectionVal(e.target.value);
+								setSuccess(false);
+							}}
+							value={collectionVal}
 						>
 							{collection &&
 								collection.map((collect) => (
@@ -81,7 +72,14 @@ export default function SaveBeer() {
 						</select>
 					</div>
 					{success && <div>Successfully Saved!</div>}
-					<button type='submit'>Save</button>
+					{currentCollection.beers.length !== 0 &&
+					currentCollection.beers.some(
+						(currentBeer) => currentBeer.id === beer.id
+					) ? (
+						<div>Beer is already in that collection</div>
+					) : (
+						<button type='submit'>Save</button>
+					)}
 				</div>
 			) : (
 				<div className='no-collections-error'>

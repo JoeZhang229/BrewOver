@@ -24,12 +24,19 @@ def create_beer():
         form.abv.data = float((form.abv.data).strip('"'))
         # add validated beer info to object
         form.populate_obj(beerObj)
-        # add beer to correct collection
-        currentCollection.beers.append(beerObj)
-        db.session.add(currentCollection)
-        # save beer object
-        db.session.add(beerObj)
-        db.session.commit()
+        # print('db beer object', db.session.add(beerObj))
+        # check if beer object exists
+        if (db.session.add(beerObj)):
+            # add beer to correct collection
+            currentCollection.beers.append(beerObj)
+            db.session.add(currentCollection)
+            db.session.commit()
+        else:
+            # save beer object
+            currentCollection.beers.append(beerObj)
+            db.session.add(currentCollection)
+            db.session.add(beerObj)
+            db.session.commit()
         return beerObj.beer_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
@@ -52,7 +59,6 @@ def delete_beer(beerId):
     collectionId = data['collectionId']
     currentCollection = (Collection.query.get(collectionId))
     beerCollection = currentCollection.beers
-
 
     [beer] = [beer for beer in beerCollection if beer.id == beerId]
 
