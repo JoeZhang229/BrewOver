@@ -30,6 +30,11 @@ export default function EditBeer({
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
+		if (+abv < 1 || +abv > 100) {
+			setErrors(['abv must be between 1 and 100']);
+			return;
+		}
+
 		const data = await dispatch(
 			editBeer({
 				id: +beer.id,
@@ -92,7 +97,9 @@ export default function EditBeer({
 			></input>
 			<label>ABV </label>
 			<input
-				onChange={({ target: { value } }) => setabv(value)}
+				onChange={({ target: { value } }) => {
+					setabv(value);
+				}}
 				value={abv}
 				required
 			></input>

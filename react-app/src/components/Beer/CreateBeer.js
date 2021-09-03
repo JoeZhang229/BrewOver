@@ -61,6 +61,10 @@ export default function CreateBeer({
 		// return history.push(`/beers/${newBeer.id}`);
 		// return 'works';
 
+		if (+abv < 1 || +abv > 100) {
+			setErrors(['abv must be between 1 and 100']);
+			return;
+		}
 		if (collection.length === 0) {
 			return;
 		} else if (+collectionVal === currentCollection.id) {
