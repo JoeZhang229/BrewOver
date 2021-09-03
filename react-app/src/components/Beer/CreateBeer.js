@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
-import { createOneBeer } from '../../store/beer';
+import { createOneBeer, unloadAllBeers, getAllBeers } from '../../store/beer';
+import { getOneCollection } from '../../store/collection';
 import { createBeerToCollection } from '../../store/collection';
 import Modal from '../Modal';
 import './css/CreateBeer.css';
@@ -21,8 +22,6 @@ export default function CreateBeer({
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
-
-	// console.log('collection', collection.length === 0);
 
 	const currentCollection = useSelector(
 		(state) => state.collections.currentCollection
@@ -61,16 +60,11 @@ export default function CreateBeer({
 		// 	console.log('beer object', newBeer);
 		// return history.push(`/beers/${newBeer.id}`);
 		// return 'works';
+
 		if (collection.length === 0) {
-			// setShowModal(false);
-			// setShowCreateForm(false);
-			// history.push('/collections');
 			return;
-			//  setErrors([
-			// 	'Please create a collection before creating a beer',
-			// ]);
 		} else if (+collectionVal === currentCollection.id) {
-			dispatch(
+			const data = await dispatch(
 				createOneBeer({
 					description: description,
 					name: beerName,
@@ -84,9 +78,13 @@ export default function CreateBeer({
 					type: 'beers',
 				})
 			);
+			if (Array.isArray(data)) {
+				setErrors(data);
+				return;
+			}
 			// separate dispatch based on selected Collection
 		} else {
-			dispatch(
+			const data = await dispatch(
 				createBeerToCollection({
 					description: description,
 					name: beerName,
@@ -100,12 +98,19 @@ export default function CreateBeer({
 					type: 'beers',
 				})
 			);
+			if (data) {
+				setErrors(data);
+				return;
+			}
 		}
 		setShowModal(false);
 		setShowCreateForm(false);
 		// reset error on successful submit
 		setErrors([]);
+		dispatch(unloadAllBeers());
 		history.push('/collections');
+		// load corresponding collection on created beer
+		dispatch(getOneCollection(+collectionVal));
 	};
 
 	const createForm = {
@@ -135,18 +140,10 @@ export default function CreateBeer({
 		>
 			<h3>Create Beer</h3>
 			<div className='errors'>
-				{errors
-					? errors.map((error) => (
-							<div>
-								<div>{error}</div>
-								<button
-								//
-								>
-									Create Collection
-								</button>
-							</div>
-					  ))
-					: null}
+				{/* {errors} */}
+				{errors.map((error, idx) => (
+					<div key={idx}>{error}</div>
+				))}
 			</div>
 			<label>Name </label>
 			<input
@@ -210,6 +207,7 @@ export default function CreateBeer({
 
 	return (
 		<Modal
+			setErrors={setErrors}
 			showModal={showModal}
 			setShowModal={setShowModal}
 			setShowForm={setShowCreateForm}

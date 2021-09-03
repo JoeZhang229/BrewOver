@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from app.models import db, Beer, Collection, beer_collection
 from ..forms import BeerForm
 from flask_login import current_user, login_required
+from app.api.auth_routes import validation_errors_to_error_messages
 
 beer_routes = Blueprint('beers', __name__)
 
@@ -11,24 +12,21 @@ beer_routes = Blueprint('beers', __name__)
 def create_beer():
     data = request.get_json()
     form = BeerForm()
-    beerObj = Beer()
-    form.populate_obj(beerObj)
 
     currentCollection = Collection.query.get(data['collectionId'])
-    if (currentCollection.userId == current_user.id):
-        currentCollection.beers.append(beerObj)
-        # beer_collection.collections_id = data['collectionId']
-        db.session.add(currentCollection)
-        db.session.commit()
-        # beer_collection.beers_id = newBeer.id
-
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
+    if (currentCollection.userId == current_user.id) and form.validate_on_submit():
+        beerObj = Beer()
+        # add validated beer info to object
+        form.populate_obj(beerObj)
+        # add beer to correct collection
+        currentCollection.beers.append(beerObj)
+        db.session.add(currentCollection)
+        # save beer object
         db.session.add(beerObj)
-        # db.session.add_all([newBeer, currentCollection])
         db.session.commit()
         return beerObj.beer_dict()
-    return beerObj.beer_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @beer_routes.route('/<int:id>', methods=['GET'])
@@ -68,9 +66,15 @@ def delete_beer(beerId):
 @login_required
 def edit_beer():
     data = request.get_json()
-    form = BeerForm()
     beerObj = Beer.query.get(data['id'])
-    if beerObj.userId == current_user.id:
+    form = BeerForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if beerObj.userId == current_user.id and form.validate_on_submit():
+        # convert string to proper decimal for backend
+        form.abv.data = float((form.abv.data).strip('"'))
         form.populate_obj(beerObj)
+
         db.session.commit()
-    return beerObj.beer_dict()
+        return beerObj.beer_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400

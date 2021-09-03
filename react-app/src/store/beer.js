@@ -74,6 +74,13 @@ export const createOneBeer = (beerData) => async (dispatch) => {
 		const beer = await res.json();
 		dispatch(createBeer(beer));
 		return beer;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ['An error occurred. Please try again.'];
 	}
 };
 
@@ -107,6 +114,14 @@ export const editBeer = (beerData) => async (dispatch) => {
 	if (res.ok) {
 		const editedBeer = await res.json();
 		dispatch(changeBeer(editedBeer));
+		return editedBeer;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data['errors'];
+		}
+	} else {
+		return ['An error occurred. Please try again.'];
 	}
 };
 

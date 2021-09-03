@@ -36,7 +36,7 @@ def create_collection():
         db.session.add(collection)
         db.session.commit()
         return collection.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @collection_routes.route('/edit', methods=['PUT'])

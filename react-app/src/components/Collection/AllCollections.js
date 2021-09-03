@@ -3,11 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import './css/AllCollections.css';
 
-import {
-	getAllCollections,
-	deleteCollection,
-	getOneCollection,
-} from '../../store/collection';
+import { deleteCollection, getOneCollection } from '../../store/collection';
 import { Link } from 'react-router-dom';
 import { deleteBeer, loadBeers, unloadAllBeers } from '../../store/beer';
 import EditBeer from '../Beer/EditBeer';
@@ -147,83 +143,88 @@ export default function AllCollections() {
 					)}
 				</div>
 			</div>
-			<div className='beer-container-scroll'>
-				<AnimateSharedLayout>
-					<motion.div className='collection-beer-container'>
-						{loaded && Object.values(beers).length ? (
-							// normalize redux store object into array for frontend rendering
-							Object.values(beers).map((beer) => (
-								<div className='collection-beer'>
-									<div className='beer-container'>
-										<div className='beer-image-container'>
-											<div className='beer-image'>
-												<Link
-													exact
-													to={`/beers/${beer.id}`}
-												>
-													<img
-														src={
-															beer.image_url
-																? beer.image_url
-																: errorImg
-														}
-														alt='beer'
-													></img>
-												</Link>
+			<div className='collection-beer-container'>
+				<h3>{currentCollection.name}</h3>
+				<div className='beer-container-scroll'>
+					<AnimateSharedLayout>
+						<motion.div className='collection-beer-container'>
+							{loaded && Object.values(beers).length ? (
+								// normalize redux store object into array for frontend rendering
+								Object.values(beers).map((beer) => (
+									<div className='collection-beer'>
+										<div className='beer-container'>
+											<div className='beer-image-container'>
+												<div className='beer-image'>
+													<Link
+														exact
+														to={`/beers/${beer.id}`}
+													>
+														<img
+															src={
+																beer.image_url
+																	? beer.image_url
+																	: errorImg
+															}
+															alt='beer'
+														></img>
+													</Link>
+												</div>
+											</div>
+											<div className='beer-info'>
+												<p>{beer.name}</p>
+												<p>{beer.description}</p>
+												<p>{beer.abv}% ABV</p>
 											</div>
 										</div>
-										<div className='beer-info'>
-											<p>{beer.name}</p>
-											<p>{beer.description}</p>
-											<p>{beer.abv}% ABV</p>
+										<div className='beer-buttons'>
+											{beer.userId === user.id && (
+												<button
+													key={beer.id}
+													onClick={() => {
+														showClick(
+															beer.id,
+															setShowBeerForm
+														);
+														setShowEditModal(true);
+													}}
+												>
+													Edit
+												</button>
+											)}
+											{showBeerForm[beer.id] && (
+												<EditBeer
+													beer={beer}
+													showEditModal={
+														showEditModal
+													}
+													setShowEditModal={
+														setShowEditModal
+													}
+													showBeerForm={showBeerForm}
+													setShowBeerForm={
+														setShowBeerForm
+													}
+													hideClick={hideClick}
+												/>
+											)}
+											<button
+												onClick={() =>
+													handleDelete(beer.id)
+												}
+											>
+												Delete
+											</button>
 										</div>
 									</div>
-									<div className='beer-buttons'>
-										{beer.userId === user.id && (
-											<button
-												key={beer.id}
-												onClick={() => {
-													showClick(
-														beer.id,
-														setShowBeerForm
-													);
-													setShowEditModal(true);
-												}}
-											>
-												Edit
-											</button>
-										)}
-										{showBeerForm[beer.id] && (
-											<EditBeer
-												beer={beer}
-												showEditModal={showEditModal}
-												setShowEditModal={
-													setShowEditModal
-												}
-												showBeerForm={showBeerForm}
-												setShowBeerForm={
-													setShowBeerForm
-												}
-												hideClick={hideClick}
-											/>
-										)}
-										<button
-											onClick={() =>
-												handleDelete(beer.id)
-											}
-										>
-											Delete
-										</button>
-									</div>
+								))
+							) : (
+								<div className='no-beers'>
+									You have no beers saved
 								</div>
-							))
-						) : (
-							<div className='no-beers'>
-								You have no beers saved
-							</div>
-						)}
-					</motion.div>
-				</AnimateSharedLayout>
+							)}
+						</motion.div>
+					</AnimateSharedLayout>
+				</div>
 			</div>
 		</div>
 	);

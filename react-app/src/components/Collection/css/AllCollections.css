@@ -1,7 +1,6 @@
 .allCollections-container {
 	display: grid;
 	grid-template-columns: 1fr 6fr;
-	grid-template-rows: auto;
 	border-radius: 5px;
 	padding: 20px;
 	align-items: start;
@@ -34,7 +33,6 @@
 	border-bottom: 1px solid grey;
 	justify-content: center;
 	padding: 5px;
-	height: 100%;
 	background-color: #ffeec2;
 }
 
@@ -73,10 +71,6 @@
 	color: rgb(14, 14, 14);
 }
 
-.beer-buttons {
-	padding: 5px;
-}
-
 .beer-buttons button:hover {
 	box-shadow: 0px 0px 10px 0px;
 	transition: 0.5s;
@@ -98,7 +92,7 @@
 }
 
 .beer-container-scroll {
-	height: 65%;
+	height: 60%;
 	overflow-y: scroll;
 	padding: 5px;
 }
