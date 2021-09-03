@@ -1,17 +1,17 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField, TextAreaField
-# import another validator
-from wtforms.validators import DataRequired, InputRequired, NumberRange
+from wtforms import StringField, IntegerField, SubmitField, SelectField, TextAreaField, DecimalField
+from wtforms.validators import DataRequired, Length
 
 
 class BeerForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
-    abv = IntegerField('ABV', validators=[DataRequired(
-    ), InputRequired(), NumberRange(min=1, max=100)])
+    abv = StringField('abv', validators=[DataRequired(
+    ), Length(min=1, max=5, message='Can only be up to 2 decimal places')
+    ])
     type = SelectField(
-        'Type', choices=[('Beers', 'Beers'), ('Cocktails', 'Cocktails')])
-    image_url = StringField('FirstBrewed')
+        'Type', choices=[('beers', 'beers'), ('Cocktails', 'Cocktails')])
+    image_url = StringField('image_url')
     userId = IntegerField('userId')
     malt = StringField('Malt')
     hops = StringField('Hops')

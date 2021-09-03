@@ -11,7 +11,7 @@ export default function CreateCollections({
 	showModal,
 	setShowModal,
 	setShowCreateForm,
-}) {
+}) { 
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [errors, setErrors] = useState([]);

@@ -17,18 +17,20 @@ export default function EditBeer({
 	// selector has second optional function (prevState, incomingState)
 
 	const userId = useSelector((state) => state.session.user.id);
+	const [errors, setErrors] = useState([]);
 	const [beerName, setBeerName] = useState(beer.name || '');
 	const [description, setDescription] = useState(beer.description || '');
-	const [abv, setabv] = useState(beer.abv || 1);
-	const [imageUrl, setImageUrl] = useState(beer.imageUrl || '');
+	// convert decimal from backend to string for form validation
+	const [abv, setabv] = useState(beer.abv.toString() || '');
+	const [imageUrl, setImageUrl] = useState(beer.image_url || '');
 	const [malt, setMalt] = useState(beer.malt || '');
 	const [hops, setHops] = useState(beer.hops || '');
 	const [yeast, setYeast] = useState(beer.yeast || '');
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		dispatch(
+		const data = await dispatch(
 			editBeer({
 				id: +beer.id,
 				name: beerName,
@@ -42,7 +44,12 @@ export default function EditBeer({
 				type: 'beers',
 			})
 		);
+		if (Array.isArray(data)) {
+			setErrors(data);
+			return;
+		}
 		setShowEditModal(false);
+		setErrors([]);
 		hideClick(beer.id, setShowBeerForm);
 	};
 
@@ -71,6 +78,11 @@ export default function EditBeer({
 			onSubmit={(e) => onSubmit(e)}
 		>
 			<h3>Edit Beer</h3>
+			<div className='errors'>
+				{errors.map((error, idx) => (
+					<div key={idx}>{error}</div>
+				))}
+			</div>
 			<label>Name </label>
 			<input
 				onChange={({ target: { value } }) => setBeerName(value)}
@@ -86,7 +98,9 @@ export default function EditBeer({
 			></input>
 			<label>image_url </label>
 			<input
-				onChange={({ target: { value } }) => setImageUrl(value)}
+				onChange={({ target: { value } }) => {
+					setImageUrl(value);
+				}}
 				value={imageUrl}
 			></input>
 			<label>Malt </label>
@@ -117,6 +131,7 @@ export default function EditBeer({
 
 	return (
 		<Modal
+			setErrors={setErrors}
 			showModal={showEditModal}
 			setShowModal={setShowEditModal}
 			setShowBeerForm={setShowBeerForm}
