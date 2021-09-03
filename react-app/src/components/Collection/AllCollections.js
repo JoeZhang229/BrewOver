@@ -15,6 +15,9 @@ export default function AllCollections() {
 	const currentCollection = useSelector(
 		(state) => state.collections.currentCollection
 	);
+	const collection =
+		useSelector((state) => Object.values(state.collections.collections)) ||
+		null;
 
 	const user = useSelector((state) => state.session.user);
 
@@ -35,9 +38,6 @@ export default function AllCollections() {
 		return beerState;
 	};
 
-	const collection =
-		useSelector((state) => Object.values(state.collections.collections)) ||
-		null;
 	const [showCollectionForm, setShowCollectionForm] = useState(
 		initializeForm(collection)
 	);
@@ -63,6 +63,8 @@ export default function AllCollections() {
 		dispatch(unloadAllBeers());
 		if (currentCollection) {
 			dispatch(loadBeers(currentCollection.beers));
+		} else {
+			dispatch(getOneCollection(collection[0]));
 		}
 	}, [dispatch, currentCollection]);
 

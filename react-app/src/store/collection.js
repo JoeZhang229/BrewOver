@@ -55,13 +55,6 @@ export const unloadCollections = () => {
 	};
 };
 
-// export const currentCollection = (collection) => {
-// 	return {
-// 		type: CREATE_COLLECTION,
-// 		collection,
-// 	};
-// };
-
 export const getAllCollections = () => async (dispatch) => {
 	const res = await fetch(`/api/collections/`);
 	if (res.ok) {
@@ -94,6 +87,7 @@ export const createCollection = (collectionData) => async (dispatch) => {
 	if (res.ok) {
 		const collection = await res.json();
 		dispatch(createOneCollection(collection));
+		return collection;
 	} else if (res.status < 500) {
 		const data = await res.json();
 		if (data.errors) {
