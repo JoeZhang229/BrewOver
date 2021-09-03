@@ -4,14 +4,14 @@ import { useHistory } from 'react-router-dom';
 import { motion, Override, Data } from 'framer-motion';
 import Modal from '../Modal';
 
-import { createCollection } from '../../store/collection';
+import { createCollection, getOneCollection } from '../../store/collection';
 import './css/CreateCollection.css';
 
 export default function CreateCollections({
 	showModal,
 	setShowModal,
 	setShowCreateForm,
-}) { 
+}) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [errors, setErrors] = useState([]);

@@ -142,7 +142,11 @@ export default function AllCollections() {
 				</div>
 			</div>
 			<div className='collection-beer-container'>
-				<h3>{currentCollection.name}</h3>
+				{loaded && currentCollection ? (
+					<h3>{currentCollection.name}</h3>
+				) : (
+					<h3>No collection selected</h3>
+				)}
 				<div className='beer-container-scroll'>
 					<AnimateSharedLayout>
 						<motion.div className='collection-beer-container'>
