@@ -22,6 +22,8 @@ const SignUpForm = ({ setShowModal, setSignupForm, showModal }) => {
 			if (data) {
 				setErrors(data);
 			}
+		} else {
+			setErrors(['Passwords must match!']);
 		}
 	};
 
@@ -61,7 +63,7 @@ const SignUpForm = ({ setShowModal, setSignupForm, showModal }) => {
 
 	const innerForm = (
 		<motion.form
-			onSubmit={onSignUp}
+			onSubmit={(e) => onSignUp(e)}
 			onClick={(e) => e.stopPropagation()}
 			className='signup-form'
 			variatnts={signupForm}
