@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { motion, Override, Data } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Modal from '../Modal';
 
 import { createCollection, getOneCollection } from '../../store/collection';
@@ -16,10 +16,6 @@ export default function CreateCollections({
 	const history = useHistory();
 	const [errors, setErrors] = useState([]);
 	// selector has second optional function (prevState, incomingState)
-
-	// const collection =
-	// 	useSelector((state) => Object.values(state.collections.collections)) ||
-	// 	null;
 	const [collectionName, setCollectionName] = useState('');
 
 	const onSubmit = async (e) => {
@@ -29,13 +25,15 @@ export default function CreateCollections({
 				name: collectionName,
 			})
 		);
-		if (data) {
+		if (data.errors) {
 			setErrors(data);
 			return;
 		}
 		setCollectionName('');
 		setShowModal(false);
 		setErrors([]);
+		// newly created collection is selected
+		dispatch(getOneCollection(data.id));
 		history.push('/collections');
 	};
 

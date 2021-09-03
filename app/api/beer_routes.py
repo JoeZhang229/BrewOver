@@ -24,7 +24,6 @@ def create_beer():
         form.abv.data = float((form.abv.data).strip('"'))
         # add validated beer info to object
         form.populate_obj(beerObj)
-        # print('db beer object', db.session.add(beerObj))
         # check if beer object exists
         if (db.session.add(beerObj)):
             # add beer to correct collection
