@@ -60,6 +60,7 @@ export default function AllCollections() {
 	};
 
 	useEffect(() => {
+		dispatch(unloadAllBeers());
 		if (currentCollection) {
 			dispatch(loadBeers(currentCollection.beers));
 		}
@@ -67,7 +68,6 @@ export default function AllCollections() {
 
 	const handleDelete = (id) => {
 		dispatch(deleteBeer(id, currentCollection.id));
-		// dispatch(loadBeers(currentCollection.beers));
 	};
 
 	const handleDeleteCollection = (id) => {
@@ -78,8 +78,6 @@ export default function AllCollections() {
 		// change current collection
 		dispatch(getOneCollection(id));
 		dispatch(unloadAllBeers());
-		// load beer on current Collection
-		// dispatch(loadBeers(currentCollection.beers));
 	};
 
 	return (
@@ -208,9 +206,9 @@ export default function AllCollections() {
 												/>
 											)}
 											<button
-												onClick={() =>
-													handleDelete(beer.id)
-												}
+												onClick={() => {
+													handleDelete(beer.id);
+												}}
 											>
 												Delete
 											</button>

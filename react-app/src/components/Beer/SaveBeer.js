@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { createOneBeer } from '../../store/beer';
+import { createOneBeer, unloadAllBeers, loadBeers } from '../../store/beer';
+import {
+	getOneCollection,
+	createBeerToCollection,
+} from '../../store/collection';
 import './css/SaveBeer.css';
 
 export default function SaveBeer() {
@@ -12,26 +16,49 @@ export default function SaveBeer() {
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;
+	const currentCollection = useSelector(
+		(state) => state.collections.currentCollection
+	);
 	const [collectionVal, setCollectionVal] = useState(collection[0]?.id);
 
 	useEffect(() => {}, []);
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		dispatch(
-			createOneBeer({
-				name: beer.name,
-				abv: beer.abv,
-				description: beer.description,
-				image_url: beer.image_url,
-				collectionId: +collectionVal,
-				malt: beer.malt,
-				hops: beer.hops,
-				yeast: beer.yeast,
-				type: 'beers',
-			})
-		);
+		if (collection.length === 0) {
+			return;
+			// separate dispatch based on selected Collection
+		} else if (+collectionVal === currentCollection.id) {
+			dispatch(
+				createOneBeer({
+					name: beer.name,
+					abv: beer.abv,
+					description: beer.description,
+					image_url: beer.image_url,
+					collectionId: +collectionVal,
+					malt: beer.malt,
+					hops: beer.hops,
+					yeast: beer.yeast,
+					type: 'beers',
+				})
+			);
+		} else {
+			await dispatch(getOneCollection(+collectionVal));
+			dispatch(
+				createBeerToCollection({
+					name: beer.name,
+					abv: beer.abv,
+					description: beer.description,
+					image_url: beer.image_url,
+					collectionId: +collectionVal,
+					malt: beer.malt,
+					hops: beer.hops,
+					yeast: beer.yeast,
+					type: 'beers',
+				})
+			);
+		}
 
 		setSuccess(true);
 	};
