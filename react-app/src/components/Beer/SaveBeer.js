@@ -72,12 +72,15 @@ export default function SaveBeer() {
 						</select>
 					</div>
 					{success && <div>Successfully Saved!</div>}
+
+					{/* Check if beer is in the collection*/}
 					{currentCollection.beers.length !== 0 &&
 					currentCollection.beers.some(
 						(currentBeer) => currentBeer.id === beer.id
 					) ? (
 						<div>Beer is already in that collection</div>
-					) : (
+					) : // hide button upon successul submit to prevent duplicate entries
+					success ? null : (
 						<button type='submit'>Save</button>
 					)}
 				</div>
