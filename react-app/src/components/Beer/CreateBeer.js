@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
-import { createOneBeer, unloadAllBeers, getAllBeers } from '../../store/beer';
+import { createOneBeer, unloadAllBeers } from '../../store/beer';
 import { getOneCollection } from '../../store/collection';
 import { createBeerToCollection } from '../../store/collection';
 import Modal from '../Modal';

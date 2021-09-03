@@ -92,7 +92,19 @@
 }
 
 .beer-container-scroll {
-	height: 60%;
+	height: 900px;
 	overflow-y: scroll;
 	padding: 5px;
+}
+
+@media screen and (max-height: 999px) {
+	.beer-container-scroll {
+		height: 600px;
+	}
+}
+
+@media screen and (min-height: 1000px) {
+	.beer-container-scroll {
+		height: 700px;
+	}
 }

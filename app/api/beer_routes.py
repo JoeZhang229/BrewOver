@@ -13,10 +13,15 @@ def create_beer():
     data = request.get_json()
     form = BeerForm()
 
+    # convert number to string for validation
+    form.abv.data = str((form.abv.data))
+
     currentCollection = Collection.query.get(data['collectionId'])
     form['csrf_token'].data = request.cookies['csrf_token']
     if (currentCollection.userId == current_user.id) and form.validate_on_submit():
         beerObj = Beer()
+        # convert string to proper decimal for backend
+        form.abv.data = float((form.abv.data).strip('"'))
         # add validated beer info to object
         form.populate_obj(beerObj)
         # add beer to correct collection
@@ -48,7 +53,9 @@ def delete_beer(beerId):
     currentCollection = (Collection.query.get(collectionId))
     beerCollection = currentCollection.beers
 
-    [beer] = [beer for beer in beerCollection if beer.id is beerId]
+
+    [beer] = [beer for beer in beerCollection if beer.id == beerId]
+
     # delete if user created
     if beer.userId == current_user.id:
         dbBeer = Beer.query.get(beerId)
