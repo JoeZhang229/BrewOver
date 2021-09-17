@@ -30,7 +30,10 @@ export default function EditBeer({
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		if (+abv < 1 || +abv > 100) {
+		if (isNaN(Number(abv))) {
+			setErrors(['abv must be a number']);
+			return;
+		} else if (+abv < 1 || +abv > 100) {
 			setErrors(['abv must be between 1 and 100']);
 			return;
 		}

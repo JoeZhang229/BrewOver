@@ -7,7 +7,7 @@ class BeerForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     abv = StringField('abv', validators=[DataRequired(
-    ), Length(min=1, max=5, message='Can only be up to 2 decimal places')
+    ), Length(min=1, max=5, message='Too many decimal places')
     ])
     type = SelectField(
         'Type', choices=[('beers', 'beers'), ('Cocktails', 'Cocktails')])
