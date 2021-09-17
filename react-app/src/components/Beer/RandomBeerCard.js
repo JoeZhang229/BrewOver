@@ -4,7 +4,7 @@ import SaveBeer from './SaveBeer';
 import errorImg from '../imgs/beer-error-icon.png';
 import './css/beercard.css';
 
-export default function RandomBeerCard({ beer }) {
+export default function RandomBeerCard({ beer, success, setSuccess }) {
 	const { malt, yeast, hops } = beer.ingredients;
 
 	const destructure = (arr) => {
@@ -56,7 +56,7 @@ export default function RandomBeerCard({ beer }) {
 							</div>
 						</div>
 						<div className='beer-card-btn'>
-							<SaveBeer />
+							<SaveBeer success={success} setSuccess={setSuccess}/>
 						</div>
 					</div>
 				</div>

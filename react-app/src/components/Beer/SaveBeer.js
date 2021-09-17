@@ -8,11 +8,11 @@ import {
 } from '../../store/collection';
 import './css/SaveBeer.css';
 
-export default function SaveBeer() {
+export default function SaveBeer({ success, setSuccess }) {
 	const dispatch = useDispatch();
 	// selector has second optional function (prevState, incomingState)
 	const beer = useSelector((state) => state.beers.currentBeer);
-	const [success, setSuccess] = useState(false);
+	// const [success, setSuccess] = useState(false);
 	const collection =
 		useSelector((state) => Object.values(state.collections.collections)) ||
 		null;

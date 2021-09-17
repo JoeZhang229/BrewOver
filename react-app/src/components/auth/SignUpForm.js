@@ -124,6 +124,7 @@ const SignUpForm = ({ setShowModal, setSignupForm, showModal }) => {
 
 	return (
 		<Modal
+			setErrors={setErrors}
 			showModal={showModal}
 			setShowModal={setShowModal}
 			setSignupForm={setSignupForm}

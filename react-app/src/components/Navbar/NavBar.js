@@ -77,12 +77,12 @@ const NavBar = ({ num, setNum }) => {
 	} else {
 		sessionLinks = (
 			<>
-				<li>
+				{/* <li>
 					<NavLink exact to='/' className='login'>
 						Login
 						<div></div>
 					</NavLink>
-				</li>
+				</li> */}
 				<li
 					onClick={() => {
 						setSignupForm(true);
