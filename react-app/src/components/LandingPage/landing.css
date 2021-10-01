@@ -67,8 +67,6 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	/* height: 0%; */
-	/* overflow: hidden; */
 }
 
 .home-video-container video {
@@ -76,5 +74,23 @@
 	height: 100%;
 }
 
-/* .home-video-container video > source {
-} */
+@media screen and (max-width: 1699px) {
+	.home-video-container video {
+		height: 1000px;
+	}
+	.title-container h1 {
+		font-size: 4rem;
+	}
+	.random-beer-container {
+		height: 50vh;
+		padding-top: 150px;
+		padding-left: 100px;
+		width: 15vw;
+	}
+}
+
+@media screen and (min-width: 1700px) {
+	.home-video-container video {
+		height: 1000px;
+	}
+}

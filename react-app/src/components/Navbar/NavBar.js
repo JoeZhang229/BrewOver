@@ -77,21 +77,13 @@ const NavBar = ({ num, setNum }) => {
 	} else {
 		sessionLinks = (
 			<>
-				{/* <li>
-					<NavLink exact to='/' className='login'>
-						Login
-						<div></div>
-					</NavLink>
-				</li> */}
 				<li
 					onClick={() => {
 						setSignupForm(true);
 						setShowModal(true);
 					}}
 				>
-					{/* <NavLink exact to='/sign-up'> */}
 					Sign Up
-					{/* </NavLink> */}
 				</li>
 				{signupForm && (
 					<SignUpForm
