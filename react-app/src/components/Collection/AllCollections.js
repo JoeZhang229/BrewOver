@@ -45,6 +45,7 @@ export default function AllCollections() {
 		initializeForm(collection)
 	);
 
+	// stores collection id into an array for differentiating event handling
 	const showClick = (id, setState) => {
 		return setState((prev) => ({
 			...prev,

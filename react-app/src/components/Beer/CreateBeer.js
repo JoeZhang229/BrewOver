@@ -37,29 +37,8 @@ export default function CreateBeer({
 	const [hops, setHops] = useState('');
 	const [yeast, setYeast] = useState('');
 
-	// const onClick= async ()
-
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		// if (collection.length === 0) {
-		// 	const newBeer = dispatch(
-		// 		createOneBeer({
-		// 			description: description,
-		// 			name: beerName,
-		// 			abv: abv,
-		// 			image_url: imageUrl,
-		// 			userId: +userId,
-		// 			malt: malt,
-		// 			hops: hops,
-		// 			yeast: yeast,
-		// 			type: 'beers',
-		// 		})
-		// 	);
-		// 	setShowModal(false);
-		// 	setShowCreateForm(false);
-		// 	console.log('beer object', newBeer);
-		// return history.push(`/beers/${newBeer.id}`);
-		// return 'works';
 
 		if (isNaN(Number(abv))) {
 			setErrors(['abv must be a number']);
@@ -86,6 +65,7 @@ export default function CreateBeer({
 					type: 'beers',
 				})
 			);
+			console.log('return data', data);
 			if (Array.isArray(data)) {
 				setErrors(data);
 				return;
